@@ -1,0 +1,33 @@
+@use "~abstracts" as *;
+
+
+.nav {
+  @include normalizePadding;
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+  }
+
+  .links {
+    display: none;
+    gap: 2rem;
+    text-transform: capitalize;
+    @include tablet {
+      display: flex;
+    }
+
+    .link {
+
+    }
+  }
+
+  .search {
+
+  }
+
+  .controls {
+
+  }
+
+}

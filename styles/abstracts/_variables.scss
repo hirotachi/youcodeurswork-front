@@ -1,16 +1,21 @@
-$primary-bg-color: black;
-$primary-text-color: white;
-$secondary-text-color: #383839;
-
-$placeholder-bg-color: #383839;
-
-$font-family: Roboto, Helvetica, sans-serif, Serif;
-
-$desktop-spacing: 15%;
+$mobile-spacing: 1rem;
 $tablet-spacing: 5%;
-$mobile-spacing: 2rem;
+$desktop-spacing: 5%;
 
 
-$input-bg: darken($placeholder-bg-color, 10%);
+$primary-color: #3278ff;
+$secondary-color: #9e9ea7;
 
-$error-color: #EF2D56;
+$primary-bg-color: #fcfcfc;
+$secondary-bg-color: #f1f3f4;
+
+
+$primary-text-color: #000;
+$secondary-text-color: #fff;
+$tertiary-text-color: #d0d2d4;
+
+
+$like-color: #ea4c89;
+
+
+$primary-font-family: 'Inter', sans-serif;
