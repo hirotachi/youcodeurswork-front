@@ -1,33 +1,90 @@
 @use "~abstracts" as *;
 
-
 .nav {
-  @include normalizePadding;
   display: flex;
-  justify-content: space-between;
-
-  .logo {
-  }
-
-  .links {
-    display: none;
-    gap: 2rem;
-    text-transform: capitalize;
+  height: 7rem;
+  align-items: center;
+  border-bottom: 1px solid $border-main;
+  position: relative;
+  .menu {
+    justify-content: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+    padding: 0 2.5rem;
+    border-right: 1px solid $border-main;
+    cursor: pointer;
     @include tablet {
-      display: flex;
+      padding: 0 2rem;
+    }
+    .icon {
+      font-size: 1.8rem;
     }
 
-    .link {
-
+    .text {
+      display: none;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      @include tablet {
+        display: inline-block;
+      }
     }
   }
 
-  .search {
+  .main {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    align-items: center;
+    flex: 1;
+    @include desktop {
+      justify-content: space-between;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .search {
+      cursor: pointer;
+      padding: 0 2rem;
+      @include desktop {
+        padding: 0 3rem;
+      }
+    }
+    .auth {
+      display: none;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      margin-right: 3rem;
+      font-weight: bold;
+      @include desktop {
+        display: inline-block;
+        margin-left: auto;
+      }
+    }
 
+    .create {
+      display: none;
+      padding: 2rem 3rem;
+      background-color: $primary-color;
+      height: 100%;
+      align-items: center;
+      text-transform: uppercase;
+      color: white;
+      font-size: 1.3rem;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: lighten($primary-color, 5%);
+      }
+      @include tablet {
+        display: flex;
+      }
+    }
   }
-
-  .controls {
-
-  }
-
 }

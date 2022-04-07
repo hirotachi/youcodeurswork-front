@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "@modules/Nav.module.scss";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import faBars from "@icons/light/faBars";
+import faSearch from "@icons/regular/faSearch";
+import Search from "@components/Search";
+import { HeaderContext } from "@components/layout/Header";
 
-const routes = ["projects", "jobs"];
 const Nav = () => {
+  const { isSearchOpen, toggleSearch } = useContext(HeaderContext);
   return (
     <div className={styles.nav}>
-      <div className={styles.logo}>logo</div>
-      <div className={styles.links}>
-        {routes.map((route) => {
-          const isHome = route === "projects";
-          return (
-            <Link key={route} href={isHome ? "/" : `/${route}`}>
-              <a className="link">{route}</a>
-            </Link>
-          );
-        })}
+      <div className={styles.menu}>
+        <span className={styles.icon}>
+          <FontAwesomeIcon icon={faBars} />
+        </span>
+        <span className={styles.text}>menu</span>
       </div>
-      <div className={styles.search}>
-        <input type="text" placeholder={"search"} />
-      </div>
-      <div className={styles.controls}>controls</div>
+      {isSearchOpen ? (
+        <Search />
+      ) : (
+        <div className={styles.main}>
+          <span className={styles.search} onClick={() => toggleSearch()}>
+            <FontAwesomeIcon icon={faSearch} />
+          </span>
+          <p className={styles.logo}>logo</p>
+          <Link href={"/login"}>
+            <a className={styles.auth}>register/login</a>
+          </Link>
+          <Link href={"/projects/create"}>
+            <a className={styles.create}>submit you project</a>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
