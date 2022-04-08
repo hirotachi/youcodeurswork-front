@@ -11,7 +11,7 @@ const Search = () => {
   const { isFiltersOpen, toggleSearch, toggleFilters } =
     useContext(HeaderContext);
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
   return (
     <div className={styles.search}>
@@ -23,7 +23,7 @@ const Search = () => {
           {...inputProps}
           placeholder={"Search for projects (HTML5, PHP, React...)"}
         />
-        <span className={styles.filter}>
+        <span className={styles.filter} onClick={() => toggleFilters()}>
           {isFiltersOpen ? "hide" : "show"} filters
         </span>
       </div>

@@ -8,7 +8,11 @@ const defaultClickOutsideOptions: ClickOutsideOptions = {
 };
 
 function useClickOutside(
-  callback: (e: MouseEvent, target: EventTarget, isChild: boolean) => void,
+  callback: (
+    e: MouseEvent,
+    target: EventTarget | null,
+    isChild: boolean
+  ) => void,
   dependencies?: any[],
   options: ClickOutsideOptions = defaultClickOutsideOptions
 ) {

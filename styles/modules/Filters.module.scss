@@ -1,0 +1,121 @@
+@use "~abstracts" as *;
+
+.filters {
+  position: relative;
+  height: 7rem;
+  border-bottom: 1px solid $border-main;
+  display: flex;
+
+  .label {
+    display: none;
+    text-transform: capitalize;
+    @include desktop {
+      display: flex;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      border-right: 1px solid $border-main;
+      padding: 0 1rem;
+      height: 100%;
+    }
+
+    .icon {
+      padding: 0 2rem;
+    }
+
+    .text {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  }
+
+  .list {
+    display: flex;
+
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      gap: 1rem;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+      font-weight: 400;
+      border-right: 1px solid $border-main;
+      transition: all 0.2s ease;
+      user-select: none;
+      cursor: pointer;
+
+      &:hover,
+      &Active {
+        background-color: $white;
+      }
+
+      .name {
+      }
+
+      .icon {
+      }
+    }
+  }
+
+  .tags {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    flex-wrap: wrap;
+    @include tablet {
+      padding: 2rem 3rem;
+    }
+    @include desktop {
+      padding: 2rem 4rem;
+    }
+
+    .controls {
+      flex-basis: 100%;
+
+      .close {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include size(3rem);
+        font-size: 1.8rem;
+        border-radius: 50%;
+        margin-left: auto;
+        transition: all 0.2s ease;
+        @include tablet {
+          background-color: $secondary-color;
+          color: $white;
+          font-size: 2rem;
+          @include size(3.5rem);
+          &:hover {
+            background-color: lighten($secondary-color, 10%);
+          }
+        }
+      }
+    }
+
+    .tag {
+      border: 1px solid $border-main;
+      border-radius: 5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1.3rem;
+      user-select: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: $primary-color;
+        border-color: $primary-color;
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import React, { createContext, useState } from "react";
 import Nav from "@components/Nav";
+import Filters from "@components/Filters";
+import { AnimatePresence } from "framer-motion";
 
 type HeaderContextProps = {
   isSearchOpen: boolean;
@@ -7,9 +9,11 @@ type HeaderContextProps = {
   toggleFilters: (newState?: boolean) => void;
   toggleSearch: (newState?: boolean) => void;
 };
+// @ts-ignore
 export const HeaderContext = createContext<HeaderContextProps>(null);
+
 const Header = () => {
-  const initialState = { isSearchOpen: false, isFiltersOpen: false };
+  const initialState = { isSearchOpen: false, isFiltersOpen: true };
   const [state, setState] = useState(initialState);
   const toggleFilters = (newState?: boolean) => {
     setState((v) => ({ ...v, isFiltersOpen: newState ?? !v.isFiltersOpen }));
@@ -23,7 +27,8 @@ const Header = () => {
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
       <div>
         <Nav />
-        {state.isFiltersOpen && <div>filters</div>}
+
+        <AnimatePresence>{state.isFiltersOpen && <Filters />}</AnimatePresence>
       </div>
     </HeaderContext.Provider>
   );
