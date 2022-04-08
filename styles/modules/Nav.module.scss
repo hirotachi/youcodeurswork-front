@@ -49,6 +49,15 @@
       transform: translate(-50%, -50%);
       font-weight: 700;
       text-transform: uppercase;
+      img {
+        width: 10rem;
+        @include tablet {
+          width: 12rem;
+        }
+        @include desktop {
+          width: 14rem;
+        }
+      }
     }
     .search {
       cursor: pointer;

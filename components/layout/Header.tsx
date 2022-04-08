@@ -7,7 +7,7 @@ type HeaderContextProps = {
   toggleFilters: (newState?: boolean) => void;
   toggleSearch: (newState?: boolean) => void;
 };
-export const HeaderContext = createContext<HeaderContextProps | null>(null);
+export const HeaderContext = createContext<HeaderContextProps>(null);
 const Header = () => {
   const initialState = { isSearchOpen: false, isFiltersOpen: false };
   const [state, setState] = useState(initialState);

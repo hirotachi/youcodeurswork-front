@@ -24,7 +24,11 @@ const Nav = () => {
           <span className={styles.search} onClick={() => toggleSearch()}>
             <FontAwesomeIcon icon={faSearch} />
           </span>
-          <p className={styles.logo}>logo</p>
+          <Link href={"/"}>
+            <a className={styles.logo}>
+              <img src="/logo.svg" alt="logo" />
+            </a>
+          </Link>
           <Link href={"/login"}>
             <a className={styles.auth}>register/login</a>
           </Link>
