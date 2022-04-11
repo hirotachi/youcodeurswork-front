@@ -70,6 +70,7 @@
     gap: 1rem;
     padding: 2rem 1rem;
     flex-wrap: wrap;
+    z-index: 99;
     @include tablet {
       padding: 2rem 3rem;
     }

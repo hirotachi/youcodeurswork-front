@@ -10,7 +10,7 @@
     height: 25rem;
     position: relative;
     @include desktop {
-      height: 22rem;
+      height: 23rem;
     }
 
     img {
@@ -49,6 +49,13 @@
     gap: 1rem;
     flex-direction: column;
     padding: 0 2rem;
+    @include desktop {
+      margin-top: 1rem;
+      gap: 2rem;
+    }
+    .name {
+      font-weight: bold;
+    }
 
     .info {
       display: flex;
@@ -71,7 +78,7 @@
         }
       }
 
-      .name {
+      &Name {
         font-size: 1.4rem;
         font-weight: bold;
 
@@ -88,6 +95,12 @@
         align-items: center;
         gap: 1rem;
         border: 1px solid darken($border-main, 5%);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        &:hover {
+          border-color: $primary-color;
+          color: $primary-color;
+        }
       }
     }
   }

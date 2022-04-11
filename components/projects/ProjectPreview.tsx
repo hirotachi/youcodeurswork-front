@@ -31,7 +31,7 @@ const ProjectPreview = () => {
           <span className={styles.avatar}>
             <img src={author.avatar} alt={author.name} />
           </span>
-          <p className={styles.name}>
+          <p className={styles.infoName}>
             <span>by</span> {author.name}
           </p>
           <span className={styles.like}>
