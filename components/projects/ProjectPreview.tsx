@@ -5,25 +5,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faHeart from "@icons/solid/faHeart";
 import Link from "next/link";
 
+export const projectData = {
+  preview:
+    "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
+  name: "tester",
+  link: "https://howdy.gr/",
+  likes: 50,
+  tags: ["react", "php", "Javascript", "html"],
+  author: {
+    id: 1,
+    name: "said oudouane",
+    avatar:
+      "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1385480/61e02c87b9eb7556812750.jpg",
+  },
+};
 const ProjectPreview = () => {
-  const { author, link, name, preview, likes, tags } = {
-    preview:
-      "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
-    name: "tester",
-    link: "https://howdy.gr/",
-    likes: 50,
-    tags: ["react", "php", "Javascript", "html"],
-    author: {
-      name: "said oudouane",
-      avatar:
-        "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1385480/61e02c87b9eb7556812750.jpg",
-    },
-  };
+  const { author, likes, link, name, preview, tags } = projectData;
   return (
     <div className={styles.project}>
       <div className={styles.preview}>
-        <img src={preview} alt={name} />
-        <a href={link} className={styles.link}>
+        <Link href={"/projects/1"}>
+          <a>
+            <img src={preview} alt={name} />
+          </a>
+        </Link>
+
+        <a href={link} className={styles.link} target={"__blank"}>
           <FontAwesomeIcon icon={faShare} />
         </a>
       </div>

@@ -11,7 +11,7 @@ const Filters = () => {
   const filters = ["technology", "tags"] as const;
   const [currentListName, setCurrentListName] = useState<
     typeof filters[number] | ""
-  >("technology");
+  >("");
   const variants: Variants = {
     animate: { height: "7rem", overflow: "unset" },
     exit: { height: "0" },
@@ -30,7 +30,9 @@ const Filters = () => {
         {filters.map((filter) => {
           return (
             <div
-              onClick={() => setCurrentListName(filter)}
+              onClick={() =>
+                setCurrentListName((v) => (v === filter ? "" : filter))
+              }
               className={clsx(
                 styles.item,
                 currentListName === filter && styles.itemActive
