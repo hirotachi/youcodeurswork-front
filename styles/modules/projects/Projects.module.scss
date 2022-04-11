@@ -17,7 +17,7 @@
   .load {
     grid-column: 1 /-1;
     background-color: $white;
-    padding: 1rem;
+    padding: 1.2rem 1rem;
     text-transform: uppercase;
     font-size: 1.3rem;
     cursor: pointer;
@@ -25,6 +25,14 @@
     color: rgba($secondary-color, 0.5);
     transition: all 0.2s ease;
     font-weight: 500;
+    width: 90%;
+    justify-self: center;
+    @include tablet {
+      width: 60%;
+    }
+    @include desktop {
+      width: 20%;
+    }
     &:hover {
       color: $secondary-color;
     }

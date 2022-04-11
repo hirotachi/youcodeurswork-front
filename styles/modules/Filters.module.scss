@@ -46,7 +46,9 @@
       transition: all 0.2s ease;
       user-select: none;
       cursor: pointer;
-
+      &:last-of-type {
+        border-right: none;
+      }
       &:hover,
       &Active {
         background-color: $white;

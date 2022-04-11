@@ -3,14 +3,16 @@ import styles from "@modules/projects/ProjectPreview.module.scss";
 import faShare from "@icons/solid/faShare";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faHeart from "@icons/solid/faHeart";
+import Link from "next/link";
 
 const ProjectPreview = () => {
-  const { author, link, name, preview, likes } = {
+  const { author, link, name, preview, likes, tags } = {
     preview:
       "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
     name: "tester",
     link: "https://howdy.gr/",
     likes: 50,
+    tags: ["react", "php", "Javascript", "html"],
     author: {
       name: "said oudouane",
       avatar:
@@ -27,6 +29,15 @@ const ProjectPreview = () => {
       </div>
       <div className={styles.main}>
         <p className={styles.name}>{name}</p>
+        <div className={styles.tags}>
+          {tags.map((tag) => {
+            return (
+              <Link key={tag} href={`/projects/?tags=${tag}`}>
+                <a className={styles.tag}>#{tag}</a>
+              </Link>
+            );
+          })}
+        </div>
         <div className={styles.info}>
           <span className={styles.avatar}>
             <img src={author.avatar} alt={author.name} />
