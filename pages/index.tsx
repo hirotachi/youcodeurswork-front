@@ -1,13 +1,10 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import Projects from "@components/projects/Projects";
 
-const Home:NextPage = () => {
-  const [count, setCount] = useState(0);
-
+const Home: NextPage = () => {
   return (
     <div>
-      <div>slide for routing</div>
-      <div>list of projects</div>
+      <Projects />
     </div>
   );
 };

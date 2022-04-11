@@ -13,14 +13,14 @@ type HeaderContextProps = {
 export const HeaderContext = createContext<HeaderContextProps>(null);
 
 const Header = () => {
-  const initialState = { isSearchOpen: false, isFiltersOpen: true };
+  const initialState = { isSearchOpen: false, isFiltersOpen: false };
   const [state, setState] = useState(initialState);
   const toggleFilters = (newState?: boolean) => {
     setState((v) => ({ ...v, isFiltersOpen: newState ?? !v.isFiltersOpen }));
   };
   const toggleSearch = (newState?: boolean) => {
     setState((v) =>
-      v.isSearchOpen ? initialState : { ...v, isSearchOpen: true }
+      v.isSearchOpen ? initialState : { ...v, isSearchOpen: false }
     );
   };
   return (

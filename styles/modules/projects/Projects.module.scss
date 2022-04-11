@@ -1,0 +1,17 @@
+@use "~abstracts" as *;
+
+.projects {
+  margin: 4rem 0;
+  display: grid;
+  gap: 2rem;
+  @include tablet {
+    padding: 0 5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include desktop {
+    margin-top: 6rem;
+    gap: 3rem;
+    padding: 0 8%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
