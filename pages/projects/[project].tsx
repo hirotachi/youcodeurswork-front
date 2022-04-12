@@ -1,51 +1,63 @@
 import React from "react";
 import styles from "@modules/projects/project.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import faHeart from "@icons/solid/faHeart";
 import { projectData } from "@components/projects/ProjectPreview";
-import faShare from "@icons/solid/faShare";
-import Link from "next/link";
+import useToggle from "@hooks/useToggle";
+import faHeart from "@icons/solid/faHeart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const project = () => {
-  const { author, likes, link, name, preview, tags } = projectData;
+// todo add info on the right side
+// todo add project name on top of the preview
+
+// todo: more info including (tags, creation Date, github link, hosting link)
+const ProjectPage = () => {
+  const {
+    author,
+    likes,
+    description,
+    link,
+    name,
+    preview,
+    tags,
+    technologies,
+  } = projectData;
+
+  const [isFormOpen, toggleFormOpen] = useToggle(false, true);
+
+
   return (
-    <div className={styles.project}>
+    <div className={styles.projects}>
       <div className={styles.header}>
-        {/*<div>collbas</div>*/}
-        <span className={styles.like}>
+        <div className={styles.avatar}>author pic</div>
+        <div className={styles.headerMain}>
+          <p className={styles.name}>{name}</p>
+          <div className={styles.headerMore}>
+            <p className={styles.author}>{author.name}</p>
+            <span className={styles.hire} onClick={() => toggleFormOpen()}>
+              hire me
+            </span>
+          </div>
+        </div>
+        <span className={styles.likes}>
           <FontAwesomeIcon icon={faHeart} /> {likes}
         </span>
       </div>
-      <div className={styles.main}>
-        <div className={styles.preview}>
-          <img src={preview} alt={name} />
-          <a href={link} className={styles.link}>
-            <FontAwesomeIcon icon={faShare} />
-          </a>
-        </div>
-        <div className={styles.info}>
-          <p className={styles.name}>{name}</p>
-          <p className={styles.author}>
-            by{" "}
-            <Link href={`/students/${author.id}`}>
-              <a>{author.name}</a>
-            </Link>
-          </p>
-          <p className={styles.description}>description</p>
-          <div className={styles.tags}>
-            {tags.map((tag) => {
-              return (
-                <Link key={tag} href={`/projects?tags=${tag}`}>
-                  <a className={styles.tag}>#{tag}</a>
-                </Link>
-              );
-            })}
-          </div>
+      <div className={styles.preview}>
+        <img src={preview} alt={name} />
+      </div>
+      <div className={styles.info}>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.tech}>
+          {technologies.map((tech) => {
+            return (
+              <span key={tech} className={styles.name}>
+                #{tech}
+              </span>
+            );
+          })}
         </div>
       </div>
-      <div className={styles.team}>team behind the project</div>
     </div>
   );
 };
 
-export default project;
+export default ProjectPage;

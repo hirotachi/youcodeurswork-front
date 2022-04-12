@@ -51,7 +51,7 @@
       }
       &:hover,
       &Active {
-        background-color: $white;
+        background-color: $secondary-bg-color;
       }
 
       .name {
@@ -67,7 +67,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: $white;
+    background-color: $secondary-bg-color;
     display: flex;
     gap: 1rem;
     padding: 2rem 1rem;
@@ -95,7 +95,7 @@
         transition: all 0.2s ease;
         @include tablet {
           background-color: $secondary-color;
-          color: $white;
+          color: $secondary-bg-color;
           font-size: 2rem;
           @include size(3.5rem);
           &:hover {

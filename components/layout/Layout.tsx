@@ -1,14 +1,15 @@
-import React, { PropsWithChildren } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import React, { PropsWithChildren } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 
+//todo: add footer
 const Layout: PropsWithChildren<any> = (props) => {
-  const {children} = props;
+  const { children } = props;
   return (
     <div>
-      <Header/>
+      <Header />
       {children}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

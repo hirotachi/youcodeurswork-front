@@ -11,6 +11,7 @@ export const projectData = {
   name: "tester",
   link: "https://howdy.gr/",
   likes: 50,
+  description: "something about this project",
   tags: ["react", "php", "Javascript", "html"],
   author: {
     id: 1,
@@ -18,6 +19,7 @@ export const projectData = {
     avatar:
       "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1385480/61e02c87b9eb7556812750.jpg",
   },
+  technologies: ["react", "php", "typescript"],
 };
 const ProjectPreview = () => {
   const { author, likes, link, name, preview, tags } = projectData;
