@@ -5,7 +5,7 @@ PHP artisan est l'interface/outil en ligne de commande inclus dans Laravel. Il f
 
 
 ## Composer
-Composer is an application-level package manager for the PHP programming language that provides a standard format for managing dependencies of PHP software and required libraries. It was developed by Nils Adermann and Jordi Boggiano, who continue to manage the project.
+Composer est un outil de gestion de paquets pour PHP. Il permet de gérer facilement les dépendances entre les paquets de votre application.
 
 
 ## ORM
