@@ -1,0 +1,75 @@
+classDiagram
+direction LR
+
+Group "1..*" --> "1..*" Instructor
+Group "1..1" --> "1..*" Student
+
+Student "1..*" --> "0..*" Project
+Student "0..*" --> "1..1" Like
+Recruiter "0..*" --> "1..1" Like
+
+Project "0..*" --> "1..1" Like
+
+
+class Group {
+    -int id
+    +string name
+    +getStudents()
+    +getInstructor()
+}
+
+class Instructor{
+    -int id
+    +string firstName
+    +string lastName
+    +string email
+    -int groupdId
+    +getGroup()
+}
+class Student {
+    -int id
+    +string firstName
+    +string lastName
+    +string email
+    +getProjects()
+}
+
+class Project{
+    -int id
+    +string name
+    +string description
+    +List~string~ technologies
+    +List~string~ tags
+    -int authorId
+    -int instructor
+    -Status status
+    +string repoLink
+    -List~int~ collboratorsIds
+    +getCollaborators()
+    +getAuthor()
+    +getInstructor()
+}
+
+class Status {
+    <<enumeration>>
+    VALIDATED
+    PENDING
+    REFUSED
+}
+
+class Like{
+    -int id
+    -int author
+    -int project
+    +getAuthor()
+    +getProject()
+}
+
+class Recruiter {
+    -int id
+    +string company
+    +string firstName
+    +string lastName
+}
+
+

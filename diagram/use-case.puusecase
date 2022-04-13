@@ -1,0 +1,66 @@
+@startuml
+left to right direction
+:Student: as student
+:Recruiter: as recruiter
+rectangle Youcodeurswork {
+    (Project) as project
+    (Job) as job
+    (CUD) as cud
+
+    (register) as register
+    (Authenticate) as auth
+
+    (view student profile) as studentProfile
+    (view jobs) as jobs
+    (view projects) as projects
+    (view recruiter profile) as recruiterProfile
+
+    cud ..> (create) :<<include>>
+    cud ..> (update) :<<extend>>
+    cud ..> (delete) :<<extend>>
+
+    project ---|> cud
+    job ---|> cud
+
+    cud ...> auth :<<include>>
+
+    (view project) as viewProject
+
+    (view job) as viewJob
+
+
+
+    student -- (like)
+    student -- viewProject
+    student -- studentProfile
+    student -- projects
+    student -- viewProject
+    student ---- auth
+    student --- jobs
+    student -- recruiterProfile
+    student --- viewJob
+    student -- project
+
+    recruiter -- (like)
+    recruiter -- viewProject
+    recruiter -- projects
+    recruiter -- studentProfile
+    recruiter ---- register
+    recruiter ---- auth
+    recruiter --- jobs
+    recruiter -- recruiterProfile
+    recruiter --- viewJob
+    recruiter -- job
+
+
+
+
+    (like) ...> auth: <<include>>
+    jobs ..> auth: <<include>>
+    viewJob ....> auth: <<include>>
+
+
+    auth ...> register: <<include>>
+    auth <... register: <<extend>>
+}
+@enduml

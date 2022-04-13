@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="996px" preserveAspectRatio="none" style="width:1348px;height:996px;background:#FFFFFF;" version="1.1" viewBox="0 0 1348 996" width="1348px" zoomAndPan="magnify"><defs><filter height="300%" id="f1tn456ri2v8fz" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[ac53766bd9a620b24b410e7afe7eaffe]
+cluster Youcodeurswork--><rect fill="#FFFFFF" filter="url(#f1tn456ri2v8fz)" height="495" style="stroke:#000000;stroke-width:1.5;" width="1225" x="111" y="244"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="120" x="663.5" y="260.5332">Youcodeurswork</text><ellipse cx="212.5997" cy="706.9523" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="42.5997" ry="15.4523" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="190.3355" y="710.7639">Project</text><ellipse cx="212.5416" cy="358.9517" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="27.0416" ry="15.4517" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="22" x="201.5416" y="362.6802">Job</text><ellipse cx="545.9914" cy="482.9517" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="31.9914" ry="15.4517" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="531.4914" y="486.6802">CUD</text><ellipse cx="1274.4598" cy="493.9615" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="45.4598" ry="15.4615" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="1249.2695" y="498.0394">register</text><ellipse cx="983.0842" cy="581.8168" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="67.0842" ry="15.8168" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="940.5842" y="586.3334">Authenticate</text><ellipse cx="212.2516" cy="636.9503" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="82.7516" ry="18.9503" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="121" x="151.7516" y="640.6788">view student profile</text><ellipse cx="747.0419" cy="582.0159" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="52.0419" ry="15.5159" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="715.5419" y="586.5325">view jobs</text><ellipse cx="212.2517" cy="491.9503" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="67.7517" ry="15.9503" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="168.7517" y="496.4669">view projects</text><ellipse cx="212.2698" cy="562.954" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="85.2698" ry="19.454" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="148.7698" y="566.6825">view recruiter profile</text><ellipse cx="746.7696" cy="515.9517" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="39.7696" ry="15.4517" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="726.7696" y="519.6802">create</text><ellipse cx="747.0997" cy="449.9523" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="42.5997" ry="15.4523" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="724.8355" y="453.7639">update</text><ellipse cx="747.0624" cy="383.9517" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="39.0624" ry="15.4517" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="727.5624" y="387.6802">delete</text><ellipse cx="212.602" cy="425.1136" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="64.602" ry="15.6136" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="172.602" y="429.6302">view project</text><ellipse cx="405.9051" cy="687.97" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="46.9051" ry="15.47" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="379.2227" y="692.1764">view job</text><ellipse cx="545.8345" cy="297.9517" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="26.3345" ry="15.4517" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="535.3345" y="301.6802">like</text><!--MD5=[0bc547216396b1ae8e8279bf1212b736]
+entity student--><ellipse cx="35" cy="579" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M35,587 L35,614 M22,595 L48,595 M35,614 L22,629 M35,614 L48,629 " fill="none" filter="url(#f1tn456ri2v8fz)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="10.5" y="649.0332">Student</text><!--MD5=[2b6b57767e4b6f3c05cfc36760b6d36f]
+entity recruiter--><ellipse cx="35" cy="279" fill="#FEFECE" filter="url(#f1tn456ri2v8fz)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M35,287 L35,314 M22,295 L48,295 M35,314 L22,329 M35,314 L48,329 " fill="none" filter="url(#f1tn456ri2v8fz)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="6" y="349.0332">Recruiter</text><!--MD5=[71b7c636186e2cb6ac6eac337f8600a3]
+link cud to create--><path d="M566.22,495.16 C577.84,501.8 593.21,509.39 608,513 C639.12,520.6 675.37,521.08 702.91,519.8 " fill="none" id="cud-to-create" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="707.94,519.55,698.7464,516.0175,702.9466,519.8068,699.1573,524.007,707.94,519.55" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="609" y="509.4951">«include»</text><!--MD5=[f1ed1138eca92d060dbfbbe189287f40]
+link cud to update--><path d="M576.79,478.06 C610.21,472.52 664.69,463.48 702.78,457.17 " fill="none" id="cud-to-update" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="707.81,456.33,698.2726,453.873,702.8788,457.1566,699.5951,461.7629,707.81,456.33" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="610" y="460.4951">«extend»</text><!--MD5=[9e7749f4bb56ea3b0e99536dfadcd7bf]
+link cud to delete--><path d="M562.78,469.55 C574.66,459.89 591.64,447.03 608,438 C641.32,419.61 682.22,404.44 710.81,394.91 " fill="none" id="cud-to-delete" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="715.64,393.31,705.8387,392.3436,710.8937,394.8826,708.3548,399.9376,715.64,393.31" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="610" y="409.4951">«extend»</text><!--MD5=[6e6609e1f62aa32d79dcd7913ea52185]
+link project to cud--><path d="M244.55,696.82 C260.95,690.88 281.11,682.65 298,673 C382.78,624.55 470.8,549.97 515.34,510.19 " fill="none" id="project-to-cud" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="510.9,504.77,530.43,496.56,520.28,515.16,510.9,504.77" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[2a1322b805379f09549a958fcee358ee]
+link job to cud--><path d="M235.51,367.23 C289.47,387.42 429.18,439.68 500.97,466.53 " fill="none" id="job-to-cud" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="503.82,460.12,520.1,473.69,498.92,473.24,503.82,460.12" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[976c8309000d228fc5ff9cd2597b10f2]
+link cud to auth--><path d="M555.75,497.82 C575.66,529.85 627.83,604.91 695,633 C782.47,669.58 895.62,625.3 950.02,598.93 " fill="none" id="cud-to-auth" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="954.78,596.59,944.9377,596.9494,950.2881,598.7861,948.4514,604.1364,954.78,596.59" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="719.5" y="629.4951">«include»</text><!--MD5=[c7329ffcba141446cbe3af79f9c4d8dd]
+link student to like--><path d="M40.8,652.64 C47.6,690.43 63.94,744.07 103,770 C233.87,856.87 347.16,837.06 453,721 C460.15,713.16 526.38,389.49 541.8,313.74 " fill="none" id="student-like" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[185be9bb482fb377e375532c8ca4cd69]
+link student to viewProject--><path d="M48.24,569.27 C57.99,539.11 74.83,500.04 103,475 C126.69,453.94 163.5,446.32 187.55,439.33 " fill="none" id="student-viewProject" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[185be9bb482fb377e375532c8ca4cd69]
+link student to viewProject--><path d="M41.13,569.16 C48.7,529.47 66.16,472.75 103,440 C121.47,423.58 147.9,415.33 170.06,413.31 " fill="none" id="student-viewProject-1" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[03de80557db5843e4fd1b197cb57b95f]
+link student to studentProfile--><path d="M59.51,644.38 C68.89,654.95 80.66,665.34 94,671 C108.27,677.05 144.48,665.14 172.97,653.79 " fill="none" id="student-studentProfile" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[628a03278c14da4eab3e5253729c1195]
+link student to projects--><path d="M59.71,590.09 C71.59,578.62 85.43,563.58 95,548 C100.44,539.13 95.48,533.19 103,526 C116.63,512.97 135.19,504.93 153.1,499.97 " fill="none" id="student-projects" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a9dbe139e094963abe5c5c56dd171360]
+link student to auth--><path d="M40.63,652.66 C49.68,727.89 71.58,882.65 103,926 C135.72,971.15 155.74,989 211.5,989 C211.5,989 211.5,989 748,989 C931.59,989 973.27,673.9 980.63,598.21 " fill="none" id="student-auth" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a6284eca31430fd88307063a296487d4]
+link student to jobs--><path d="M40.44,652.72 C51.92,736.66 90.71,918 211.5,918 C211.5,918 211.5,918 547,918 C656,918 622.31,803.29 665,703 C682.51,661.87 665.9,640.93 695,607 C699.69,601.54 705.85,597.16 712.26,593.68 " fill="none" id="student-jobs" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[27ae03604699227b4fc710a68fde08e3]
+link student to recruiterProfile--><path d="M59.67,604.53 C84.46,597.75 124.26,586.86 156.9,577.93 " fill="none" id="student-recruiterProfile" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[bd963e50ee038f42c3f2ebc6a2900784]
+link student to viewJob--><path d="M45.42,652.64 C54.62,682.68 71.94,721.13 103,740 C194.62,795.66 329.11,731.48 382.22,701.63 " fill="none" id="student-viewJob" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1a2edef7888c4781bb6c00cc80165cb9]
+link student to project--><path d="M59.62,646.95 C69.02,658.75 80.77,670.9 94,679 C117.16,693.18 146.96,700.18 170.75,703.63 " fill="none" id="student-project" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[6dd5f460641b352024b3c2acd33cbae9]
+link recruiter to like--><path d="M64.21,281.98 C73.27,275.55 83.87,270.7 95,271 C256.95,275.38 451.22,290.33 519.65,295.89 " fill="none" id="recruiter-like" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[7e86ac7b9ccf854b6e444b51505782fd]
+link recruiter to viewProject--><path d="M63.07,352.89 C73.99,367.02 87.66,381.78 103,392 C120.04,403.35 141.15,410.92 160.2,415.92 " fill="none" id="recruiter-viewProject" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[e2116e6f3e0e0c02f07b86e124b4412b]
+link recruiter to projects--><path d="M57.23,352.67 C69.01,376.5 83.55,407.1 95,435 C99.11,445.01 95.23,450.47 103,458 C116.54,471.12 135.07,479.18 152.99,484.14 " fill="none" id="recruiter-projects" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[255a8089cf2c684ada556be0285e8c75]
+link recruiter to studentProfile--><path d="M40.66,352.61 C49.4,423.58 70.36,563.89 103,600 C114.08,612.25 129.38,620.45 145,625.93 " fill="none" id="recruiter-studentProfile" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8b1177fc91c16c1e853b47c316f1247f]
+link recruiter to register--><path d="M40.58,269.23 C52.3,185.7 91.45,6 211.5,6 C211.5,6 211.5,6 1140.5,6 C1240.83,6 1268.01,394.79 1272.7,478.32 " fill="none" id="recruiter-register" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[efd1f7a40fe8461535367ae2a70b7ad1]
+link recruiter to auth--><path d="M46.6,269.44 C66.53,202.19 116.41,77 211.5,77 C211.5,77 211.5,77 748,77 C968.8,77 981.86,479.33 982.12,565.77 " fill="none" id="recruiter-auth" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[84d966cd8df06eaeb1ecaef434dde195]
+link recruiter to jobs--><path d="M57.43,269.45 C85.66,221.15 140.18,148 211.5,148 C211.5,148 211.5,148 547,148 C665.46,148 627.64,274.58 665,387 C688.09,456.49 654.27,488.15 695,549 C700.57,557.33 709.03,564.02 717.47,569.14 " fill="none" id="recruiter-jobs" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[87fbb5a7a7aaa9cd6c154f4654411cc0]
+link recruiter to recruiterProfile--><path d="M38.19,352.81 C42.89,400.52 57.53,477.98 103,525 C114.52,536.91 129.97,545.09 145.6,550.71 " fill="none" id="recruiter-recruiterProfile" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[e6dae176f188186abfaed296e75b970f]
+link recruiter to viewJob--><path d="M64.14,303.08 C116.51,290.19 229.77,271.26 298,326 C354.61,371.42 393.36,609.25 402.78,672.52 " fill="none" id="recruiter-viewJob" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[9108453acacd8cde715dd00710b015f0]
+link recruiter to job--><path d="M64.2,318.71 C98.5,328.09 155.78,343.76 187.87,352.54 " fill="none" id="recruiter-job" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f817f52d79b584f2bdd06fd78d45fb88]
+link like to auth--><path d="M572.69,297.81 C620.75,298.61 726,305.84 799,351 C886.07,404.87 948.84,515.69 972.1,561.49 " fill="none" id="like-to-auth" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="974.35,565.98,973.8902,556.1419,972.1082,561.5107,966.7394,559.7287,974.35,565.98" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="719.5" y="309.4951">«include»</text><!--MD5=[543dc9ae90e5505e58ae21e4c74b3111]
+link jobs to auth--><path d="M799.06,582 C831.75,582 874.62,582 910.65,582 " fill="none" id="jobs-to-auth" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="915.92,582,906.92,578,910.92,582,906.92,586,915.92,582" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="830" y="578.4951">«include»</text><!--MD5=[1c14f732381dbf5a81c816dc8a8a52d5]
+link viewJob to auth--><path d="M451.55,691.93 C538.16,697.96 734.08,703.64 886,649 C914.98,638.58 943.29,617.02 961.57,601.16 " fill="none" id="viewJob-to-auth" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="965.54,597.66,956.1383,600.5939,961.7833,600.9596,961.4176,606.6046,965.54,597.66" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="609" y="688.4951">«include»</text><!--MD5=[37f3c906bab8cec36599835dd4099f79]
+link auth to register--><path d="M1048.43,578.53 C1084.41,575.12 1129.58,568.37 1168,555 C1198.22,544.48 1229.56,525.1 1250.14,511 " fill="none" id="auth-to-register" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1254.37,508.08,1244.6918,509.9054,1250.2565,510.9223,1249.2395,516.487,1254.37,508.08" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="1112" y="551.4951">«include»</text><!--MD5=[98efa9efeab2954c26f539a1ce4c1981]
+reverse link auth to register--><path d="M1021.36,566.08 C1046.42,555.78 1080.33,542.55 1111,533 C1152.83,519.97 1201.85,508.75 1235.02,501.73 " fill="none" id="auth-backto-register" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="1016.47,568.1,1026.3155,568.3567,1021.0904,566.1891,1023.258,560.964,1016.47,568.1" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="1113" y="514.4951">«extend»</text><!--MD5=[72a4f0560e0db8259970ffd49fe196c2]
+@startuml
+left to right direction
+:Student: as student
+:Recruiter: as recruiter
+rectangle Youcodeurswork {
+    (Project) as project
+    (Job) as job
+    (CUD) as cud
+    
+    (register) as register
+    (Authenticate) as auth
+    
+    (view student profile) as studentProfile
+    (view jobs) as jobs
+    (view projects) as projects
+    (view recruiter profile) as recruiterProfile
+
+    cud ..> (create) :<<include>>
+    cud ..> (update) :<<extend>>
+    cud ..> (delete) :<<extend>>
+    
+    project - - -|> cud
+    job - - -|> cud
+    
+    cud ...> auth :<<include>>
+    
+    (view project) as viewProject
+    
+    (view job) as viewJob
+    
+    
+
+    student - - (like)
+    student - - viewProject
+    student - - studentProfile
+    student - - projects
+    student - - viewProject
+    student - - - - auth
+    student - - - jobs
+    student - - recruiterProfile
+    student - - - viewJob
+    student - - project
+
+    recruiter - - (like)
+    recruiter - - viewProject
+    recruiter - - projects
+    recruiter - - studentProfile
+    recruiter - - - - register
+    recruiter - - - - auth
+    recruiter - - - jobs
+    recruiter - - recruiterProfile
+    recruiter - - - viewJob
+    recruiter - - job
+
+
+
+
+    (like) ...> auth: <<include>>
+    jobs ..> auth: <<include>>
+    viewJob ....> auth: <<include>>
+
+
+    auth ...> register: <<include>>
+    auth <... register: <<extend>>
+}
+@enduml
+
+PlantUML version 1.2022.1(Tue Feb 01 19:19:58 WEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>
