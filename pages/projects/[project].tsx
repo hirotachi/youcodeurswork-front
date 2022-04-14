@@ -12,6 +12,7 @@ import clsx from "clsx";
 import useInView from "@hooks/useInView";
 import useToggle from "@hooks/useToggle";
 import faTimes from "@icons/regular/faTimes";
+import useClickOutside from "@hooks/useClickOutside";
 
 // todo: more info including (tags, creation Date, github link, hosting link)
 
@@ -81,12 +82,19 @@ const ProjectPage = () => {
       opacity: 0,
     },
   };
+
+  const popupRef = useClickOutside(() => isPopupOpen && togglePopup());
+
   return (
     <div className={styles.project}>
       <AnimatePresence>
         {isPopupOpen && (
           <motion.div {...fadeVariants} className={styles.popup}>
-            <motion.div {...popupVariants} className={styles.content}>
+            <motion.div
+              {...popupVariants}
+              className={styles.content}
+              ref={popupRef}
+            >
               <span onClick={() => togglePopup()} className={styles.close}>
                 <FontAwesomeIcon icon={faTimes} />
               </span>
