@@ -10,6 +10,7 @@ export const projectData = {
     "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
   name: "hello world",
   link: "https://howdy.gr/",
+  createdAt: new Date(),
   likes: 50,
   description: "something about this project",
   tags: ["react", "php", "Javascript", "html"],

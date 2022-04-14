@@ -193,3 +193,95 @@
     }
   }
 }
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(black, 0.5);
+  display: flex;
+
+  justify-content: center;
+  z-index: 100;
+
+  .content {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    position: relative;
+    margin-top: 30%;
+    width: 80%;
+    background-color: $white;
+    padding: 2rem 1rem;
+    border-radius: 0.5rem;
+    height: fit-content;
+
+    @include tablet {
+      width: 50%;
+      margin-top: 20%;
+      padding: 3rem 2rem;
+    }
+    @include desktop {
+      width: 40%;
+      margin-top: 10%;
+      padding: 3rem;
+    }
+
+    &Header {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+    .date {
+      font-size: 1.4rem;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      opacity: 0.5;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .tags {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+      &Header {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+
+      &List {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+
+        a {
+          font-size: 1.4rem;
+          text-transform: capitalize;
+          border: 1px solid $border-main;
+          border-radius: 0.5rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary-color;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+}

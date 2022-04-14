@@ -10,6 +10,8 @@ import Link from "next/link";
 import faShare from "@icons/solid/faShare";
 import clsx from "clsx";
 import useInView from "@hooks/useInView";
+import useToggle from "@hooks/useToggle";
+import faTimes from "@icons/regular/faTimes";
 
 // todo: more info including (tags, creation Date, github link, hosting link)
 
@@ -22,8 +24,11 @@ const ProjectPage = () => {
     name,
     preview,
     tags,
+    createdAt,
     technologies,
   } = projectData;
+
+  const [isPopupOpen, togglePopup] = useToggle(false, true);
 
   const [liked, setLiked] = useState(false);
   const [headerInView, ref] = useInView({ threshold: 0.5 });
@@ -45,8 +50,64 @@ const ProjectPage = () => {
     },
   };
   const profileLink = `/students/${author.id}`;
+  const formattedDate = createdAt.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const popupVariants: Variants = {
+    initial: {
+      opacity: 0,
+      y: -50,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+    },
+    exit: {
+      opacity: 0,
+      y: -50,
+    },
+  };
+  const fadeVariants: Variants = {
+    initial: {
+      opacity: 0,
+    },
+    animate: {
+      opacity: 1,
+    },
+    exit: {
+      opacity: 0,
+    },
+  };
   return (
     <div className={styles.project}>
+      <AnimatePresence>
+        {isPopupOpen && (
+          <motion.div {...fadeVariants} className={styles.popup}>
+            <motion.div {...popupVariants} className={styles.content}>
+              <span onClick={() => togglePopup()} className={styles.close}>
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
+              <h3 className={styles.contentHeader}>project details</h3>
+              <p className={styles.date}>
+                Posted <span>{formattedDate}</span>
+              </p>
+              <div className={styles.tags}>
+                <h4 className={styles.tagsHeader}>tags</h4>
+                <div className={styles.tagsList}>
+                  {tags.map((tag) => (
+                    <Link href={`/projects/?tags=${tag}`} key={tag}>
+                      <a className={styles.tag}>{tag}</a>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className={styles.side}>
         <div className={styles.content}>
           <div className={styles.main}>
@@ -61,7 +122,7 @@ const ProjectPage = () => {
             <span className={styles.btn}>
               <FontAwesomeIcon icon={faShare} />
             </span>
-            <span className={styles.btn}>
+            <span className={styles.btn} onClick={() => togglePopup()}>
               <FontAwesomeIcon icon={faInfo} />
             </span>
             <AnimatePresence>
@@ -108,7 +169,7 @@ const ProjectPage = () => {
           <span className={styles.share}>
             <FontAwesomeIcon icon={faShare} />
           </span>
-          <span className={styles.info}>
+          <span className={styles.info} onClick={() => togglePopup()}>
             <FontAwesomeIcon icon={faInfo} />
           </span>
         </div>
