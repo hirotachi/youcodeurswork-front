@@ -63,10 +63,11 @@
           align-items: center;
           justify-content: center;
           @include size(4rem);
+          cursor: pointer;
           border-radius: 1rem;
 
           &:hover {
-            background: $primary-color;
+            border-color: $primary-color;
             color: $primary-color;
           }
         }
@@ -135,12 +136,16 @@
         display: none;
       }
       &:hover {
-        background-color: $secondary-color;
+        border-color: $primary-color;
         color: $primary-color;
       }
     }
     .likes {
       margin-right: auto;
+      &Active {
+        color: $white;
+        background-color: $primary-color;
+      }
       @include tablet {
         margin-right: 0;
       }

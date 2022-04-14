@@ -7,6 +7,7 @@ import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 import faInfo from "@icons/solid/faInfo";
 import Link from "next/link";
 import faShare from "@icons/solid/faShare";
+import clsx from "clsx";
 
 // todo: more info including (tags, creation Date, github link, hosting link)
 const ProjectPage = () => {
@@ -64,7 +65,10 @@ const ProjectPage = () => {
           </div>
         </div>
         <div className={styles.controls}>
-          <span className={styles.likes} onClick={handleLike}>
+          <span
+            className={clsx(styles.likes, liked && styles.likesActive)}
+            onClick={handleLike}
+          >
             <FontAwesomeIcon icon={faHeart} />
             <i>{likes}</i>
           </span>
