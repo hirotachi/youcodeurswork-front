@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import styles from "@modules/projects/project.module.scss";
 import { projectData } from "@components/projects/ProjectPreview";
 import faHeart from "@icons/solid/faHeart";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import faInfo from "@icons/solid/faInfo";
 import Link from "next/link";
 import faShare from "@icons/solid/faShare";
 import clsx from "clsx";
+import useInView from "@hooks/useInView";
 
 // todo: more info including (tags, creation Date, github link, hosting link)
+
 const ProjectPage = () => {
   const {
     author,
@@ -23,8 +26,23 @@ const ProjectPage = () => {
   } = projectData;
 
   const [liked, setLiked] = useState(false);
+  const [headerInView, ref] = useInView({ threshold: 0.5 });
   const handleLike = () => {
     setLiked((v) => !v);
+  };
+  const variants: Variants = {
+    initial: {
+      opacity: 0,
+      y: -50,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+    },
+    exit: {
+      opacity: 0,
+      y: -50,
+    },
   };
   const profileLink = `/students/${author.id}`;
   return (
@@ -38,7 +56,7 @@ const ProjectPage = () => {
               </a>
             </Link>
             <span className={styles.btn}>
-              <FontAwesomeIcon icon={faGithubAlt} />
+              <FontAwesomeIcon icon={faGithub} />
             </span>
             <span className={styles.btn}>
               <FontAwesomeIcon icon={faShare} />
@@ -46,10 +64,22 @@ const ProjectPage = () => {
             <span className={styles.btn}>
               <FontAwesomeIcon icon={faInfo} />
             </span>
+            <AnimatePresence>
+              {!headerInView && (
+                <motion.span
+                  transition={{ duration: 0.2 }}
+                  {...variants}
+                  className={styles.btn}
+                  onClick={handleLike}
+                >
+                  <FontAwesomeIcon icon={faHeart} />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-      <div className={styles.header}>
+      <div className={styles.header} ref={ref}>
         <div className={styles.main}>
           <Link href={profileLink}>
             <a className={styles.avatar}>
@@ -73,7 +103,7 @@ const ProjectPage = () => {
             <i>{likes}</i>
           </span>
           <span className={styles.repo}>
-            <FontAwesomeIcon icon={faGithubAlt} />
+            <FontAwesomeIcon icon={faGithub} />
           </span>
           <span className={styles.share}>
             <FontAwesomeIcon icon={faShare} />
