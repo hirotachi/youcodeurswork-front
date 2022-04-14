@@ -1,27 +1,189 @@
 @use "~abstracts" as *;
 
 .project {
+  display: flex;
+  flex-direction: column;
+  margin: 4rem 0;
+  position: relative;
+  @include tablet {
+    padding: 0 5%;
+    margin: 4rem auto;
+  }
+  @include desktop {
+    padding: 0 10%;
+  }
+  .preview {
+    margin-top: 2rem;
+    height: 25rem;
+    @include tablet {
+      height: 40rem;
+    }
+    @include desktop {
+      height: 100vh;
+    }
+    img {
+      @include size(100%);
+      object-fit: cover;
+    }
+  }
+  .side {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    height: 100%;
+    .content {
+      position: relative;
+      height: 100%;
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        position: sticky;
+        top: 2rem;
+        transition: all 0.2s ease;
+        left: 0;
+        .avatar {
+          border-radius: 50%;
+          @include size(5rem);
+          margin-bottom: 1rem;
+
+          img {
+            @include size(100%);
+            object-fit: cover;
+            border-radius: inherit;
+          }
+        }
+
+        .btn {
+          border: 1px solid darken($border-main, 10%);
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          @include size(4rem);
+          border-radius: 1rem;
+
+          &:hover {
+            background: $primary-color;
+            color: $primary-color;
+          }
+        }
+      }
+    }
+    @include desktop {
+      display: block;
+    }
+  }
 }
 
 .header {
-  &Main {
+  display: flex;
+  gap: 2rem;
+  padding: 0 1rem;
+  flex-direction: column;
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  .name {
-  }
-  &More {
-    .author {
+  .main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    .avatar {
+      border-radius: 50%;
+      @include size(4rem);
+      overflow: hidden;
+      img {
+        @include size(100%);
+        object-fit: cover;
+      }
     }
-    .hire {
+    .more {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .name {
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 1.8rem;
+      }
+      .author {
+        font-size: 1.4rem;
+        text-transform: capitalize;
+      }
     }
   }
-  .likes {
+
+  .controls {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    span {
+      padding: 0.8rem 1rem;
+      width: 4rem;
+      border-radius: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid darken($border-main, 10%);
+      display: flex;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      @include desktop {
+        display: none;
+      }
+      &:hover {
+        background-color: $secondary-color;
+        color: $primary-color;
+      }
+    }
+    .likes {
+      margin-right: auto;
+      @include tablet {
+        margin-right: 0;
+      }
+      @include desktop {
+        font-size: 1.4rem;
+        display: flex;
+        gap: 0.5rem;
+        width: unset;
+      }
+      i {
+        display: none;
+        @include desktop {
+          display: inline-block;
+        }
+      }
+    }
   }
 }
 
 .info {
+  padding: 2rem 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  background-color: $white;
+  @include tablet {
+    padding: 2rem;
+  }
   .description {
+    font-size: 1.6rem;
   }
   .tech {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.3rem;
+    color: $secondary-color;
+    opacity: 0.5;
+    text-transform: uppercase;
+    gap: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
     .name {
     }
   }

@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@modules/projects/project.module.scss";
 import { projectData } from "@components/projects/ProjectPreview";
-import useToggle from "@hooks/useToggle";
 import faHeart from "@icons/solid/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// todo add info on the right side
-// todo add project name on top of the preview
+import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
+import faInfo from "@icons/solid/faInfo";
+import Link from "next/link";
+import faShare from "@icons/solid/faShare";
 
 // todo: more info including (tags, creation Date, github link, hosting link)
 const ProjectPage = () => {
@@ -21,25 +21,63 @@ const ProjectPage = () => {
     technologies,
   } = projectData;
 
-  const [isFormOpen, toggleFormOpen] = useToggle(false, true);
-
-
+  const [liked, setLiked] = useState(false);
+  const handleLike = () => {
+    setLiked((v) => !v);
+  };
+  const profileLink = `/students/${author.id}`;
   return (
-    <div className={styles.projects}>
-      <div className={styles.header}>
-        <div className={styles.avatar}>author pic</div>
-        <div className={styles.headerMain}>
-          <p className={styles.name}>{name}</p>
-          <div className={styles.headerMore}>
-            <p className={styles.author}>{author.name}</p>
-            <span className={styles.hire} onClick={() => toggleFormOpen()}>
-              hire me
+    <div className={styles.project}>
+      <div className={styles.side}>
+        <div className={styles.content}>
+          <div className={styles.main}>
+            <Link href={profileLink}>
+              <a className={styles.avatar}>
+                <img src={author.avatar} alt={author.name} />
+              </a>
+            </Link>
+            <span className={styles.btn}>
+              <FontAwesomeIcon icon={faGithubAlt} />
+            </span>
+            <span className={styles.btn}>
+              <FontAwesomeIcon icon={faShare} />
+            </span>
+            <span className={styles.btn}>
+              <FontAwesomeIcon icon={faInfo} />
             </span>
           </div>
         </div>
-        <span className={styles.likes}>
-          <FontAwesomeIcon icon={faHeart} /> {likes}
-        </span>
+      </div>
+      <div className={styles.header}>
+        <div className={styles.main}>
+          <Link href={profileLink}>
+            <a className={styles.avatar}>
+              <img src={author.avatar} alt={author.name} />
+            </a>
+          </Link>
+
+          <div className={styles.more}>
+            <p className={styles.name}>{name}</p>
+            <Link href={profileLink}>
+              <a className={styles.author}>{author.name}</a>
+            </Link>
+          </div>
+        </div>
+        <div className={styles.controls}>
+          <span className={styles.likes} onClick={handleLike}>
+            <FontAwesomeIcon icon={faHeart} />
+            <i>{likes}</i>
+          </span>
+          <span className={styles.repo}>
+            <FontAwesomeIcon icon={faGithubAlt} />
+          </span>
+          <span className={styles.share}>
+            <FontAwesomeIcon icon={faShare} />
+          </span>
+          <span className={styles.info}>
+            <FontAwesomeIcon icon={faInfo} />
+          </span>
+        </div>
       </div>
       <div className={styles.preview}>
         <img src={preview} alt={name} />

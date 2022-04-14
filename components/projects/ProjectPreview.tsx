@@ -8,7 +8,7 @@ import Link from "next/link";
 export const projectData = {
   preview:
     "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
-  name: "tester",
+  name: "hello world",
   link: "https://howdy.gr/",
   likes: 50,
   description: "something about this project",
