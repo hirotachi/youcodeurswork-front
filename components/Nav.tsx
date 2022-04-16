@@ -32,7 +32,7 @@ const Nav = () => {
           <Link href={"/login"}>
             <a className={styles.auth}>register/login</a>
           </Link>
-          <Link href={"/projects/create"}>
+          <Link href={"/projects/submit"}>
             <a className={styles.create}>submit you project</a>
           </Link>
         </div>

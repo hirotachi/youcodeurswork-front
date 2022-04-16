@@ -142,9 +142,11 @@
     }
     .likes {
       margin-right: auto;
+
       &Active {
-        color: $white;
-        background-color: $primary-color;
+        svg {
+          color: #ea4c89;
+        }
       }
       @include tablet {
         margin-right: 0;
