@@ -1,6 +1,6 @@
 @use "~abstracts" as *;
 
-.submit {
+.container {
   margin: 2rem 0;
   padding: 0 1rem;
   @include tablet {

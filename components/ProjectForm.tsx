@@ -7,7 +7,7 @@ import {
   Formik,
   FormikConfig,
 } from "formik";
-import styles from "@modules/projects/Submit.module.scss";
+import styles from "@modules/projects/Form.module.scss";
 import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faTrash from "@icons/solid/faTrash";
@@ -46,7 +46,7 @@ const placeholders = {
   repoLink: "Github Repo Link",
 };
 
-type FormValues = typeof initialValues;
+export type FormValues = typeof initialValues;
 
 type ProjectFormProps = {
   values?: FormValues;
@@ -54,7 +54,7 @@ type ProjectFormProps = {
   onCancel?: () => void;
 };
 const ProjectForm = (props: ProjectFormProps) => {
-  const { values = {}, onSubmit, onCancel } = props;
+  const { values, onSubmit, onCancel } = props;
   const [focused, setFocused] = useState<string | null>(null);
 
   const handleFormSubmit: FormikConfig<
@@ -90,128 +90,136 @@ const ProjectForm = (props: ProjectFormProps) => {
   }
 
   return (
-    <Formik
-      validationSchema={validationSchema}
-      initialValues={{ ...initialValues, ...values }}
-      validateOnBlur={false}
-      validateOnChange={false}
-      validateOnMount={false}
-      onSubmit={handleFormSubmit}
-    >
-      {({ values, handleSubmit, errors }) => (
-        <Form className={styles.form} onSubmit={handleSubmit}>
-          {Object.keys(initialValues).map((key) => {
-            const error = errors[key];
-            const placeholderText = placeholders[key];
-            return Array.isArray(values[key]) ? (
-              <FieldArray
-                key={key}
-                name={key}
-                render={(arrayHelpers) => (
-                  <div className={clsx(styles.field)}>
-                    <label htmlFor={key}>{key}</label>
-                    <div className={styles.field__input__group}>
-                      {values[key].map((item, index) => {
-                        const name = `${key}[${index}]`;
-                        return (
-                          <div
-                            key={name}
-                            className={clsx(
-                              styles.field__input__item,
-                              error && styles.field__input__item__error
-                            )}
-                          >
+    <div className={styles.container}>
+      <h2 className={styles.header}>
+        {values ? "Update Project" : "Submit New Project"}
+      </h2>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={{ ...initialValues, ...(values ?? {}) }}
+        validateOnBlur={false}
+        validateOnChange={false}
+        validateOnMount={false}
+        onSubmit={handleFormSubmit}
+      >
+        {({ values, handleSubmit, errors }) => (
+          <Form className={styles.form} onSubmit={handleSubmit}>
+            {Object.keys(initialValues).map((key) => {
+              const error = errors[key];
+              const placeholderText = placeholders[key];
+              return Array.isArray(values[key]) ? (
+                <FieldArray
+                  key={key}
+                  name={key}
+                  render={(arrayHelpers) => (
+                    <div className={clsx(styles.field)}>
+                      <label htmlFor={key}>{key}</label>
+                      <div className={styles.field__input__group}>
+                        {values[key].map((item, index) => {
+                          const name = `${key}[${index}]`;
+                          return (
                             <div
                               key={name}
                               className={clsx(
-                                styles.field__input__item__main,
-                                focused === name &&
-                                  styles.field__input__item__main__focused
+                                styles.field__input__item,
+                                error && styles.field__input__item__error
                               )}
                             >
-                              <Field
-                                name={name}
-                                onFocus={() => setFocused(name)}
-                                onBlur={() => setFocused(null)}
-                                type="text"
-                                placeholder={placeholderText}
-                              />
-                              <span
-                                className={styles.remove}
-                                onClick={() => arrayHelpers.remove(index)}
+                              <div
+                                key={name}
+                                className={clsx(
+                                  styles.field__input__item__main,
+                                  focused === name &&
+                                    styles.field__input__item__main__focused
+                                )}
                               >
-                                <FontAwesomeIcon icon={faTrash} />
-                              </span>
+                                <Field
+                                  name={name}
+                                  onFocus={() => setFocused(name)}
+                                  onBlur={() => setFocused(null)}
+                                  type="text"
+                                  placeholder={placeholderText}
+                                />
+                                <span
+                                  className={styles.remove}
+                                  onClick={() => arrayHelpers.remove(index)}
+                                >
+                                  <FontAwesomeIcon icon={faTrash} />
+                                </span>
+                              </div>
+                              <ErrorMessage
+                                name={`${key}[${index}]`}
+                                component="div"
+                                className={styles.field__input__error}
+                              />
                             </div>
-                            <ErrorMessage
-                              name={`${key}[${index}]`}
-                              component="div"
-                              className={styles.field__input__error}
-                            />
-                          </div>
-                        );
-                      })}
-                      <span
-                        className={styles.add}
-                        onClick={() => arrayHelpers.push("")}
-                      >
-                        Add {key.slice(0, -1)}
-                      </span>
+                          );
+                        })}
+                        <span
+                          className={styles.add}
+                          onClick={() => arrayHelpers.push("")}
+                        >
+                          Add {key.slice(0, -1)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                )}
-              />
-            ) : (
-              <div
-                key={key}
-                className={clsx(styles.field, error && styles.field__error)}
-              >
-                <label htmlFor={key}>
-                  {key === "repoLink" ? "Github repository link" : key}
-                </label>
-                <Field
-                  name={key}
-                  id={key}
-                  type="text"
-                  placeholder={placeholderText}
-                  onFocus={() => setFocused(key)}
-                  onBlur={() => setFocused(null)}
-                  className={clsx(
-                    styles.field__input,
-                    focused === key && styles.field__input__focused
                   )}
                 />
-                {key === "name" && (
-                  <div
+              ) : (
+                <div
+                  key={key}
+                  className={clsx(styles.field, error && styles.field__error)}
+                >
+                  <label htmlFor={key}>
+                    {key === "repoLink" ? "Github repository link" : key}
+                  </label>
+                  <Field
+                    name={key}
+                    id={key}
+                    type="text"
+                    placeholder={placeholderText}
+                    onFocus={() => setFocused(key)}
+                    onBlur={() => setFocused(null)}
                     className={clsx(
-                      styles.field__input__remaining,
-                      maxNameLength - values[key].length < 0 &&
-                        styles.field__input__remaining__warning
+                      styles.field__input,
+                      focused === key && styles.field__input__focused
                     )}
-                  >
-                    {maxNameLength - values[key].length} characters remaining
-                  </div>
-                )}
-                <ErrorMessage
-                  name={key}
-                  component={"div"}
-                  className={styles.field__input__error}
-                />
-              </div>
-            );
-          })}
+                  />
+                  {key === "name" && (
+                    <div
+                      className={clsx(
+                        styles.field__input__remaining,
+                        maxNameLength - values[key].length < 0 &&
+                          styles.field__input__remaining__warning
+                      )}
+                    >
+                      {maxNameLength - values[key].length} characters remaining
+                    </div>
+                  )}
+                  <ErrorMessage
+                    name={key}
+                    component={"div"}
+                    className={styles.field__input__error}
+                  />
+                </div>
+              );
+            })}
 
-          <div className={styles.controls}>
-            <button className={styles.controls__cancel} onClick={handleCancel}>
-              cancel
-            </button>
-            <button type="submit" className={styles.controls__submit}>
-              publish project
-            </button>
-          </div>
-        </Form>
-      )}
-    </Formik>
+            <div className={styles.controls}>
+              <button
+                className={styles.controls__cancel}
+                onClick={handleCancel}
+              >
+                cancel
+              </button>
+              <button type="submit" className={styles.controls__submit}>
+                publish project
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
