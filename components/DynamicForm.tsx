@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import Trumbowyg from "react-trumbowyg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faTrash from "@icons/solid/faTrash";
+import withNoSSR from "@lib/withNoSSR";
 
 type DynamicFormProps<T> = {
   title: string;
@@ -34,7 +35,7 @@ type DynamicFormProps<T> = {
   cancelText?: string;
 };
 
-const DynamicForm = <T extends object>(props: DynamicFormProps<T>) => {
+const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
   const {
     title,
     initialValues,
@@ -231,4 +232,4 @@ const DynamicForm = <T extends object>(props: DynamicFormProps<T>) => {
   );
 };
 
-export default DynamicForm;
+export default withNoSSR(DynamicForm);

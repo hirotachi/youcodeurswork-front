@@ -1,6 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import dynamic from "next/dynamic";
+import DynamicForm from "@components/DynamicForm";
 
 const initialValues = {
   name: "", // required must be less than 120 characters
@@ -52,9 +52,6 @@ type ProjectFormProps<T> = {
   onCancel?: () => void;
 };
 
-const DynamicForm = dynamic(() => import("@components/DynamicForm"), {
-  ssr: false,
-});
 const ProjectForm = (props: ProjectFormProps<FormValues>) => {
   const { values, onSubmit, onCancel } = props;
   const submit = async (values) => {
