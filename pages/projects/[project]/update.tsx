@@ -1,5 +1,6 @@
 import React from "react";
-import ProjectForm, { FormValues } from "@components/ProjectForm";
+import { FormValues } from "@components/OldProjectForm";
+import ProjectForm from "@components/ProjectForm";
 
 const update = () => {
   const handleSubmit = (values: any) => {
@@ -11,14 +12,20 @@ const update = () => {
   ];
 
   const values: FormValues = {
-    name: "Project Name",
-    description: "Project Description",
+    name: "said Project",
+    description: "<p>This is a test</p>",
     repoLink: "https://github.com/hirotachi/cine-master",
     tags: ["tag"].join(","),
     images: images,
     technologies: ["tester"].join(","),
   };
-  return <ProjectForm onSubmit={handleSubmit} values={values} />;
+  return (
+    <ProjectForm
+      onSubmit={handleSubmit}
+      values={values}
+      onCancel={() => console.log("cancel")}
+    />
+  );
 };
 
 export default update;

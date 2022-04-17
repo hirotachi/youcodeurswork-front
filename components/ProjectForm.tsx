@@ -1,21 +1,10 @@
-import React, { useState } from "react";
-import {
-  ErrorMessage,
-  Field,
-  FieldArray,
-  Form,
-  Formik,
-  FormikConfig,
-} from "formik";
-import styles from "@modules/projects/Form.module.scss";
-import clsx from "clsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import faTrash from "@icons/solid/faTrash";
+import React from "react";
 import * as Yup from "yup";
+import dynamic from "next/dynamic";
 
 const initialValues = {
   name: "", // required must be less than 120 characters
-  description: "", // textarea not required
+  description: "<p></p>", // textarea not required
   images: [] as string[], // array of image strings (valid urls)
   technologies: "", // technologies seperated by comma not required
   tags: "", // tags seperated by comma not required
@@ -46,180 +35,45 @@ const placeholders = {
   repoLink: "Github Repo Link",
 };
 
+const labels = {
+  name: "Project Name",
+  description: "Description",
+  images: "Images",
+  technologies: "Technologies",
+  tags: "Tags",
+  repoLink: "Github Repo Link",
+};
+
 export type FormValues = typeof initialValues;
 
-type ProjectFormProps = {
-  values?: FormValues;
-  onSubmit: (values: any) => void;
+type ProjectFormProps<T> = {
+  values?: T;
+  onSubmit: (values: T) => void;
   onCancel?: () => void;
 };
-const ProjectForm = (props: ProjectFormProps) => {
+
+const DynamicForm = dynamic(() => import("@components/DynamicForm"), {
+  ssr: false,
+});
+const ProjectForm = (props: ProjectFormProps<FormValues>) => {
   const { values, onSubmit, onCancel } = props;
-  const [focused, setFocused] = useState<string | null>(null);
-
-  const handleFormSubmit: FormikConfig<
-    typeof initialValues
-  >["onSubmit"] = async (
-    values,
-    { setSubmitting, resetForm, validateForm }
-  ) => {
-    // remove empty string, trim and split string into array by comma
-    const cleanArray = (str: string) =>
-      str
-        .split(",")
-        .map((item) => item.trim())
-        .filter((item) => item !== "");
-    const technologies = cleanArray(values.technologies);
-    const tags = cleanArray(values.tags);
-
-    const images = values.images.filter((image) => image.trim() !== "");
-
-    const project = { ...values, technologies, tags, images };
-
-    const errors = await validateForm();
-    if (!Object.keys(errors).length) {
-      onSubmit(project);
-      resetForm();
-      return;
-    }
-    setSubmitting(false);
+  const submit = async (values) => {
+    onSubmit(values);
+    return true;
   };
 
-  function handleCancel() {
-    onCancel?.();
-  }
-
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>
-        {values ? "Update Project" : "Submit New Project"}
-      </h2>
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={{ ...initialValues, ...(values ?? {}) }}
-        validateOnBlur={false}
-        validateOnChange={false}
-        validateOnMount={false}
-        onSubmit={handleFormSubmit}
-      >
-        {({ values, handleSubmit, errors }) => (
-          <Form className={styles.form} onSubmit={handleSubmit}>
-            {Object.keys(initialValues).map((key) => {
-              const error = errors[key];
-              const placeholderText = placeholders[key];
-              return Array.isArray(values[key]) ? (
-                <FieldArray
-                  key={key}
-                  name={key}
-                  render={(arrayHelpers) => (
-                    <div className={clsx(styles.field)}>
-                      <label htmlFor={key}>{key}</label>
-                      <div className={styles.field__input__group}>
-                        {values[key].map((item, index) => {
-                          const name = `${key}[${index}]`;
-                          return (
-                            <div
-                              key={name}
-                              className={clsx(
-                                styles.field__input__item,
-                                error && styles.field__input__item__error
-                              )}
-                            >
-                              <div
-                                key={name}
-                                className={clsx(
-                                  styles.field__input__item__main,
-                                  focused === name &&
-                                    styles.field__input__item__main__focused
-                                )}
-                              >
-                                <Field
-                                  name={name}
-                                  onFocus={() => setFocused(name)}
-                                  onBlur={() => setFocused(null)}
-                                  type="text"
-                                  placeholder={placeholderText}
-                                />
-                                <span
-                                  className={styles.remove}
-                                  onClick={() => arrayHelpers.remove(index)}
-                                >
-                                  <FontAwesomeIcon icon={faTrash} />
-                                </span>
-                              </div>
-                              <ErrorMessage
-                                name={`${key}[${index}]`}
-                                component="div"
-                                className={styles.field__input__error}
-                              />
-                            </div>
-                          );
-                        })}
-                        <span
-                          className={styles.add}
-                          onClick={() => arrayHelpers.push("")}
-                        >
-                          Add {key.slice(0, -1)}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                />
-              ) : (
-                <div
-                  key={key}
-                  className={clsx(styles.field, error && styles.field__error)}
-                >
-                  <label htmlFor={key}>
-                    {key === "repoLink" ? "Github repository link" : key}
-                  </label>
-                  <Field
-                    name={key}
-                    id={key}
-                    type="text"
-                    placeholder={placeholderText}
-                    onFocus={() => setFocused(key)}
-                    onBlur={() => setFocused(null)}
-                    className={clsx(
-                      styles.field__input,
-                      focused === key && styles.field__input__focused
-                    )}
-                  />
-                  {key === "name" && (
-                    <div
-                      className={clsx(
-                        styles.field__input__remaining,
-                        maxNameLength - values[key].length < 0 &&
-                          styles.field__input__remaining__warning
-                      )}
-                    >
-                      {maxNameLength - values[key].length} characters remaining
-                    </div>
-                  )}
-                  <ErrorMessage
-                    name={key}
-                    component={"div"}
-                    className={styles.field__input__error}
-                  />
-                </div>
-              );
-            })}
-
-            <div className={styles.controls}>
-              <button
-                className={styles.controls__cancel}
-                onClick={handleCancel}
-              >
-                cancel
-              </button>
-              <button type="submit" className={styles.controls__submit}>
-                publish project
-              </button>
-            </div>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <DynamicForm
+      title={values ? "Edit Project" : "Submit New Project"}
+      values={values}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      placeholders={placeholders}
+      inputs={{ images: "multiple-inputs", description: "editor" }}
+      onSubmit={submit}
+      onCancel={onCancel}
+      labels={labels}
+    />
   );
 };
 
