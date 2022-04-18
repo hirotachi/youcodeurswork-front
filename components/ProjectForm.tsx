@@ -1,6 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import DynamicForm from "@components/DynamicForm";
+import DynamicForm, { InputConfig } from "@components/DynamicForm";
 
 const initialValues = {
   name: "", // required must be less than 120 characters
@@ -26,22 +26,30 @@ const validationSchema = Yup.object({
     .url("Must be a valid github url"),
 });
 
-const placeholders = {
-  name: "Project Name",
-  description: "Description about the project",
-  images: "Image Url",
-  technologies: "Technologies used in the project (comma separated)",
-  tags: "Tags that identify with the project (comma separated)",
-  repoLink: "Github Repo Link",
-};
-
-const labels = {
-  name: "Project Name",
-  description: "Description",
-  images: "Images",
-  technologies: "Technologies",
-  tags: "Tags",
-  repoLink: "Github Repo Link",
+const config: InputConfig<FormValues> = {
+  name: {
+    label: "Project Name",
+    placeholder: "Project Name",
+  },
+  description: {
+    placeholder: "Description about the project",
+    type: "editor",
+  },
+  images: {
+    label: "Images",
+    placeholder: "Image Url",
+    type: "multiple-inputs",
+  },
+  technologies: {
+    placeholder: "Technologies used in the project (comma separated)",
+  },
+  tags: {
+    placeholder: "Tags that identify with the project (comma separated)",
+  },
+  repoLink: {
+    label: "Github Repo Link",
+    placeholder: "Github Repo Link",
+  },
 };
 
 export type FormValues = typeof initialValues;
@@ -65,11 +73,9 @@ const ProjectForm = (props: ProjectFormProps<FormValues>) => {
       values={values}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      placeholders={placeholders}
-      inputs={{ images: "multiple-inputs", description: "editor" }}
       onSubmit={submit}
       onCancel={onCancel}
-      labels={labels}
+      config={config}
     />
   );
 };

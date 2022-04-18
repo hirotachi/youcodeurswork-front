@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
   ErrorMessage,
   Field,
@@ -10,29 +10,47 @@ import {
 import styles from "@modules/projects/Form.module.scss";
 import clsx from "clsx";
 import * as Yup from "yup";
-import Trumbowyg from "react-trumbowyg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faTrash from "@icons/solid/faTrash";
-import withNoSSR from "@lib/withNoSSR";
+import dynamic from "next/dynamic";
 
+const Trumbowyg = dynamic(
+  () => {
+    return import("jquery").then(() => {
+      return import("react-trumbowyg");
+    });
+  },
+  { ssr: false }
+);
+
+type inputTypes =
+  | "text"
+  | "textarea"
+  | "editor"
+  | "multiple-inputs"
+  | "number"
+  | "select"
+  | "checkbox";
+
+export type InputConfig<T> = {
+  [P in keyof T]: {
+    type?: inputTypes;
+    other?: (value: T[P], styling: typeof styles) => JSX.Element;
+    placeholder?: string;
+    label?: string;
+    options?: (number | string | { value: string | number; label?: string })[];
+  };
+};
 type DynamicFormProps<T> = {
   title: string;
   initialValues: T;
   values?: T;
-  placeholders?: Record<keyof T, string>;
-  labels?: Record<keyof T, string>;
-  inputs?: Record<
-    keyof T,
-    "text" | "textarea" | "editor" | "multiple-inputs" | "number"
-  >;
-  other?: {
-    [P in keyof T]?: (value: T[P], styling: typeof styles) => JSX.Element;
-  };
   validationSchema?: ReturnType<typeof Yup.object>;
   onCancel?: () => void;
   onSubmit: (values: T) => boolean | Promise<boolean>;
   submitText?: string;
   cancelText?: string;
+  config: InputConfig<T>;
 };
 
 const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
@@ -40,15 +58,12 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
     title,
     initialValues,
     values,
-    placeholders,
-    inputs,
     onSubmit,
     onCancel,
-    labels,
-    other,
     validationSchema,
     submitText = "Submit",
     cancelText = "Cancel",
+    config,
   } = props;
 
   const handleFormSubmit: FormikConfig<T>["onSubmit"] = async (
@@ -67,20 +82,9 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
       resetForm();
     }
   };
-  const [focused, setFocused] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null | undefined>(null);
 
-  // memoize inputs from values that have editor as their type
-  const memoizedEditorValues = useMemo(() => {
-    const memoized = {};
-    if (inputs) {
-      Object.entries(inputs).map(([key, value]) => {
-        if (value === "editor") {
-          memoized[key] = values?.[key];
-        }
-      });
-    }
-    return memoized;
-  }, [inputs, values]);
+  const outerValues = values;
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>{title}</h2>
@@ -97,11 +101,15 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
             <Form className={styles.form} onSubmit={handleSubmit}>
               {Object.keys(initialValues).map((key) => {
                 const error = errors[key];
-                const inputType = inputs?.[key] ?? "text";
-                const placeholder = placeholders?.[key];
-                const label = labels?.[key] ?? key;
-                const otherComponent = other?.[key];
-                switch (inputType) {
+                const {
+                  type = "text",
+                  other,
+                  placeholder,
+                  label = key,
+                  options,
+                } = config[key] ?? {};
+
+                switch (type) {
                   case "multiple-inputs":
                     return (
                       <FieldArray
@@ -174,33 +182,87 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                         )}
                       >
                         <label htmlFor={key}>{label}</label>
-                        {inputType === "editor" ? (
-                          <Trumbowyg
-                            id="editor"
-                            data={memoizedEditorValues[key]}
-                            onChange={(e) =>
-                              setValues((v) => ({
-                                ...v,
-                                [key]: e.target.innerHTML,
-                              }))
-                            }
-                            data-placeholder="Enter your text here..."
-                          />
-                        ) : (
-                          <Field
-                            name={key}
-                            type={inputType}
-                            placeholder={placeholder}
-                            onFocus={() => setFocused(key)}
-                            onBlur={() => setFocused(null)}
-                            className={clsx(
-                              styles.field__input,
-                              focused === key && styles.field__input__focused
-                            )}
-                          />
-                        )}
+                        {(() => {
+                          switch (type) {
+                            case "select":
+                              return (
+                                <Field
+                                  name={key}
+                                  as="select"
+                                  className={clsx(
+                                    styles.field__input,
+                                    error && styles.field__input__error
+                                  )}
+                                >
+                                  <option value="">Select</option>
+                                  {options.map((option) => (
+                                    <option
+                                      key={option.value}
+                                      value={option.value}
+                                    >
+                                      {option.label}
+                                    </option>
+                                  ))}
+                                </Field>
+                              );
+                            case "editor":
+                              return (
+                                <Trumbowyg
+                                  id={key}
+                                  data={outerValues?.[key]}
+                                  onChange={(e) =>
+                                    setValues((v) => ({
+                                      ...v,
+                                      [key]: e.target.innerHTML,
+                                    }))
+                                  }
+                                  data-placeholder="Enter your text here..."
+                                />
+                              );
+                            default:
+                              return (
+                                <Field
+                                  name={key}
+                                  type={type}
+                                  placeholder={placeholder}
+                                  onFocus={() => setFocused(key)}
+                                  onBlur={() => setFocused(null)}
+                                  className={clsx(
+                                    styles.field__input,
+                                    focused === key &&
+                                      styles.field__input__focused
+                                  )}
+                                />
+                              );
+                          }
+                        })()}
+                        {/*{type === "editor" ? (*/}
+                        {/*  <Trumbowyg*/}
+                        {/*    id={key}*/}
+                        {/*    data={outerValues?.[key]}*/}
+                        {/*    onChange={(e) =>*/}
+                        {/*      setValues((v) => ({*/}
+                        {/*        ...v,*/}
+                        {/*        [key]: e.target.innerHTML,*/}
+                        {/*      }))*/}
+                        {/*    }*/}
+                        {/*    data-placeholder="Enter your text here..."*/}
+                        {/*  />*/}
+                        {/*) : (*/}
+                        {/*  <Field*/}
+                        {/*    name={key}*/}
+                        {/*    type={type}*/}
+                        {/*    placeholder={placeholder}*/}
+                        {/*    onFocus={() => setFocused(key)}*/}
+                        {/*    onBlur={() => setFocused(null)}*/}
+                        {/*    className={clsx(*/}
+                        {/*      styles.field__input,*/}
+                        {/*      focused === key && styles.field__input__focused*/}
+                        {/*    )}*/}
+                        {/*  />*/}
+                        {/*)}*/}
 
-                        {otherComponent?.(values[key], styles)}
+                        {other?.(values[key], styles)}
                         <ErrorMessage
                           name={key}
                           component={"div"}
@@ -232,4 +294,4 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
   );
 };
 
-export default withNoSSR(DynamicForm);
+export default DynamicForm;

@@ -4,12 +4,10 @@ import dynamic from "next/dynamic";
 const JobForm = dynamic(() => import("@components/JobForm"), { ssr: false });
 
 const submit = () => {
-  return (
-    <div>
-      <h2>create job post</h2>
-      <JobForm />
-    </div>
-  );
+  const onSubmit = async (values: any) => {
+    console.log(values);
+  };
+  return <JobForm onSubmit={onSubmit} />;
 };
 
 export default submit;
