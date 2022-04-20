@@ -20,7 +20,11 @@ const Header = () => {
     setState((v) => ({ ...v, isFiltersOpen: newState ?? !v.isFiltersOpen }));
   };
   const toggleSearch = (newState?: boolean) => {
-    setState((v) => ({ ...v, isSearchOpen: newState ?? !v.isSearchOpen }));
+    setState((v) => ({
+      ...v,
+      isSearchOpen: newState ?? !v.isSearchOpen,
+      isFiltersOpen: !newState ?? !v.isSearchOpen ? false : v.isFiltersOpen,
+    }));
   };
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
