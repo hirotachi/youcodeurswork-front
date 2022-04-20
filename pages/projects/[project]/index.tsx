@@ -138,7 +138,7 @@ const ProjectPage = () => {
                 <motion.span
                   transition={{ duration: 0.2 }}
                   {...variants}
-                  className={styles.btn}
+                  className={clsx(styles.btn, liked && styles.likesActive)}
                   onClick={handleLike}
                 >
                   <FontAwesomeIcon icon={faHeart} />

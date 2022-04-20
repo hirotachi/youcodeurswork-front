@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import Nav from "@components/Nav";
 import Filters from "@components/Filters";
 import { AnimatePresence } from "framer-motion";
+import styles from "@modules/Header.module.scss";
 
 type HeaderContextProps = {
   isSearchOpen: boolean;
@@ -23,7 +24,7 @@ const Header = () => {
   };
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
-      <div>
+      <div className={styles.header}>
         <Nav />
 
         <AnimatePresence>{state.isFiltersOpen && <Filters />}</AnimatePresence>
