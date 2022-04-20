@@ -1,0 +1,105 @@
+@use "~abstracts" as *;
+
+.job {
+  margin: 4rem 2rem;
+  background-color: $white;
+  padding: 2rem;
+  @include tablet {
+    margin: 4rem 5%;
+    padding: 3rem;
+  }
+  @include desktop {
+    margin: 4rem 15%;
+    padding: 3rem;
+  }
+  .intro {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+    .position {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+
+    .type {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      span {
+        border-radius: 0.2rem;
+        padding: 0.5rem;
+        background-color: $secondary-color;
+        color: $white;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+      }
+
+      .remote {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+  .header {
+    display: flex;
+    padding: 1rem 0;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    .company {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      .avatar {
+        border-radius: 50%;
+        @include size(3rem);
+        display: inline-block;
+      }
+      .name {
+        color: $primary-color;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 1.4rem;
+      }
+    }
+    .more {
+      border: 1px solid $border-main;
+      border-left: none;
+      border-right: none;
+      padding: 1rem 0;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .location {
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .apply {
+        background-color: $primary-color;
+        padding: 1rem 0;
+        width: 30%;
+        text-align: center;
+        display: inline-block;
+        color: $white;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        &:hover {
+          background-color: lighten($primary-color, 10%);
+        }
+
+        @include tablet {
+          width: 30%;
+        }
+      }
+    }
+  }
+}

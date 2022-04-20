@@ -6,7 +6,6 @@ const index = () => {
   const loadMore = () => {
     console.log("load more");
   };
-
   return (
     <div className={styles.jobs}>
       <div className={styles.list}>

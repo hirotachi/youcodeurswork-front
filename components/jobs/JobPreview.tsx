@@ -2,7 +2,7 @@ import React from "react";
 import styles from "@modules/jobs/JobPreview.module.scss";
 import Link from "next/link";
 
-const job = {
+export const job = {
   position: "Full Stack developer", // required max length 120
   contract: "CDI", // select with options (CDD, CDI) required
   tags: "test,nice,dude", // tags are separated by comma
@@ -10,28 +10,33 @@ const job = {
   description: "lorem", // editor required
   responsibilities: "",
   createdAt: new Date().toString(),
+  location: "casablanca",
   author: {
     id: 1,
     name: "John Doe",
-    avatar: "https://via.placeholder.com/150",
+    avatar:
+      "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/431154/5edf84f64a83f229316740.jpg",
   },
 };
 
 const JobPreview = () => {
   return (
-    <div className={styles.preview}>
-      <div className={styles.header}>
-        <p className={styles.location}>Casablanca</p>
-        {job.isRemote && <span className={styles.remote}>remote</span>}
-      </div>
-      <p className={styles.position}>{job.position}</p>
+    <Link href={"/jobs/1"}>
+      <a className={styles.preview}>
+        <span className={styles.image}>
+          <img src={job.author.avatar} alt={job.author.name} />
+        </span>
+        <div className={styles.header}>
+          <p className={styles.location}>{job.location}</p>
+          {job.isRemote && <span className={styles.remote}>remote</span>}
+        </div>
+        <p className={styles.position}>{job.position}</p>
 
-      <Link href={"/recruiters/1"}>
-        <a className={styles.company}>{job.author.name}</a>
-      </Link>
-      <p className={styles.description}>{job.description}</p>
-      <div className={styles.other}>9 hours ago</div>
-    </div>
+        <p className={styles.company}>{job.author.name}</p>
+        <p className={styles.description}>{job.description}</p>
+        <div className={styles.other}>9 hours ago</div>
+      </a>
+    </Link>
   );
 };
 
