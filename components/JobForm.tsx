@@ -9,7 +9,6 @@ const initialValues = {
   tags: "", // tags are separated by comma
   isRemote: false, // checkbox required
   description: "", // editor required
-  responsibilities: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -46,6 +45,7 @@ const config: InputConfig<JobFormValues> = {
     options: [
       { value: "CDD", label: "CDD" },
       { value: "CDI", label: "CDI" },
+      { value: "Stage", label: "Stage" },
     ],
   },
   tags: {
@@ -57,10 +57,6 @@ const config: InputConfig<JobFormValues> = {
     type: "checkbox",
   },
   description: {
-    type: "editor",
-  },
-  responsibilities: {
-    label: "Responsibilities",
     type: "editor",
   },
 };
