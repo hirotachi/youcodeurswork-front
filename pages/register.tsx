@@ -1,8 +1,28 @@
 import React from "react";
-import styles from "@modules/auth/Register.module.scss";
+import AuthForm from "@components/auth/AuthForm";
+
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 const Register = () => {
-  return <div className={styles.register}>register page</div>;
+  const onSubmit = (values: any) => {
+    console.log(values);
+  };
+  return (
+    <AuthForm
+      title={"Create Your Account"}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      submitText={"Sign up"}
+      otherIntroText={"Already have an account? "}
+      otherLinkText={"Login"}
+      otherLink={"/login"}
+      showOtherLink
+    />
+  );
 };
 
 export default Register;
