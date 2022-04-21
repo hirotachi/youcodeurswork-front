@@ -1,6 +1,7 @@
 @use "~abstracts" as *;
 
 .footer {
+  margin-top: auto;
   padding: 3rem 2rem;
   background-color: $white;
   display: flex;
@@ -13,6 +14,7 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
   .logo {
     display: flex;
     justify-content: center;
@@ -35,15 +37,18 @@
       font-weight: 500;
     }
   }
+
   .socials {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     font-size: 1.4rem;
     text-transform: capitalize;
+
     .follow {
       font-weight: bold;
     }
+
     a {
       transition: all 0.2s ease;
       @include desktop {

@@ -1,24 +1,29 @@
 @use "../abstracts" as *;
 
-*, *:after, *:before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    font-size: 1.6rem;
-    font-family: $primary-font;
-    background-color: $primary-bg-color;
-    min-height: 100vh;
+  font-size: 1.6rem;
+  font-family: $primary-font;
+  background-color: $primary-bg-color;
+  min-height: 100vh;
+}
+#__next {
+  min-height: 100vh;
 }
 
 a {
-    display: inline-block;
-    color: inherit;
-    text-decoration: none;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
 }
