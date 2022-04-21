@@ -1,0 +1,98 @@
+@use "~abstracts" as *;
+
+.auth {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  @include tablet {
+    padding: 0 25%;
+    margin: 8rem 0;
+  }
+  @include desktop {
+    padding: 0 30%;
+    margin: 6rem 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2rem;
+
+    .field {
+      &__container {
+        position: relative;
+        border: 1px solid darken($border-main, 10%);
+        border-radius: 0.5rem;
+        background-color: $primary-bg-color;
+        transition: all 0.2s ease;
+
+        label {
+          background-color: inherit;
+          position: absolute;
+          //   center the label
+          top: 50%;
+          left: 1rem;
+          transform: translateY(-50%);
+          text-transform: capitalize;
+          opacity: 0.5;
+          transition: all 0.2s ease;
+          cursor: text;
+          user-select: none;
+        }
+
+        input {
+          background-color: transparent;
+          border-radius: inherit;
+          width: 100%;
+          display: inline-block;
+          padding: 1.2rem 1rem;
+          border: none;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        &Focused {
+          border-color: $primary-color;
+
+          label {
+            opacity: 1;
+            color: $primary-color;
+            top: -0.1rem;
+            left: 1rem;
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+
+    .submit {
+      padding: 1.2rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      background-color: $primary-color;
+      color: $white;
+      text-transform: capitalize;
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    .other {
+      font-size: 1.4rem;
+
+      a {
+        color: $primary-color;
+        font-weight: bold;
+      }
+    }
+  }
+}
