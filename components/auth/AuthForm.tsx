@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { RefObject, useEffect, useMemo, useState } from "react";
-import styles from "@modules/auth/Recruiter.module.scss";
+import styles from "@modules/auth/AuthForm.module.scss";
 import Link from "next/link";
 import clsx from "clsx";
 

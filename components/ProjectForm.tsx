@@ -9,7 +9,6 @@ const initialValues = {
   technologies: "", // technologies seperated by comma not required
   tags: "", // tags seperated by comma not required
   repoLink: "", // require a valid url
-  location: "",
 };
 //schema validation for initial values using Yup
 const maxNameLength = 120;

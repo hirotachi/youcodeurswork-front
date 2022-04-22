@@ -26,6 +26,7 @@ const Header = () => {
       isFiltersOpen: !newState ?? !v.isSearchOpen ? false : v.isFiltersOpen,
     }));
   };
+
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
       <div className={styles.header}>

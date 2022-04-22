@@ -1,0 +1,79 @@
+@use "~abstracts" as *;
+
+.login {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  .logo {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10rem;
+    @include desktop {
+      width: 12rem;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    @include desktop {
+      flex-direction: row;
+    }
+    .section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+      height: 50vh;
+      @include desktop {
+        height: 100vh;
+        width: 50vw;
+      }
+
+      &:last-of-type {
+        background-color: $border-main;
+      }
+      a {
+        text-transform: capitalize;
+        display: flex;
+        user-select: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 0.5rem;
+        .intro {
+          font-size: 1.4rem;
+        }
+
+        .name {
+          font-size: 4rem;
+          transition: all 0.5s ease;
+          @include desktop {
+            font-size: 5rem;
+          }
+        }
+      }
+    }
+    @include desktop {
+      $lowwidth: 35vw;
+      .active {
+        width: 100vw - $lowwidth;
+        a {
+          .name {
+            font-size: 6rem;
+          }
+        }
+      }
+      .disabled {
+        width: $lowwidth;
+      }
+    }
+  }
+}
