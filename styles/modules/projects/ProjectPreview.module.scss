@@ -11,11 +11,13 @@
     position: relative;
     @include desktop {
       height: 23rem;
+      overflow: hidden;
     }
 
     img {
       @include size(100%);
       object-fit: cover;
+      transition: all 0.3s ease;
     }
 
     .link {
@@ -38,6 +40,9 @@
       }
     }
     &:hover {
+      img {
+        transform: scale(1.1);
+      }
       .link {
         opacity: 1;
       }
