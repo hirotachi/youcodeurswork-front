@@ -9,9 +9,13 @@
   .preview {
     height: 25rem;
     position: relative;
+    overflow: hidden;
+
     @include desktop {
-      height: 23rem;
-      overflow: hidden;
+      height: 22rem;
+    }
+    @include extra-lg-desktop {
+      height: 26rem;
     }
 
     img {
@@ -83,7 +87,11 @@
       font-size: 1.4rem;
       border-top: 1px solid $border-main;
       padding-top: 1rem;
-
+      .author {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
       .avatar {
         display: inherit;
         @include size(3rem);

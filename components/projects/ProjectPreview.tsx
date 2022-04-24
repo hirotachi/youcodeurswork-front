@@ -53,12 +53,16 @@ const ProjectPreview = (props: ProjectPreviewProps) => {
           })}
         </div>
         <div className={styles.info}>
-          <span className={styles.avatar}>
-            <img src={author.avatar} alt={author.name} />
-          </span>
-          <p className={styles.infoName}>
-            <span>by</span> {author.name}
-          </p>
+          <Link href={"/students/1"}>
+            <a className={styles.author}>
+              <span className={styles.avatar}>
+                <img src={author.avatar} alt={author.name} />
+              </span>
+              <p className={styles.infoName}>
+                <span>by</span> {author.name}
+              </p>
+            </a>
+          </Link>
           <span className={styles.like}>
             <FontAwesomeIcon icon={faHeart} /> {likes}
           </span>
