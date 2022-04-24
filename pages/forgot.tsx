@@ -7,10 +7,8 @@ const Forgot = () => {
   };
   return (
     <AuthForm
-      title={"Forgot you password"}
-      intro={
-        "Enter your email address and we will send you a link to reset your password."
-      }
+      title="Forgot you password"
+      intro="Enter your email address and we will send you a link to reset your password."
       initialValues={{ email: "" }}
       onSubmit={onSubmit}
       submitText={"Forgot Password"}
