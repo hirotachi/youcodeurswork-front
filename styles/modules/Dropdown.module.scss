@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     list-style: none;
+    border-radius: 0.5rem;
 
     .item {
       padding: 1rem;
@@ -24,15 +25,15 @@
       transition: all 0.2s ease;
       font-weight: bold;
       &:hover {
-        background-color: $border-main;
+        background-color: rgba($secondary-bg-color, 0.5);
       }
       &:first-of-type {
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
       }
       &:last-of-type {
-        border-bottom-left-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
       }
     }
 

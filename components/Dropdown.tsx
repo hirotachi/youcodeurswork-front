@@ -34,7 +34,7 @@ const Dropdown = <T,>(props: PropsWithChildren<DropdownProps<T>>) => {
   const variants: Variants = {
     initial: {
       opacity: 0,
-      y: -10,
+      y: position.includes("bottom") ? -10 : 10,
     },
     animate: {
       opacity: 1,
@@ -44,11 +44,14 @@ const Dropdown = <T,>(props: PropsWithChildren<DropdownProps<T>>) => {
       opacity: 0,
     },
   };
+  const handleClick = (e) => {
+    setIsOpen((v) => !v);
+  };
   return (
     <div
       ref={ref}
       className={clsx(styles.dropdown, dropdownClassName)}
-      onClick={() => setIsOpen((v) => !v)}
+      onClick={handleClick}
     >
       <div className={styles.container}>
         {children ?? <button className={styles.btn}>dropdown</button>}

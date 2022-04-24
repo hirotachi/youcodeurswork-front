@@ -6,9 +6,8 @@ const update = () => {
   const values: JobFormValues = {
     contract: "CDI",
     description: "something nice",
-    isRemote: true,
+    isRemote: false,
     position: "Full Stack developer",
-    responsibilities: "none",
     tags: "react,nodejs",
   };
   return <JobForm onSubmit={() => {}} onCancel={() => {}} values={values} />;
