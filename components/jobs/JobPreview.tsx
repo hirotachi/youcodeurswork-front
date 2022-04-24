@@ -7,7 +7,7 @@ export const job = {
   contract: "CDI", // select with options (CDD, CDI) required
   tags: "test,nice,dude", // tags are separated by comma
   isRemote: true, // checkbox required
-  description: "lorem", // editor required
+  description: "<b>lorem ipsom</b>", // editor required
   responsibilities: "",
   createdAt: new Date().toString(),
   location: "casablanca",

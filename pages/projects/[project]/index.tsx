@@ -186,7 +186,10 @@ const ProjectPage = () => {
         <img src={preview} alt={name} />
       </div>
       <div className={styles.info}>
-        <p className={styles.description}>{description}</p>
+        <div
+          className={styles.description}
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
         <div className={styles.tech}>
           {technologies.map((tech) => {
             return (

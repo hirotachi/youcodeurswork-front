@@ -12,7 +12,7 @@ export const projectData = {
   link: "https://howdy.gr/",
   createdAt: new Date(),
   likes: 50,
-  description: "something about this project",
+  description: "<b>something about this project</b>",
   tags: ["react", "php", "Javascript", "html"],
   author: {
     id: 1,

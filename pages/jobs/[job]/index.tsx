@@ -34,7 +34,10 @@ const index = () => {
           <span className={styles.apply}>apply now</span>
         </div>
       </div>
-      <p className={styles.description}>{job.description}</p>
+      <div
+        className={styles.description}
+        dangerouslySetInnerHTML={{ __html: job.description }}
+      />
     </div>
   );
 };
