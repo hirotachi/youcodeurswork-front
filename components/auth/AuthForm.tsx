@@ -99,7 +99,9 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                   </div>
                 );
               })}
-              <button className={styles.submit}>{submitText}</button>
+              <button type={"submit"} className={styles.submit}>
+                {submitText}
+              </button>
               {footer && (
                 <p className={styles.footer}>{footer(styles, initialValues)}</p>
               )}

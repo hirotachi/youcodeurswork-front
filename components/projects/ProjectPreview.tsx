@@ -4,8 +4,12 @@ import faShare from "@icons/solid/faShare";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faHeart from "@icons/solid/faHeart";
 import Link from "next/link";
+import Dropdown from "@components/Dropdown";
+import faEllipsisH from "@icons/solid/faEllipsisH";
+import { useRouter } from "next/router";
 
 export const projectData = {
+  id: 1,
   preview:
     "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
   name: "hello world",
@@ -23,14 +27,49 @@ export const projectData = {
   technologies: ["react", "php", "typescript"],
 };
 
-type ProjectPreviewProps = typeof projectData;
+type ProjectPreviewProps = typeof projectData & {
+  showControls?: boolean;
+};
 
 const ProjectPreview = (props: ProjectPreviewProps) => {
-  const { preview, name, link, likes, description, tags, author } = props;
+  const {
+    preview,
+    name,
+    link,
+    likes,
+    description,
+    tags,
+    author,
+    id,
+    showControls,
+  } = props;
 
+  const router = useRouter();
+  const options = ["Edit", "Delete"] as const;
+  const handleOptionClick = (option: typeof options[number]) => {
+    switch (option) {
+      case "Edit":
+        return router.push(`/projects/${id}/update`);
+      case "Delete":
+        console.log(`delete project ${id}`);
+        break;
+    }
+  };
   return (
     <div className={styles.project}>
       <div className={styles.preview}>
+        {showControls && (
+          <Dropdown
+            dropdownClassName={styles.dropdown}
+            options={options}
+            onClick={handleOptionClick}
+            position={"bottom-right"}
+          >
+            <span className={styles.control}>
+              <FontAwesomeIcon icon={faEllipsisH} />
+            </span>
+          </Dropdown>
+        )}
         <Link href={"/projects/1"}>
           <a className={styles.img}>
             <img src={preview} alt={name} />

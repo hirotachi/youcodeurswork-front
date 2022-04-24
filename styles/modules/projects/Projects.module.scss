@@ -14,6 +14,10 @@
     padding: 0 8%;
     grid-template-columns: repeat(3, 1fr);
   }
+  @include extra-lg-desktop {
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
   .load {
     grid-column: 1 /-1;
     background-color: $secondary-bg-color;

@@ -5,7 +5,7 @@ import { jobData } from "@components/jobs/JobPreview";
 const Recruiter = () => {
   return (
     <Profile
-      data={profileData}
+      data={{ ...profileData, headline: "Google Recruiter" }}
       type={"jobs"}
       externals={[
         {

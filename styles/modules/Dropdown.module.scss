@@ -1,0 +1,61 @@
+@use "~abstracts" as *;
+
+.dropdown {
+  .container {
+    position: relative;
+  }
+  .btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+  }
+
+  .list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+
+    .item {
+      padding: 1rem;
+      background-color: $white;
+      cursor: pointer;
+      font-size: 1.4rem;
+      transition: all 0.2s ease;
+      font-weight: bold;
+      &:hover {
+        background-color: $border-main;
+      }
+      &:first-of-type {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+      &:last-of-type {
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+    }
+
+    $pos: 120%;
+
+    &--bottom-left {
+      top: $pos;
+      left: 0;
+    }
+
+    &--bottom-right {
+      top: $pos;
+      right: 0;
+    }
+
+    &--top-left {
+      bottom: $pos;
+      left: 0;
+    }
+
+    &--top-right {
+      bottom: $pos;
+      right: 0;
+    }
+  }
+}

@@ -34,7 +34,7 @@ export const profileData = {
   name: "Said Oudouane",
   headline: "Full Stack Developer",
   about:
-    "a full stack developer with a passion for web development. I am a self-taught developer with a background in business administration. I have a strong passion for learning new technologies and I am always looking for new opportunities to learn and grow.",
+    "A full stack developer with a passion for web development. I am a self-taught developer with a background in business administration. I have a strong passion for learning new technologies and I am always looking for new opportunities to learn and grow.",
   email: "example@gmail.com",
   avatar:
     "https://avatars2.githubusercontent.com/u/56905853?s=460&u=f9f8b8d8f9f8b8d8f9f8b8d8f9f8b8d8f9f8b8d8&v=4",
@@ -120,7 +120,7 @@ const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
             list.map((item, i) => {
               const Comp = type === "jobs" ? JobPreview : ProjectPreview;
               // @ts-ignore
-              return <Comp key={i} {...item} canEdit={canEdit} />;
+              return <Comp key={i} {...item} showControls={canEdit} />;
             })
           )}
         </div>
