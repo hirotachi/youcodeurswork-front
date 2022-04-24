@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 
-const sections = ["member", "recruiter"] as const;
+const sections = ["YouCode member", "recruiter"] as const;
 const Index = () => {
   const [current, setCurrent] = useState<typeof sections[number] | "">(
     sections[0]
@@ -20,7 +20,7 @@ const Index = () => {
         </a>
       </Link>
       <div className={styles.sections}>
-        {sections.map((section) => {
+        {sections.map((section, i) => {
           return (
             <motion.div
               onHoverStart={() => changeHover(section)}
@@ -31,7 +31,7 @@ const Index = () => {
               })}
               key={section}
             >
-              <Link href={`/login/${section}`}>
+              <Link href={`/login/${!i ? "member" : section}`}>
                 <a>
                   <span className={styles.intro}>login</span>
                   <span className={styles.name}>{section}</span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "@modules/jobs/JobPreview.module.scss";
 import Link from "next/link";
 
@@ -28,11 +28,16 @@ const JobPreview = (props: JobPreviewProps) => {
     tags,
     isRemote,
     description,
-    responsibilities,
     createdAt,
     location,
     author,
   } = props;
+
+  //strip html tags from description
+  const descriptionText = useMemo(() => {
+    return description.replace(/<\/?[^>]+(>|$)/g, "");
+  }, [description]);
+
   return (
     <Link href={"/jobs/1"}>
       <a className={styles.preview}>
@@ -46,7 +51,7 @@ const JobPreview = (props: JobPreviewProps) => {
         <p className={styles.position}>{position}</p>
 
         <p className={styles.company}>{author.name}</p>
-        <p className={styles.description}>{description}</p>
+        <div className={styles.description}>{descriptionText}</div>
         <div className={styles.other}>9 hours ago</div>
       </a>
     </Link>
