@@ -1,0 +1,166 @@
+@use "~abstracts" as *;
+
+.profile {
+  margin-bottom: 2rem;
+  @include tablet {
+    margin-bottom: 4rem;
+  }
+  @include desktop {
+    margin-bottom: 6rem;
+  }
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem 2rem;
+    border-bottom: 1px solid $border-main;
+    @include desktop {
+      display: grid;
+      grid-template-columns: 20% 1fr 20%;
+      justify-content: space-between;
+      padding: 4rem 6%;
+    }
+    .socials {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-content: flex-start;
+      flex-wrap: wrap;
+      @include desktop {
+        justify-content: flex-start;
+      }
+
+      a {
+        border: 1px solid $secondary-color;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include size(4rem);
+        transition: all 0.2s ease;
+        @include desktop {
+          @include size(3.5rem);
+        }
+        @include extra-lg-desktop {
+          @include size(4rem);
+        }
+
+        &:hover {
+          border-color: $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+    .main {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      @include desktop {
+        padding: 0 10%;
+      }
+      .avatar {
+        border-radius: 50%;
+        @include size(8rem);
+        margin-bottom: 0.5rem;
+        @include desktop {
+          @include size(7rem);
+        }
+        img {
+          object-fit: cover;
+          @include size(100%);
+          border-radius: inherit;
+        }
+      }
+      .name {
+        font-size: 2.2rem;
+        font-weight: bold;
+      }
+      .headline {
+        font-size: 1.4rem;
+        opacity: 0.4;
+        transition: all 0.2s ease;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .about {
+        font-size: 1.5rem;
+        line-height: 2.2rem;
+      }
+    }
+    .externals {
+      display: flex;
+      font-size: 1.3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1rem;
+      @include desktop {
+        justify-content: flex-end;
+      }
+      a {
+        padding: 1rem 1.2rem;
+        border-radius: 5rem;
+        border: 1px solid $secondary-color;
+        &:hover {
+          border-color: $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+  .content {
+    margin: 2rem 0;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    @include tablet {
+      padding: 0 5%;
+      margin: 4rem 0;
+    }
+    .sections {
+      display: flex;
+      text-transform: capitalize;
+      font-weight: bold;
+      .section {
+        cursor: pointer;
+      }
+    }
+    .placeholder {
+      text-align: center;
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+    .list {
+      display: grid;
+      gap: 3rem;
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include desktop {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include extra-lg-desktop {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .load {
+      padding: 1rem;
+      background-color: $white;
+      text-align: center;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      user-select: none;
+      color: rgba($secondary-color, 0.5);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}
