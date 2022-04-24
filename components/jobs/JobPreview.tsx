@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import styles from "@modules/jobs/JobPreview.module.scss";
 import Link from "next/link";
 
-export const job = {
+export const jobData = {
   position: "Full Stack developer", // required max length 120
   contract: "CDI", // select with options (CDD, CDI) required
   tags: "test,nice,dude", // tags are separated by comma
@@ -19,7 +19,7 @@ export const job = {
   },
 };
 
-type JobPreviewProps = typeof job;
+type JobPreviewProps = typeof jobData;
 
 const JobPreview = (props: JobPreviewProps) => {
   const {

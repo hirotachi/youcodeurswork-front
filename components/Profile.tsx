@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faLink from "@icons/solid/faLink";
-import JobPreview, { job } from "@components/jobs/JobPreview";
+import JobPreview, { jobData } from "@components/jobs/JobPreview";
 import ProjectPreview from "@components/projects/ProjectPreview";
 
 const socials = {
@@ -58,7 +58,7 @@ type ProfileProps<T> = {
   ];
   data: typeof profileData;
   type: T;
-  list: (T extends "jobs" ? typeof job : typeof profileData)[];
+  list: (T extends "jobs" ? typeof jobData : typeof profileData)[];
 };
 
 const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
