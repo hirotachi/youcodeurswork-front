@@ -19,21 +19,34 @@ export const job = {
   },
 };
 
-const JobPreview = () => {
+type JobPreviewProps = typeof job;
+
+const JobPreview = (props: JobPreviewProps) => {
+  const {
+    position,
+    contract,
+    tags,
+    isRemote,
+    description,
+    responsibilities,
+    createdAt,
+    location,
+    author,
+  } = props;
   return (
     <Link href={"/jobs/1"}>
       <a className={styles.preview}>
         <span className={styles.image}>
-          <img src={job.author.avatar} alt={job.author.name} />
+          <img src={author.avatar} alt={author.name} />
         </span>
         <div className={styles.header}>
-          <p className={styles.location}>{job.location}</p>
-          {job.isRemote && <span className={styles.remote}>remote</span>}
+          <p className={styles.location}>{location}</p>
+          {isRemote && <span className={styles.remote}>remote</span>}
         </div>
-        <p className={styles.position}>{job.position}</p>
+        <p className={styles.position}>{position}</p>
 
-        <p className={styles.company}>{job.author.name}</p>
-        <p className={styles.description}>{job.description}</p>
+        <p className={styles.company}>{author.name}</p>
+        <p className={styles.description}>{description}</p>
         <div className={styles.other}>9 hours ago</div>
       </a>
     </Link>

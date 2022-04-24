@@ -1,5 +1,7 @@
 import React from "react";
-import ProjectPreview from "@components/projects/ProjectPreview";
+import ProjectPreview, {
+  projectData,
+} from "@components/projects/ProjectPreview";
 import styles from "@modules/projects/Projects.module.scss";
 
 const Projects = () => {
@@ -8,10 +10,9 @@ const Projects = () => {
   };
   return (
     <div className={styles.projects}>
-      <ProjectPreview />
-      <ProjectPreview />
-      <ProjectPreview />
-      <ProjectPreview />
+      {Array.from({ length: 10 }).map((_, i) => (
+        <ProjectPreview key={i} {...projectData} />
+      ))}
       <button className={styles.load} onClick={loadMore}>
         load more
       </button>

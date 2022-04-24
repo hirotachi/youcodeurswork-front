@@ -22,8 +22,11 @@ export const projectData = {
   },
   technologies: ["react", "php", "typescript"],
 };
-const ProjectPreview = () => {
-  const { preview, name, link, likes, description, tags, author } = projectData;
+
+type ProjectPreviewProps = typeof projectData;
+
+const ProjectPreview = (props: ProjectPreviewProps) => {
+  const { preview, name, link, likes, description, tags, author } = props;
 
   return (
     <div className={styles.project}>

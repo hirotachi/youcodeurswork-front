@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@modules/jobs/Jobs.module.scss";
-import JobPreview from "@components/jobs/JobPreview";
+import JobPreview, { job } from "@components/jobs/JobPreview";
 
 const index = () => {
   const loadMore = () => {
@@ -9,11 +9,9 @@ const index = () => {
   return (
     <div className={styles.jobs}>
       <div className={styles.list}>
-        {Array(4)
-          .fill(0)
-          .map((_, index) => (
-            <JobPreview key={index} />
-          ))}
+        {Array.from({ length: 10 }).map((_, i) => (
+          <JobPreview key={i} {...job} />
+        ))}
       </div>
       <span className={styles.load} onClick={loadMore}>
         show all jobs
