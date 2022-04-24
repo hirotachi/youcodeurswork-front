@@ -2,12 +2,6 @@
 
 .profile {
   margin-bottom: 2rem;
-  @include tablet {
-    margin-bottom: 4rem;
-  }
-  @include desktop {
-    margin-bottom: 6rem;
-  }
   .header {
     display: flex;
     flex-direction: column;
@@ -151,7 +145,7 @@
       }
     }
     .load {
-      padding: 1rem;
+      padding: 1.2rem 1rem;
       background-color: $white;
       text-align: center;
       font-size: 1.4rem;
@@ -162,6 +156,16 @@
       cursor: pointer;
       &:hover {
         color: $secondary-color;
+      }
+      @include tablet {
+        width: 60%;
+        margin: 0 auto;
+      }
+      @include desktop {
+        width: 40%;
+      }
+      @include extra-lg-desktop {
+        width: 20%;
       }
     }
   }

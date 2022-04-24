@@ -14,9 +14,6 @@
     @include desktop {
       height: 22rem;
     }
-    @include extra-lg-desktop {
-      height: 24rem;
-    }
     .img {
       @include size(100%);
       img {
