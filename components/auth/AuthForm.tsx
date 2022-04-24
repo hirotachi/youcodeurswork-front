@@ -13,21 +13,23 @@ type Styles = typeof styles;
 export type AuthInput<T> = {
   [P in keyof T]?: { label?: string; other?: (styles: Styles) => ReactNode };
 };
-type LoginFormProps<T> = {
+type AuthFormProps<T> = {
   title: string;
   initialValues: T;
   onSubmit: (values: T) => void;
   submitText: string;
   footer?: (styles: Styles, values: T) => ReactNode;
   inputs?: AuthInput<T>;
+  intro?: string;
 };
-const AuthForm = <T,>(props: LoginFormProps<T>) => {
+const AuthForm = <T,>(props: AuthFormProps<T>) => {
   const {
     title,
     initialValues,
     onSubmit,
     submitText = "submit",
     footer,
+    intro,
     inputs,
   } = props;
 
@@ -55,7 +57,8 @@ const AuthForm = <T,>(props: LoginFormProps<T>) => {
 
   return (
     <div className={styles.auth}>
-      <h1 className={styles.intro}>{title}</h1>
+      <h1 className={styles.title}>{title}</h1>
+      {intro && <p className={styles.intro}>{intro}</p>}
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ handleSubmit, errors, values }) => {
           return (

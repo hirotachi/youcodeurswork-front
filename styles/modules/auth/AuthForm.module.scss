@@ -15,12 +15,15 @@
     padding: 0 35%;
     margin: 6rem 0;
   }
-
+  .intro {
+    font-size: 1.3rem;
+    opacity: 0.8;
+  }
   .form {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     .field {
       &__container {
