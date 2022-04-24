@@ -50,7 +50,7 @@ const Update = () => {
     console.log(values);
   };
   const onCancel = () => {
-    router.back();
+    router.push("/profile");
   };
   return (
     <DynamicForm
