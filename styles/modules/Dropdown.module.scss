@@ -25,7 +25,7 @@
       transition: all 0.2s ease;
       font-weight: bold;
       &:hover {
-        background-color: rgba($secondary-bg-color, 0.5);
+        background-color: $teritary-bg-color;
       }
       &:first-of-type {
         border-top-left-radius: inherit;

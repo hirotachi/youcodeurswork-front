@@ -52,6 +52,7 @@ type ProfileProps<T> = {
   canEdit?: boolean;
   externals?: {
     label: string;
+    target?: string;
     url: string;
   }[];
   data: typeof profileData;
@@ -96,8 +97,8 @@ const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
               return (
                 <a
                   href={external.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={external.target}
+                  rel={external.target ? "noopener noreferrer" : ""}
                   key={external.label}
                 >
                   <span>{external.label}</span>

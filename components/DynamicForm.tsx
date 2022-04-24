@@ -23,7 +23,7 @@ const Trumbowyg = dynamic(
   { ssr: false }
 );
 
-type inputTypes =
+type InputTypes =
   | "text"
   | "textarea"
   | "editor"
@@ -32,13 +32,34 @@ type inputTypes =
   | "select"
   | "checkbox";
 
+const buttons = [
+  "strong",
+  "em",
+  "link",
+  "insertImage",
+  "justifyLeft",
+  "justifyCenter",
+  "justifyRight",
+  "justifyFull",
+  "unorderedList",
+  "orderedList",
+  "horizontalRule",
+  "removeformat",
+  "fullscreen",
+  "viewHTML",
+] as const;
+
+type ButtonType = typeof buttons[number];
 export type InputConfig<T> = {
   [P in keyof T]: {
-    type?: inputTypes;
+    type?: InputTypes;
     other?: (value: T[P], styling: typeof styles) => JSX.Element;
     placeholder?: string;
     label?: string;
     options?: (number | string | { value: string | number; label?: string })[];
+    editor?: {
+      buttons?: ButtonType[];
+    };
   };
 };
 type DynamicFormProps<T> = {
@@ -67,17 +88,17 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
   } = props;
 
   const handleFormSubmit: FormikConfig<T>["onSubmit"] = async (
-    values: T,
+    formikValues: T,
     { validateForm, setSubmitting, resetForm }
   ) => {
     if (validationSchema) {
-      const errors = await validateForm(values);
+      const errors = await validateForm(formikValues);
       if (Object.keys(errors).length > 0) {
         setSubmitting(false);
         return;
       }
     }
-    const shouldResetForm = await onSubmit(values);
+    const shouldResetForm = await onSubmit(formikValues);
     if (shouldResetForm) {
       resetForm();
     }
@@ -96,7 +117,7 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
         validateOnMount={false}
         onSubmit={handleFormSubmit}
       >
-        {({ values, handleSubmit, errors, setValues }) => {
+        {({ values: formikValues, handleSubmit, errors, setValues }) => {
           return (
             <Form className={styles.form} onSubmit={handleSubmit}>
               {Object.keys(initialValues).map((key) => {
@@ -104,9 +125,10 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                 const {
                   type = "text",
                   other,
-                  placeholder,
+                  placeholder = key,
                   label = key,
                   options,
+                  editor = {},
                 } = config[key] ?? {};
 
                 switch (type) {
@@ -117,9 +139,9 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                         name={key}
                         render={(arrayHelpers) => (
                           <div className={clsx(styles.field)}>
-                            <label htmlFor={key}>{key}</label>
+                            <label htmlFor={key}>{label}</label>
                             <div className={styles.field__input__group}>
-                              {values[key].map((item, index) => {
+                              {formikValues[key].map((item, index) => {
                                 const name = `${key}[${index}]`;
                                 return (
                                   <div
@@ -208,6 +230,7 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                             case "editor":
                               return (
                                 <Trumbowyg
+                                  {...editor}
                                   // @ts-ignore
                                   id={key}
                                   data={outerValues?.[key]}
@@ -217,7 +240,7 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                                       [key]: e.target.innerHTML,
                                     }))
                                   }
-                                  data-placeholder="Enter your text here..."
+                                  placeholder={placeholder}
                                 />
                               );
                             default:
@@ -238,7 +261,7 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                           }
                         })()}
 
-                        {other?.(values[key], styles)}
+                        {other?.(formikValues[key], styles)}
                         <ErrorMessage
                           name={key}
                           component={"div"}
