@@ -6,9 +6,7 @@ import clsx from "clsx";
 
 const sections = ["YouCode member", "recruiter"] as const;
 const Index = () => {
-  const [current, setCurrent] = useState<typeof sections[number] | "">(
-    sections[0]
-  );
+  const [current, setCurrent] = useState<typeof sections[number] | "">("");
   const changeHover = (section: typeof current) => {
     setCurrent(section);
   };
