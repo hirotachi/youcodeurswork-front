@@ -50,12 +50,10 @@ export const profileData = {
 type ProfileProps<T> = {
   loadMore?: () => void;
   canEdit?: boolean;
-  externals?: [
-    {
-      label: string;
-      url: string;
-    }
-  ];
+  externals?: {
+    label: string;
+    url: string;
+  }[];
   data: typeof profileData;
   type: T;
   list: (T extends "jobs" ? typeof jobData : typeof profileData)[];

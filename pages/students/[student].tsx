@@ -18,6 +18,10 @@ const StudentProfile = () => {
           label: "View Resume",
           url: "#",
         },
+        {
+          label: "Edit Profile",
+          url: "#",
+        },
       ]}
     />
   );
