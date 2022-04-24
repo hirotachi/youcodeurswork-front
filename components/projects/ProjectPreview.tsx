@@ -32,7 +32,7 @@ const ProjectPreview = (props: ProjectPreviewProps) => {
     <div className={styles.project}>
       <div className={styles.preview}>
         <Link href={"/projects/1"}>
-          <a>
+          <a className={styles.img}>
             <img src={preview} alt={name} />
           </a>
         </Link>
