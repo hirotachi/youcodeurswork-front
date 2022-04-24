@@ -11,7 +11,11 @@ import clsx from "clsx";
 
 type Styles = typeof styles;
 export type AuthInput<T> = {
-  [P in keyof T]?: { label?: string; other?: (styles: Styles) => ReactNode };
+  [P in keyof T]?: {
+    label?: string;
+    other?: (styles: Styles) => ReactNode;
+    type?: string;
+  };
 };
 type AuthFormProps<T> = {
   title: string;
@@ -64,7 +68,8 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
           return (
             <Form onSubmit={handleSubmit} className={styles.form}>
               {Object.keys(initialValues).map((key) => {
-                const { label = key, other } = inputs?.[key] ?? {};
+                let { label = key, other, type = key } = inputs?.[key] ?? {};
+                label = label === "email" ? "Email Address" : label;
                 return (
                   <div key={key} className={styles.field}>
                     <div
@@ -82,7 +87,7 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                         onFocus={() => setFocusedInput(key)}
                         onBlur={() => setFocusedInput("")}
                         name={key}
-                        type={key}
+                        type={type}
                       />
                     </div>
                     {(errors[key] || other) && (

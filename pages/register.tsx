@@ -18,6 +18,7 @@ const Register = () => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       submitText={"Sign up"}
+      inputs={{ name: { type: "text" } }}
       footer={() => {
         return (
           <>

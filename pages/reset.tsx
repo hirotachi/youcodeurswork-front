@@ -11,7 +11,7 @@ const Reset = () => {
       initialValues={{ password: "", confirm: "" }}
       onSubmit={onSubmit}
       submitText={"Change Password"}
-      inputs={{ confirm: { label: "Confirm Password" } }}
+      inputs={{ confirm: { label: "Confirm Password", type: "password" } }}
     />
   );
 };

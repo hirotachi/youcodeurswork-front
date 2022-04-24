@@ -12,7 +12,6 @@ const Forgot = () => {
       initialValues={{ email: "" }}
       onSubmit={onSubmit}
       submitText={"Forgot Password"}
-      inputs={{ email: { label: "Email address" } }}
     />
   );
 };
