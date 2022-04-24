@@ -32,13 +32,23 @@
       $pos: (100% - $size) / 2;
       position: absolute;
       top: $pos;
-      left: $pos;
-      @include size(90%);
+      @include size($size);
       display: inline-block;
       background-color: $white;
       box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
       z-index: 1;
       border-radius: 0.5rem;
+    }
+    $pos: 0.3rem;
+    &:first-of-type {
+      .active {
+        left: $pos;
+      }
+    }
+    &:last-of-type {
+      .active {
+        right: $pos;
+      }
     }
   }
 }
