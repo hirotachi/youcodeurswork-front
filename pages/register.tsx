@@ -1,5 +1,6 @@
 import React from "react";
 import AuthForm from "@components/auth/AuthForm";
+import Link from "next/link";
 
 const initialValues = {
   name: "",
@@ -17,10 +18,16 @@ const Register = () => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       submitText={"Sign up"}
-      otherIntroText={"Already have an account? "}
-      otherLinkText={"Login"}
-      otherLink={"/login"}
-      showOtherLink
+      footer={() => {
+        return (
+          <>
+            Already have ann account?{" "}
+            <Link href="/login/recruiter">
+              <a>Login</a>
+            </Link>
+          </>
+        );
+      }}
     />
   );
 };

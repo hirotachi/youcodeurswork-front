@@ -208,6 +208,7 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                             case "editor":
                               return (
                                 <Trumbowyg
+                                  // @ts-ignore
                                   id={key}
                                   data={outerValues?.[key]}
                                   onChange={(e) =>
@@ -236,31 +237,6 @@ const DynamicForm = <T,>(props: DynamicFormProps<T>) => {
                               );
                           }
                         })()}
-                        {/*{type === "editor" ? (*/}
-                        {/*  <Trumbowyg*/}
-                        {/*    id={key}*/}
-                        {/*    data={outerValues?.[key]}*/}
-                        {/*    onChange={(e) =>*/}
-                        {/*      setValues((v) => ({*/}
-                        {/*        ...v,*/}
-                        {/*        [key]: e.target.innerHTML,*/}
-                        {/*      }))*/}
-                        {/*    }*/}
-                        {/*    data-placeholder="Enter your text here..."*/}
-                        {/*  />*/}
-                        {/*) : (*/}
-                        {/*  <Field*/}
-                        {/*    name={key}*/}
-                        {/*    type={type}*/}
-                        {/*    placeholder={placeholder}*/}
-                        {/*    onFocus={() => setFocused(key)}*/}
-                        {/*    onBlur={() => setFocused(null)}*/}
-                        {/*    className={clsx(*/}
-                        {/*      styles.field__input,*/}
-                        {/*      focused === key && styles.field__input__focused*/}
-                        {/*    )}*/}
-                        {/*  />*/}
-                        {/*)}*/}
 
                         {other?.(values[key], styles)}
                         <ErrorMessage

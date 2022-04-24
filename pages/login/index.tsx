@@ -4,9 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 
-const sections = ["student", "recruiter"] as const;
+const sections = ["member", "recruiter"] as const;
 const Index = () => {
-  // current hover section
   const [current, setCurrent] = useState<typeof sections[number] | "">(
     sections[0]
   );

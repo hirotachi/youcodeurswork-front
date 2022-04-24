@@ -6,12 +6,7 @@ const initialValues = {
   password: "",
 };
 
-const labels: Record<keyof typeof initialValues, string> = {
-  email: "Intranet email",
-  password: "Password",
-};
-
-const student = () => {
+const member = () => {
   const onSubmit = (values: any) => {
     console.log(values);
   };
@@ -19,11 +14,15 @@ const student = () => {
     <AuthForm
       submitText={"login"}
       onSubmit={onSubmit}
-      labels={labels}
       initialValues={initialValues}
-      title={"Welcome Student"}
+      title={"Welcome YouCode Member"}
+      inputs={{
+        email: {
+          label: "Intranet email",
+        },
+      }}
     />
   );
 };
 
-export default student;
+export default member;

@@ -1,19 +1,25 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { RefObject, useEffect, useMemo, useState } from "react";
+import React, {
+  ReactNode,
+  RefObject,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import styles from "@modules/auth/AuthForm.module.scss";
-import Link from "next/link";
 import clsx from "clsx";
 
+type Styles = typeof styles;
+export type AuthInput<T> = {
+  [P in keyof T]?: { label?: string; other?: (styles: Styles) => ReactNode };
+};
 type LoginFormProps<T> = {
   title: string;
   initialValues: T;
   onSubmit: (values: T) => void;
   submitText: string;
-  showOtherLink?: boolean;
-  otherLink?: string;
-  otherLinkText?: string;
-  otherIntroText?: string;
-  labels?: Record<keyof T, string>;
+  footer?: (styles: Styles, values: T) => ReactNode;
+  inputs?: AuthInput<T>;
 };
 const AuthForm = <T,>(props: LoginFormProps<T>) => {
   const {
@@ -21,11 +27,8 @@ const AuthForm = <T,>(props: LoginFormProps<T>) => {
     initialValues,
     onSubmit,
     submitText = "submit",
-    otherLinkText,
-    showOtherLink,
-    otherIntroText,
-    otherLink,
-    labels,
+    footer,
+    inputs,
   } = props;
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -54,38 +57,43 @@ const AuthForm = <T,>(props: LoginFormProps<T>) => {
     <div className={styles.auth}>
       <h1 className={styles.intro}>{title}</h1>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {({ handleSubmit }) => {
+        {({ handleSubmit, errors, values }) => {
           return (
             <Form onSubmit={handleSubmit} className={styles.form}>
-              {Object.keys(initialValues).map((key: string) => (
-                <div key={key} className={styles.field}>
-                  <div
-                    className={clsx(styles.field__container, {
-                      [styles.field__containerFocused]: focusedInput === key,
-                    })}
-                  >
-                    <label onClick={() => setFocusedInput(key)} htmlFor={key}>
-                      {labels?.[key] ?? key}
-                    </label>
-                    <Field
-                      innerRef={refs[key]}
-                      onFocus={() => setFocusedInput(key)}
-                      onBlur={() => setFocusedInput("")}
-                      name={key}
-                      type={key}
-                    />
+              {Object.keys(initialValues).map((key) => {
+                const { label = key, other } = inputs?.[key] ?? {};
+                return (
+                  <div key={key} className={styles.field}>
+                    <div
+                      className={clsx(styles.field__container, {
+                        [styles.field__containerFocused]: focusedInput === key,
+                        [styles.field__containerFilled]: values[key],
+                        [styles.field__containerError]: errors[key],
+                      })}
+                    >
+                      <label onClick={() => setFocusedInput(key)} htmlFor={key}>
+                        {label}
+                      </label>
+                      <Field
+                        innerRef={refs[key]}
+                        onFocus={() => setFocusedInput(key)}
+                        onBlur={() => setFocusedInput("")}
+                        name={key}
+                        type={key}
+                      />
+                    </div>
+                    {(errors[key] || other) && (
+                      <div className={styles.other}>
+                        <ErrorMessage name={key} />
+                        {other?.(styles)}
+                      </div>
+                    )}
                   </div>
-                  <ErrorMessage name={key} />
-                </div>
-              ))}
+                );
+              })}
               <button className={styles.submit}>{submitText}</button>
-              {showOtherLink && (
-                <p className={styles.other}>
-                  {otherIntroText}{" "}
-                  <Link href={otherLink}>
-                    <a>{otherLinkText}</a>
-                  </Link>
-                </p>
+              {footer && (
+                <p className={styles.footer}>{footer(styles, initialValues)}</p>
               )}
             </Form>
           );

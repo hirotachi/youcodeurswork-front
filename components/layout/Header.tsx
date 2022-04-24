@@ -31,7 +31,6 @@ const Header = () => {
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
       <div className={styles.header}>
         <Nav />
-
         <AnimatePresence>{state.isFiltersOpen && <Filters />}</AnimatePresence>
       </div>
     </HeaderContext.Provider>
