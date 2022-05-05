@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import {
-  ErrorMessage,
-  Field,
-  FieldArray,
-  Form,
-  Formik,
-  FormikConfig,
-} from "formik";
-import styles from "@modules/projects/Form.module.scss";
-import clsx from "clsx";
-import * as Yup from "yup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import faTrash from "@icons/solid/faTrash";
-import dynamic from "next/dynamic";
+import React, { useState } from 'react';
+import { ErrorMessage, Field, FieldArray, Form, Formik, FormikConfig } from 'formik';
+import styles from '@modules/projects/Form.module.scss';
+import clsx from 'clsx';
+import * as Yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import faTrash from '@icons/solid/faTrash';
+import dynamic from 'next/dynamic';
 
 const Trumbowyg = dynamic(
   () => {
@@ -62,13 +55,15 @@ export type InputConfig<T> = {
     };
   };
 };
+
+
 type DynamicFormProps<T> = {
   title: string;
   initialValues: T;
-  values?: T;
+  values?: { [P in keyof T]?: T[P] };
   validationSchema?: ReturnType<typeof Yup.object>;
   onCancel?: () => void;
-  onSubmit: (values: T) => boolean | Promise<boolean>;
+  onSubmit: (values: T) => boolean | Promise<boolean> | void;
   submitText?: string;
   cancelText?: string;
   config: InputConfig<T>;
