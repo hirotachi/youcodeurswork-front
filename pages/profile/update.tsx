@@ -8,7 +8,7 @@ const initialValues = {
   headline: "", //string not required
   email: "",
   about: "",
-  socials: [], // array of strings (social links)
+  socials: [] as string[], // array of strings (social links)
 };
 
 // schema validation using Yup
@@ -46,8 +46,9 @@ const config: InputConfig<FormValues> = {
 const Update = () => {
   const router = useRouter();
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: FormValues): boolean => {
     console.log(values);
+    return true;
   };
   const onCancel = () => {
     router.push("/profile");

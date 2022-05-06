@@ -16,29 +16,29 @@ const authInputs: AuthInput<typeof initialValues> = {
   },
 };
 
-const recruiter = () => {
+const login = () => {
   const onSubmit = (values: any) => {
     console.log(values);
   };
   return (
     <AuthForm
-      submitText={"login"}
+      submitText={"sign in"}
       initialValues={initialValues}
       onSubmit={onSubmit}
-      title={"Welcome Recruiter"}
+      title={"Sign in to your account"}
       inputs={authInputs}
       footer={() => {
         return (
-          <>
+          <p>
             Dont have an account?{" "}
             <Link href="/register">
               <a>Sign up</a>
             </Link>
-          </>
+          </p>
         );
       }}
     />
   );
 };
 
-export default recruiter;
+export default login;

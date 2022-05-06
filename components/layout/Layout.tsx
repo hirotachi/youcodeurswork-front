@@ -24,10 +24,10 @@ const Layout: PropsWithChildren<any> = (props) => {
       <SideNavContext.Provider value={{}}>
         {/*<div className={styles.side}>/!*<SideNav />*!/</div>*/}
         {/*<div className={styles.main}>*/}
-        {!isLogin && <Header />}
+        <Header />
         {!isLogin && isHomes && <InnerNav />}
         {children}
-        {!isLogin && <Footer />}
+        <Footer />
         {/*</div>*/}
       </SideNavContext.Provider>
     </div>

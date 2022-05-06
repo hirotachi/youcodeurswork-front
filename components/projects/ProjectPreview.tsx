@@ -16,7 +16,15 @@ export const projectData = {
   link: "https://howdy.gr/",
   createdAt: new Date(),
   likes: 50,
-  description: "<b>something about this project</b>",
+  description: `<b>something about this project</b><h1>hello from header</h1>
+<ul>
+<li><a href=""><text>fsf</text></a></li>
+<li><a href=""><text>dsgfdsgfdklj</text></a></li>
+<li><a href=""><text>dsgfdsgfdklj</text></a></li>
+<li><a href=""><text>dsgfdsgfdklj</text></a></li>
+<li><a href=""><text>dsgfdsgfdklj</text></a></li>
+</ul>
+`,
   tags: ["react", "php", "Javascript", "html"],
   author: {
     id: 1,
