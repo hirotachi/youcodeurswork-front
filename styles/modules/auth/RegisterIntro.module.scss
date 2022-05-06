@@ -1,0 +1,140 @@
+@use "~abstracts" as *;
+
+$border: darken($border-main, 15%);
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 60%;
+  }
+}
+.intro {
+  display: flex;
+  margin: 4rem auto;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 2rem;
+  --illustration-color-2: #058dfe;
+  --illustration-color-5: #51a5f1;
+  @include tablet {
+    background-color: $white;
+    width: 70%;
+    padding: 3rem;
+  }
+  @include desktop {
+    width: 45%;
+    padding: 3rem 4rem;
+    margin: 6rem auto;
+  }
+  .header {
+    text-align: center;
+  }
+
+  .options {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    width: 100%;
+    @include tablet {
+      flex-direction: row;
+    }
+
+    .option {
+      padding: 2rem 1rem;
+      display: flex;
+      position: relative;
+      border: 1px solid currentColor;
+      color: $border;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      gap: 1rem;
+      text-align: center;
+      padding-bottom: 3rem;
+      transition: all 0.2s ease;
+      width: 100%;
+      @include desktop {
+        gap: 1.5rem;
+        &:hover {
+          background-color: rgba($border-main, 0.3);
+        }
+      }
+
+      .label {
+        font-weight: 500;
+        color: $secondary-color;
+      }
+
+      .icon {
+        @include size(4rem);
+      }
+
+      .radio {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        @include size(1.6rem);
+        display: flex;
+        border-radius: 50%;
+        border: 1px solid currentColor;
+
+        &__inner {
+          @include size(0%);
+          transition: all 0.2s ease;
+          display: inline-block;
+          border-radius: inherit;
+          background-color: currentColor;
+          margin: auto;
+        }
+      }
+    }
+
+    .selected {
+      color: $primary-color;
+
+      .radio {
+        &__inner {
+          @include size(60%);
+        }
+      }
+    }
+  }
+
+  .submit {
+    padding: 1rem;
+    background-color: $primary-color;
+    color: $white;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+    @include tablet {
+      animation: shrink 0.5s 0.2s ease forwards;
+    }
+  }
+  .disabled {
+    background-color: $border-main;
+    color: darken($border-main, 20%);
+    cursor: not-allowed;
+    &:hover {
+      background-color: $border-main;
+    }
+  }
+
+  .other {
+    a {
+      color: $primary-color;
+      font-weight: 600;
+    }
+  }
+}

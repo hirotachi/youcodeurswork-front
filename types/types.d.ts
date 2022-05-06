@@ -3,6 +3,7 @@ type TUser = {
   email: string;
   name: string;
   avatar: string;
+  role: "student" | "recruiter";
 };
 
 type TJob = {
