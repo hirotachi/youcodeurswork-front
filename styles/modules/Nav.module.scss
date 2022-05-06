@@ -89,7 +89,7 @@
       font-size: 1.3rem;
       transition: all 0.2s ease;
       &:hover {
-        background-color: darken($primary-color, 5%);
+        background-color: $primary-color-hover;
       }
       @include tablet {
         display: flex;

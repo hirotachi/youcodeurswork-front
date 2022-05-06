@@ -116,7 +116,7 @@ $border: darken($border-main, 15%);
     transition: all 0.2s ease;
     cursor: pointer;
     &:hover {
-      background-color: darken($primary-color, 5%);
+      background-color: $primary-color-hover;
     }
     @include tablet {
       animation: shrink 0.5s 0.2s ease forwards;

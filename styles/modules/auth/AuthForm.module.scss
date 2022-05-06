@@ -2,18 +2,22 @@
 
 .auth {
   text-align: center;
-  margin: 3rem 0;
-  padding: 0 2rem;
+  margin: 3rem auto;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 90%;
+  background-color: $white;
   @include tablet {
-    padding: 0 25%;
-    margin: 8rem 0;
+    margin: 8rem auto;
+    width: 70%;
   }
   @include desktop {
-    padding: 0 35%;
-    margin: 6rem 0;
+    margin: 6rem auto;
+    width: 40%;
+    gap: 3rem;
+    padding: 3rem;
   }
   .intro {
     font-size: 1.3rem;
@@ -29,8 +33,6 @@
       &__container {
         position: relative;
         border: 1px solid darken($border-main, 10%);
-        border-radius: 0.5rem;
-        background-color: $primary-bg-color;
         transition: all 0.2s ease;
 
         label {
@@ -52,11 +54,15 @@
           border-radius: inherit;
           width: 100%;
           display: inline-block;
-          padding: 1.2rem 1rem;
+          padding: 1.5rem 1rem;
           border: none;
 
           &:focus {
             outline: none;
+          }
+          &::placeholder {
+            text-transform: capitalize;
+            opacity: 0.8;
           }
         }
 
@@ -98,15 +104,14 @@
           text-transform: capitalize;
           transition: all 0.2s ease;
           &:hover {
-            color: darken($primary-color, 10%);
+            color: $primary-color-hover;
           }
         }
       }
     }
 
     .submit {
-      padding: 1.4rem 1rem;
-      border-radius: 0.5rem;
+      padding: 1.8rem 1rem;
       border: none;
       background-color: $primary-color;
       color: $white;
@@ -115,14 +120,19 @@
       cursor: pointer;
 
       &:hover {
-        background-color: darken($primary-color, 10%);
+        background-color: $primary-color-hover;
       }
     }
 
     .footer {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
       font-size: 1.4rem;
+      gap: 1rem;
 
       a {
+        cursor: pointer;
         color: $primary-color;
         font-weight: bold;
       }

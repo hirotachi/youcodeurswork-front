@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikConfig } from "formik";
 import React, {
   ReactNode,
   RefObject,
@@ -25,6 +25,7 @@ type AuthFormProps<T> = {
   footer?: (styles: Styles, values: T) => ReactNode;
   inputs?: AuthInput<T>;
   intro?: string;
+  validationSchema?: FormikConfig<T>["validationSchema"];
 };
 const AuthForm = <T,>(props: AuthFormProps<T>) => {
   const {
@@ -35,9 +36,13 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
     footer,
     intro,
     inputs,
+    validationSchema,
   } = props;
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit: FormikConfig<T>["onSubmit"] = (
+    values,
+    { setFieldError }
+  ) => {
     onSubmit?.(values);
   };
 
@@ -63,7 +68,11 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
     <div className={styles.auth}>
       <h1 className={styles.title}>{title}</h1>
       {intro && <p className={styles.intro}>{intro}</p>}
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+      >
         {({ handleSubmit, errors, values }) => {
           return (
             <Form onSubmit={handleSubmit} className={styles.form}>
@@ -79,15 +88,13 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                         [styles.field__containerError]: errors[key],
                       })}
                     >
-                      <label onClick={() => setFocusedInput(key)} htmlFor={key}>
-                        {label}
-                      </label>
                       <Field
                         innerRef={refs[key]}
                         onFocus={() => setFocusedInput(key)}
                         onBlur={() => setFocusedInput("")}
                         name={key}
                         type={type}
+                        placeholder={label}
                       />
                     </div>
                     {(errors[key] || other) && (
@@ -103,7 +110,9 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                 {submitText}
               </button>
               {footer && (
-                <p className={styles.footer}>{footer(styles, initialValues)}</p>
+                <div className={styles.footer}>
+                  {footer(styles, initialValues)}
+                </div>
               )}
             </Form>
           );
