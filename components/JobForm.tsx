@@ -3,7 +3,9 @@ import DynamicForm, { InputConfig, InputTypes } from '@components/DynamicForm';
 import * as Yup from 'yup';
 import { SchemaOf } from 'yup';
 
-const maxPostLength = 120;
+const maxTitleLength = 120;
+const maxDescriptionLength = 10000;
+const maxCompanyNameLength = 40;
 type TJobForm = Pick<TJob, "title"|"description"|"location"|"image"|"type"|"company_name"|"company_site"|"company_logo"|"apply_by"|"apply_to"|"category"|"remote"|"tags"|"technologies">;
 const initialValues:TJobForm = {
   title: '',
@@ -25,12 +27,12 @@ const initialValues:TJobForm = {
 
 // @ts-ignore
 const  validationSchema: SchemaOf<TJobForm> = Yup.object().shape({
-  title: Yup.string().required("Title is required").max(maxPostLength, `Title must be less than ${maxPostLength} characters`),
-  description: Yup.string().required("Description is required"),
+  title: Yup.string().required("Title is required").max(maxTitleLength, `Title must be less than ${maxTitleLength} characters`),
+  description: Yup.string().required("Description is required").max(maxDescriptionLength, `Description must be less than ${maxDescriptionLength} characters`),
   location: Yup.string().required("Location is required"),
   image: Yup.string(),
   type: Yup.string().required("Type is required"),
-  company_name: Yup.string().required("Company name is required"),
+  company_name: Yup.string().required("Company name is required").max(maxCompanyNameLength, `Company name must be less than ${maxCompanyNameLength} characters`),
   company_site: Yup.string().required("Company site is required"),
   company_logo: Yup.string(),
   apply_by: Yup.string().required('Apply by is required').oneOf(['email', 'url']),
@@ -66,8 +68,6 @@ const config: InputConfig<TJobForm, InputTypes> = {
       ]
     }
   },
-  apply_by: undefined,
-  apply_to: undefined,
   category: {
     type: "select",
     options: [ "programming", "design", "other" ]
@@ -81,14 +81,9 @@ const config: InputConfig<TJobForm, InputTypes> = {
   company_site: {
     label: "Company website",
   },
-  image: undefined,
-  location: undefined,
   remote: {
     type: "checkbox",
   },
-  tags: undefined,
-  technologies: undefined,
-  title: undefined,
   type: {
     type: "select",
     options: [ "full-time", "part-time", "freelance", "internship"]

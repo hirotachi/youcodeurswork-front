@@ -251,6 +251,8 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                                   // @ts-ignore
                                   id={key}
                                   data={outerValues?.[key]}
+                                  onFocus={() => setFocused(key)}
+                                  onBlur={() => setFocused(null)}
                                   onChange={(e) =>
                                     setValues((v) => ({
                                       ...v,
@@ -278,8 +280,11 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                           }
                         })()}
 
-                        <AnimatePresence>{!!maxLength && focused && (type === 'text' || type === 'editor') &&
-                          <motion.span  {...countVariant} className={styles.field__input__remaining}>{maxLength - formikValues[key].length} characters
+                        <AnimatePresence>{!!maxLength && focused === key && (type === 'text' || type === 'editor') &&
+                          <motion.span  {...countVariant} className={clsx(
+                            styles.field__input__remaining,
+                            maxLength - formikValues[key].length < 0 && styles.field__input__remaining__warning,
+                          )}>{maxLength - formikValues[key].length} characters
                             remaining.</motion.span>}</AnimatePresence>
                         {other?.(formikValues[key], styles)}
                         <ErrorMessage
