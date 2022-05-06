@@ -1,15 +1,19 @@
-import { IconDefinition, IconPrefix, IconName } from '@fortawesome/fontawesome-common-types';
+import {
+  IconDefinition,
+  IconPrefix,
+  IconName,
+} from "@fortawesome/fontawesome-common-types";
 
-const prefix: IconPrefix = 'fas';
+const prefix: IconPrefix = "fas";
 const faBox: IconDefinition = {
-  prefix: 'fas',
-  iconName: 'box',
+  prefix: "fas",
+  iconName: "box",
   icon: [
     512,
     512,
     [],
-    'f466',
-    'M509.5 184.6L458.9 32.8C452.4 13.2 434.1 0 413.4 0H98.6c-20.7 0-39 13.2-45.5 32.8L2.5 184.6c-1.6 4.9-2.5 10-2.5 15.2V464c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V199.8c0-5.2-.8-10.3-2.5-15.2zm-48.1 7.4H280V48h133.4l48 144zM98.6 48H232v144H50.6l48-144zM48 464V240h416v224H48z',
+    "f466",
+    "M509.5 184.6L458.9 32.8C452.4 13.2 434.1 0 413.4 0H98.6c-20.7 0-39 13.2-45.5 32.8L2.5 184.6c-1.6 4.9-2.5 10-2.5 15.2V464c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V199.8c0-5.2-.8-10.3-2.5-15.2zm-48.1 7.4H280V48h133.4l48 144zM98.6 48H232v144H50.6l48-144zM48 464V240h416v224H48z",
   ],
 };
 export default faBox;

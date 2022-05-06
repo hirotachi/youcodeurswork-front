@@ -3,9 +3,8 @@
 @use "sass:meta";
 @use "sass:map";
 
-
 // Trims the start/left of the string:
-@function str-trimStart ($str,$char) {
+@function str-trimStart($str, $char) {
   @if (str-slice($str, 1, 1) == $char) {
     @return str-trimStart(str-slice($str, 2), $char);
   } @else {
@@ -14,7 +13,7 @@
 }
 
 // Trims the end/right of the string:
-@function str-trimEnd ($str, $char) {
+@function str-trimEnd($str, $char) {
   @if (str-slice($str, str-length($str), -1) == $char) {
     @return str-trimEnd(str-slice($str, 1, -2), $char);
   } @else {
@@ -23,7 +22,7 @@
 }
 
 // Trims both the start and end of the string:
-@function str-trim ($str, $char) {
+@function str-trim($str, $char) {
   @return str-trimStart(str-trimEnd($str, $char), $char);
 }
 
@@ -33,7 +32,7 @@
 }
 
 // filters map by true or false returned from callback
-@function map-filter($map, $condition, $other:null) {
+@function map-filter($map, $condition, $other: null) {
   $new-map: ();
   @each $key, $value in $map {
     @if meta.call($condition, $key, $value, $other) {
@@ -42,8 +41,6 @@
   }
   @return $new-map;
 }
-
-
 
 @function str-split($string, $separator) {
   $split-arr: ();
@@ -69,11 +66,16 @@
   @return $result;
 }
 
-@function str-replace($string, $search, $replace: '') {
+@function str-replace($string, $search, $replace: "") {
   $index: str-index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
   }
 
   @return $string;

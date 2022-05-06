@@ -7,35 +7,41 @@
 @function is-wanted-weight($list, $key, $value, $font-weights) {
   @return list.index($font-weights, $key);
 }
-@mixin generate-fonts($font-name, $folder, $font-weights:(), $non-italic-weights: ()) {
-
+@mixin generate-fonts(
+  $font-name,
+  $folder,
+  $font-weights: (),
+  $non-italic-weights: ()
+) {
   $weights: (
-          "thin": 100,
-          "extra-light": 200,
-          "light": 300,
-          "book": 350,
-          "regular": 400,
-          "medium": 500,
-          "bold": 700,
-          "black": 800,
-          "extra-black": 900,
+    "thin": 100,
+    "extra-light": 200,
+    "light": 300,
+    "book": 350,
+    "regular": 400,
+    "medium": 500,
+    "bold": 700,
+    "black": 800,
+    "extra-black": 900,
   );
 
-
-
   @if list.length($font-weights) != 0 {
-    $weights: helpers.map-filter($weights, meta.get-function("is-wanted-weight"), $font-weights);
+    $weights: helpers.map-filter(
+      $weights,
+      meta.get-function("is-wanted-weight"),
+      $font-weights
+    );
   }
-
 
   @each $weight, $value in $weights {
     $styles: normal, italic;
 
     @each $style in $styles {
-      @if not (list.index($non-italic-weights, $weight) and $style == italic) {
-        $comment: #{string.to-lower-case($font-name)}-#{$weight}-#{$value} #{$style};
+      @if not(list.index($non-italic-weights, $weight) and $style == italic) {
+        $comment: #{string.to-lower-case($font-name)}-#{$weight}-#{$value}
+          #{$style};
         $style-string: if($style == italic, "Italic", "");
-        $arr : ($weight, $style-string);
+        $arr: ($weight, $style-string);
         $weight-name: helpers.str-pascalize($weight);
         $file-name: "#{helpers.str-pascalize($font-name)}-#{$weight-name}#{$style-string}";
         /* #{$comment} - latin */
@@ -45,14 +51,16 @@
           font-display: swap;
           font-weight: $value;
           src: url("#{$folder}/#{$file-name}.eot");
-          src:
-                  local("#{$font-name} #{helpers.str-trim(helpers.str-join(($weight-name,$style-string), " "), " ")}"),
-                  local("#{$file-name}"),
-                  url("#{$folder}/#{$file-name}.woff") format("woff"),
-          url("#{$folder}/#{$file-name}.ttf") format("truetype"),
-          url("#{$folder}/#{$file-name}.svg##{$file-name}") format("svg"),
-          url("#{$folder}/#{$file-name}.eot?#iefix") format("embedded-opentype"),
-          url("#{$folder}/#{$file-name}.woff2") format("woff2");
+          src: local(
+              "#{$font-name} #{helpers.str-trim(helpers.str-join(($weight-name,$style-string), ""), "")}"
+            ),
+            local("#{$file-name}"),
+            url("#{$folder}/#{$file-name}.woff") format("woff"),
+            url("#{$folder}/#{$file-name}.ttf") format("truetype"),
+            url("#{$folder}/#{$file-name}.svg##{$file-name}") format("svg"),
+            url("#{$folder}/#{$file-name}.eot?#iefix")
+              format("embedded-opentype"),
+            url("#{$folder}/#{$file-name}.woff2") format("woff2");
         }
       }
     }

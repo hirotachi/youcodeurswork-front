@@ -1,0 +1,20 @@
+@use "~abstracts" as *;
+
+.main {
+  @include tablet {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "title title"
+      "description description"
+      "image image"
+      "company_name company_site"
+      "category type"
+      "company_logo company_logo"
+      "apply_by apply_to"
+      "remote remote"
+      "tags tags"
+      "technologies technologies"
+      "location location";
+  }
+}
