@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useRef, useState } from "react";
 
 function useInput(
   initialValue = "",
@@ -20,10 +20,14 @@ function useInput(
 
   const onFocus = () => setIsFocused(true);
   const onBlur = () => setIsFocused(false);
+  const ref = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const focus = () => ref.current?.focus();
   return {
     value,
     onChange,
+    ref,
     reset,
+    focus,
     focused: isFocused,
     onFocus,
     onBlur,

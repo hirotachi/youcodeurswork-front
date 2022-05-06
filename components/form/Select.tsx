@@ -48,7 +48,7 @@ const Select = (props: SelectProps) => {
           {value ? currentLabel : `Select ${name}`}
         </span>
         <span className={styles.icon}>
-          <FontAwesomeIcon icon={open ? faCaretDown : faCaretUp} />
+          <FontAwesomeIcon icon={open ? faCaretUp : faCaretDown} />
         </span>
       </div>
       {open && (

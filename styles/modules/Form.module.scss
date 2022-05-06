@@ -1,6 +1,5 @@
 @use "~abstracts" as *;
 
-
 .container {
   margin: 2rem auto;
   margin-bottom: 3rem;
@@ -18,7 +17,7 @@
     font-weight: 800;
     font-size: 3.8rem;
   }
-  .subHeader{
+  .subHeader {
     text-align: center;
     font-size: 1.7rem;
     font-weight: normal;
@@ -27,7 +26,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    .main{
+    .main {
       background-color: $white;
       padding: 2rem;
       display: flex;
@@ -36,11 +35,11 @@
       @include tablet {
         padding: 3rem;
       }
-      @include desktop{
+      @include desktop {
         padding: 3rem 4rem;
       }
     }
-    .required{
+    .required {
       color: lighten($primary-color, 10%);
     }
     .field {
@@ -78,7 +77,7 @@
         font-size: 1.4rem;
         padding: 1.8rem;
         border: 1px solid darken($border-main, 10%);
-        transition: all .2s ease;
+        transition: all 0.2s ease;
         &:focus {
           outline: none;
         }
@@ -199,7 +198,7 @@
     &__submit {
       background-color: lighten($primary-color, 5%);
       color: $white;
-      &:hover{
+      &:hover {
         background-color: darken($primary-color, 5%);
       }
     }

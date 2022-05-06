@@ -114,6 +114,14 @@ const config: InputConfig<TJobForm, InputTypes> = {
     type: "select",
     options: ["full-time", "part-time", "freelance", "internship"],
   },
+  tags: {
+    type: "tags-input",
+    placeholder: "Add tag",
+  },
+  technologies: {
+    type: "tags-input",
+    placeholder: "Add technology",
+  },
 };
 
 const JobForm = (props: JobFormProps<TJobForm>) => {

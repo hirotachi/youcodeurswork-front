@@ -1,14 +1,22 @@
-import React, { useMemo, useState } from 'react';
-import { ErrorMessage, Field, FieldArray, Form, Formik, FormikConfig } from 'formik';
-import styles from '@modules/Form.module.scss';
-import clsx from 'clsx';
-import { SchemaOf } from 'yup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import faTrash from '@icons/solid/faTrash';
-import dynamic from 'next/dynamic';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
-import Select from '@components/form/Select';
-import Checkbox from '@components/form/Checkbox';
+import React, { useMemo, useState } from "react";
+import {
+  ErrorMessage,
+  Field,
+  FieldArray,
+  Form,
+  Formik,
+  FormikConfig,
+} from "formik";
+import styles from "@modules/Form.module.scss";
+import clsx from "clsx";
+import { SchemaOf } from "yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import faTrash from "@icons/solid/faTrash";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import Select from "@components/form/Select";
+import Checkbox from "@components/form/Checkbox";
+import TagsInput from "@components/form/TagsInput";
 
 const Trumbowyg = dynamic(
   () => {
@@ -26,7 +34,8 @@ export type InputTypes =
   | "multiple-inputs"
   | "number"
   | "select"
-  | "checkbox";
+  | "checkbox"
+  | "tags-input";
 
 const buttons = [
   "strong",
@@ -162,7 +171,7 @@ const DynamicForm = <T, B extends InputTypes>(
                   const max = rules[key]?.max ?? 0;
                   const isUrl = rules[key]?.url;
 
-                  switch (type) {
+                  switch (type as InputTypes) {
                     case "multiple-inputs":
                       return (
                         <FieldArray
@@ -276,6 +285,29 @@ const DynamicForm = <T, B extends InputTypes>(
                                     }
                                     name={key}
                                     value={formikValues[key]}
+                                  />
+                                );
+                              case "tags-input":
+                                return (
+                                  <TagsInput
+                                    name={key}
+                                    focused={focused === key}
+                                    onFocus={() => setFocused(key)}
+                                    onBlur={() => setFocused(null)}
+                                    values={formikValues[key]}
+                                    placeholder={placeholder}
+                                    onAdd={(val) =>
+                                      setValues((v) => ({
+                                        ...v,
+                                        [key]: [...v[key], val],
+                                      }))
+                                    }
+                                    onRemove={(val) =>
+                                      setValues((v) => ({
+                                        ...v,
+                                        [key]: v[key].filter((v) => v !== val),
+                                      }))
+                                    }
                                   />
                                 );
                               case "editor":
