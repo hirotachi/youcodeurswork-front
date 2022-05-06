@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ErrorMessage, Field, FieldArray, Form, Formik, FormikConfig } from 'formik';
 import styles from '@modules/projects/Form.module.scss';
 import clsx from 'clsx';
@@ -12,37 +12,37 @@ import Checkbox from '@components/form/Checkbox';
 
 const Trumbowyg = dynamic(
   () => {
-    return import("jquery").then(() => {
-      return import("react-trumbowyg");
+    return import('jquery').then(() => {
+      return import('react-trumbowyg');
     });
   },
-  { ssr: false }
+  { ssr: false },
 );
 
 export type InputTypes =
-  | "text"
-  | "textarea"
-  | "editor"
-  | "multiple-inputs"
-  | "number"
-  | "select"
-  | "checkbox";
+  | 'text'
+  | 'textarea'
+  | 'editor'
+  | 'multiple-inputs'
+  | 'number'
+  | 'select'
+  | 'checkbox';
 
 const buttons = [
-  "strong",
-  "em",
-  "link",
-  "insertImage",
-  "justifyLeft",
-  "justifyCenter",
-  "justifyRight",
-  "justifyFull",
-  "unorderedList",
-  "orderedList",
-  "horizontalRule",
-  "removeformat",
-  "fullscreen",
-  "viewHTML",
+  'strong',
+  'em',
+  'link',
+  'insertImage',
+  'justifyLeft',
+  'justifyCenter',
+  'justifyRight',
+  'justifyFull',
+  'unorderedList',
+  'orderedList',
+  'horizontalRule',
+  'removeformat',
+  'fullscreen',
+  'viewHTML',
 ] as const;
 
 type ButtonType = typeof buttons[number];
@@ -50,7 +50,7 @@ export type InputConfig<T, B extends InputTypes> = {
   [P in keyof T]: {
     type?: B;
     other?: (value: T[P], styling: typeof styles) => JSX.Element;
-    placeholder?: string|boolean;
+    placeholder?: string | boolean;
     label?: string;
     options?: (number | string | { value: string | number; label?: string })[];
     editor?: {
@@ -60,7 +60,7 @@ export type InputConfig<T, B extends InputTypes> = {
 };
 
 
-type DynamicFormProps<T,B extends InputTypes> = {
+type DynamicFormProps<T, B extends InputTypes> = {
   title: string;
   initialValues: T;
   values?: { [P in keyof T]?: T[P] };
@@ -70,10 +70,10 @@ type DynamicFormProps<T,B extends InputTypes> = {
   submitText?: string;
   cancelText?: string;
   config: InputConfig<T, B>;
-  subHeader?:string
+  subHeader?: string
 };
 
-const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
+const DynamicForm = <T, B extends InputTypes>(props: DynamicFormProps<T, B>) => {
   const {
     title,
     initialValues,
@@ -81,15 +81,15 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
     onSubmit,
     onCancel,
     validationSchema,
-    submitText = "Submit",
-    cancelText = "Cancel",
+    submitText = 'Submit',
+    cancelText = 'Cancel',
     config,
-    subHeader
+    subHeader,
   } = props;
 
-  const handleFormSubmit: FormikConfig<T>["onSubmit"] = async (
+  const handleFormSubmit: FormikConfig<T>['onSubmit'] = async (
     formikValues: T,
-    { validateForm, setSubmitting, resetForm }
+    { validateForm, setSubmitting, resetForm },
   ) => {
     if (validationSchema) {
       const errors = await validateForm(formikValues);
@@ -107,15 +107,31 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
 
   const outerValues = values;
   const schemaDescription = validationSchema?.describe();
-  const countVariant : Variants = {
-    initial: {height: 0, y: -10, opacity: 0},
-    animate: {height: "auto", y: 0, opacity: 1},
-    exit: {height: 0, y: -10, opacity: 0}
-  }
+  const countVariant: Variants = {
+    initial: { height: 0, y: -10, opacity: 0 },
+    animate: { height: 'auto', y: 0, opacity: 1 },
+    exit: { height: 0, y: -10, opacity: 0 },
+  };
+
+  const rules = useMemo(() => {
+    const obj = {};
+    const schemaDescription = validationSchema?.describe();
+    Object.entries(schemaDescription?.fields).forEach(([key, field]) => {
+      field?.tests?.forEach((test) => {
+        obj[key] ??= {};
+        obj[key][test.name] = true;
+        if (test.name === 'max') {
+          obj[key][test.name] = test?.params?.max;
+        }
+      });
+    });
+    return obj;
+  }, [schemaDescription]);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>{title}</h1>
-      { subHeader && <h3 className={styles.subHeader}>{subHeader}</h3>}
+      {subHeader && <h3 className={styles.subHeader}>{subHeader}</h3>}
       <Formik
         validationSchema={validationSchema}
         initialValues={{ ...initialValues, ...(values ?? {}) }}
@@ -138,13 +154,10 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                   editor = {},
                 } = config[key] ?? {};
 
-                const tests = validationSchema?.fields[key]?.exclusiveTests;
-                const required = tests?.required ?? false;
-                const hasMax = tests?.max ?? false;
-                let maxLength = 0;
-                if(hasMax){
-                 maxLength =  schemaDescription?.fields[key]?.tests?.find(test => test.name === "max")?.params.max;
-                }
+                const required = rules[key]?.required;
+                const max = rules[key]?.max ?? 0;
+                const isUrl = rules[key]?.url;
+
 
                 switch (type) {
                   case 'multiple-inputs':
@@ -154,7 +167,8 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                         name={key}
                         render={(arrayHelpers) => (
                           <div className={clsx(styles.field)}>
-                            <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>
+                            <label htmlFor={key}>{label} {required &&
+                              <span className={styles.required}>*</span>}</label>
                             <div className={styles.field__input__group}>
                               {formikValues[key].map((item, index) => {
                                 const name = `${key}[${index}]`;
@@ -218,13 +232,17 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                           error && styles.field__error,
                         )}
                       >
-                        { type !== "checkbox" && <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>}
+                        {type !== 'checkbox' &&
+                          <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>}
                         {(() => {
                           switch (type) {
-                            case "checkbox":
-                              return <Checkbox label={label} checked={formikValues[key]} onClick={() => setValues( v=> ({...v, [key]: !v[key]}))} />;
-                            case "select":
-                              return <Select options={options} onChange={(val) => setValues(v => ({...v, [key]: val}))} name={key} value={formikValues[key]} />;
+                            case 'checkbox':
+                              return <Checkbox label={label} checked={formikValues[key]}
+                                               onClick={() => setValues(v => ({ ...v, [key]: !v[key] }))}/>;
+                            case 'select':
+                              return <Select options={options}
+                                             onChange={(val) => setValues(v => ({ ...v, [key]: val }))} name={key}
+                                             value={formikValues[key]}/>;
                             case 'editor':
                               return (
                                 <Trumbowyg
@@ -261,12 +279,23 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                           }
                         })()}
 
-                        <AnimatePresence>{!!maxLength && focused === key && (type === 'text' || type === 'editor') &&
-                          <motion.span  {...countVariant} className={clsx(
-                            styles.field__input__remaining,
-                            maxLength - formikValues[key].length < 0 && styles.field__input__remaining__warning,
-                          )}>{maxLength - formikValues[key].length} characters
-                            remaining.</motion.span>}</AnimatePresence>
+                        <AnimatePresence>
+                          {(!!max || isUrl) && focused === key && (type === 'text' || type === 'editor') &&
+                            <>
+                              {
+                                !!max && <motion.span  {...countVariant} className={clsx(
+                                  styles.field__input__remaining,
+                                  max - formikValues[key].length < 0 && styles.field__input__remaining__warning,
+                                )}>{max - formikValues[key].length} characters
+                                  remaining.</motion.span>
+                              }
+                              {
+                                isUrl && <motion.span  {...countVariant} className={clsx(
+                                  styles.field__input__remaining,
+                                )}>Add a URL with http://</motion.span>
+                              }
+                            </>}
+                        </AnimatePresence>
                         {other?.(formikValues[key], styles)}
                         <ErrorMessage
                           name={key}
@@ -280,7 +309,7 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
               <div className={styles.controls}>
                 {onCancel && (
                   <button
-                    type={"button"}
+                    type={'button'}
                     className={styles.controls__cancel}
                     onClick={onCancel}
                   >

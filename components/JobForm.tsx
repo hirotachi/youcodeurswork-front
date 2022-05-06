@@ -33,7 +33,7 @@ const  validationSchema: SchemaOf<TJobForm> = Yup.object().shape({
   image: Yup.string(),
   type: Yup.string().required("Type is required"),
   company_name: Yup.string().required("Company name is required").max(maxCompanyNameLength, `Company name must be less than ${maxCompanyNameLength} characters`),
-  company_site: Yup.string().required("Company site is required"),
+  company_site: Yup.string().required("Company site is required").url(),
   company_logo: Yup.string(),
   apply_by: Yup.string().required('Apply by is required').oneOf(['email', 'url']),
   apply_to: Yup.string().required("Apply to is required").when('apply_by', {
