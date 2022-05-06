@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import faTrash from '@icons/solid/faTrash';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
+import Select from '@components/form/Select';
 
 const Trumbowyg = dynamic(
   () => {
@@ -219,31 +220,8 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                         <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>
                         {(() => {
                           switch (type) {
-                            case 'select':
-                              return (
-                                <Field
-                                  name={key}
-                                  as="select"
-                                  className={clsx(
-                                    styles.field__input,
-                                    error && styles.field__input__error,
-                                  )}
-                                >
-                                  <option value="">Select</option>
-                                  {options.map((option) => {
-                                    const val = option.value || option;
-                                    const lab = option.label || option;
-                                    return (
-                                      <option
-                                        key={val}
-                                        value={val}
-                                      >
-                                        {lab}
-                                      </option>
-                                    );
-                                  })}
-                                </Field>
-                              );
+                            case "select":
+                              return <Select options={options} onChange={(val) => setValues(v => ({...v, [key]: val}))} name={key} value={formikValues[key]} />;
                             case 'editor':
                               return (
                                 <Trumbowyg

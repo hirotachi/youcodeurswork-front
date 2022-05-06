@@ -1,0 +1,47 @@
+@use "~abstracts" as *;
+
+
+.select{
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.5rem;
+  .current {
+    padding: 1.8rem ;
+    background-color: $white;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid $border-main;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  .list {
+    position: absolute;
+    top: 99%;
+    z-index: 2;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border: 1px solid $border-main;
+    max-height: 30rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .option {
+      padding: 1rem;
+      transition: all .2s ease;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+      &:hover {
+        background-color: $border-main;
+      }
+    }
+    .selected{
+      background-color: $border-main;
+    }
+  }
+}
