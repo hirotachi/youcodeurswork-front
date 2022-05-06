@@ -1,6 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async headers() {
+    const cacheHeaders = [
+      {
+        key: "Cache-Control",
+        value: "public, max-age=31536000, stale-while-revalidate",
+      },
+    ];
+    return [
+      {
+        source: "/fonts/(.*)",
+        headers: cacheHeaders,
+      },
+    ];
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: require.resolve("jquery"),

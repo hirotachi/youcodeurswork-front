@@ -1,29 +1,52 @@
 @use "~abstracts" as *;
 
 .container {
-  margin: 2rem 0;
+  margin: 2rem auto;
+  margin-bottom: 3rem;
   padding: 0 1rem;
+  max-width: 90rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 3rem;
   @include tablet {
-    padding: 0 5%;
-    margin: 4rem 0;
-  }
-  @include desktop {
-    padding: 0 20%;
-    margin: 6rem 0;
+    margin: 4rem auto;
   }
   .header {
-    text-transform: capitalize;
     text-align: center;
-    margin-bottom: 2rem;
+    font-weight: 800;
+    font-size: 3.8rem;
+  }
+  .subHeader{
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: normal;
   }
   .form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+    .main{
+      background-color: $white;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      @include tablet {
+        padding: 3rem;
+      }
+      @include desktop{
+        padding: 3rem 4rem;
+      }
+    }
+    .required{
+      color: lighten($primary-color, 10%);
+    }
     .field {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+
       .add {
         padding: 1rem;
         border: none;
@@ -33,40 +56,51 @@
         font-size: 1.4rem;
         text-transform: capitalize;
         transition: background-color 0.2s ease;
+
         &:hover {
           background-color: darken($border-main, 10%);
         }
       }
+
       label {
         font-weight: bold;
-        text-transform: capitalize;
         font-size: 1.4rem;
+        &:first-letter {
+          text-transform: uppercase;
+        }
       }
 
       &__input {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        padding: 1rem;
+        font-size: 1.4rem;
+        padding: 1.8rem;
         border: 1px solid darken($border-main, 10%);
+        transition: all .2s ease;
         &:focus {
           outline: none;
         }
 
         &__focused {
-          border-color: $primary-color;
+          border-color: darken($border-main, 30%);
         }
+
         &__remaining {
           opacity: 0.5;
           font-size: 1.2rem;
+          overflow: hidden;
+          color: darken($border-main, 25%);
           &__warning {
             color: $error-color;
           }
         }
+
         &__error {
           font-size: 1.4rem;
           flex-basis: 100%;
         }
+
         &__group {
           display: flex;
           flex-direction: column;
@@ -86,6 +120,7 @@
             align-items: center;
             padding: 0 1rem;
             border: 1px solid $border-main;
+
             &__focused {
               border-color: $primary-color;
             }
@@ -95,6 +130,7 @@
             flex: 1;
             border: none;
             padding: 1rem;
+
             &:focus {
               outline: none;
             }
@@ -147,17 +183,23 @@
     &__cancel,
     &__submit {
       flex: 1;
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       border: none;
       text-align: center;
       cursor: pointer;
       background-color: $border-main;
-      font-size: 1.4rem;
-      text-transform: capitalize;
       transition: all 0.2s ease;
+      text-transform: uppercase;
       &:hover {
         background-color: $primary-color;
         color: $white;
+      }
+    }
+    &__submit {
+      background-color: lighten($primary-color, 5%);
+      color: $white;
+      &:hover{
+        background-color: darken($primary-color, 5%);
       }
     }
     &__cancel {
