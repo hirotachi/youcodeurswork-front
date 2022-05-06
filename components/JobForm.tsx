@@ -83,6 +83,7 @@ const config: InputConfig<TJobForm, InputTypes> = {
   },
   remote: {
     type: "checkbox",
+    label: "Can this job be performed remotely?",
   },
   type: {
     type: "select",

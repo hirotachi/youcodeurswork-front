@@ -8,6 +8,7 @@ import faTrash from '@icons/solid/faTrash';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import Select from '@components/form/Select';
+import Checkbox from '@components/form/Checkbox';
 
 const Trumbowyg = dynamic(
   () => {
@@ -217,9 +218,11 @@ const DynamicForm = <T,B extends InputTypes>(props: DynamicFormProps<T,B>) => {
                           error && styles.field__error,
                         )}
                       >
-                        <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>
+                        { type !== "checkbox" && <label htmlFor={key}>{label} {required && <span className={styles.required}>*</span>}</label>}
                         {(() => {
                           switch (type) {
+                            case "checkbox":
+                              return <Checkbox label={label} checked={formikValues[key]} onClick={() => setValues( v=> ({...v, [key]: !v[key]}))} />;
                             case "select":
                               return <Select options={options} onChange={(val) => setValues(v => ({...v, [key]: val}))} name={key} value={formikValues[key]} />;
                             case 'editor':

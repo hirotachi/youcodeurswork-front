@@ -1,0 +1,30 @@
+@use "~abstracts" as *;
+
+
+.checkbox {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  align-items: center;
+  margin: .5rem 0;
+  .box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $border-main;
+    @include size(2rem);
+    .icon{
+      display: inline-block;
+      font-size: 1.2rem;
+
+
+    }
+  }
+  .label {
+    font-weight: 500;
+    font-size: 1.5rem;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
