@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@modules/InnerNav.module.scss";
+import styles from "@modules/layout/InnerNav.module.scss";
 import Link from "next/link";
 import { LayoutGroup, motion } from "framer-motion";
 import { useRouter } from "next/router";

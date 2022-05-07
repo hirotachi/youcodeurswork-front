@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import Nav from "@components/Nav";
 import Filters from "@components/Filters";
 import { AnimatePresence } from "framer-motion";
-import styles from "@modules/Header.module.scss";
+import styles from "@modules/layout/Header.module.scss";
 
 type HeaderContextProps = {
   isSearchOpen: boolean;

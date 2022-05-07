@@ -39,7 +39,7 @@
     height: 100%;
     align-items: center;
     flex: 1;
-    @include desktop {
+    @include tablet {
       justify-content: space-between;
     }
     .logo {
@@ -72,7 +72,7 @@
       font-size: 1.4rem;
       margin-right: 3rem;
       font-weight: bold;
-      @include desktop {
+      @include tablet {
         display: inline-block;
         margin-left: auto;
       }

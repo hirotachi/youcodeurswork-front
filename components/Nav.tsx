@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import styles from "@modules/Nav.module.scss";
+import styles from "@modules/layout/Nav.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faBars from "@icons/light/faBars";
@@ -7,16 +7,19 @@ import faSearch from "@icons/regular/faSearch";
 import Search from "@components/Search";
 import { HeaderContext } from "@components/layout/Header";
 import { useRouter } from "next/router";
+import { LayoutContext } from "@components/layout/Layout";
 
 const Nav = () => {
   const { isSearchOpen, toggleSearch } = useContext(HeaderContext);
   const router = useRouter();
+  const { setIsSideNavOpen } = useContext(LayoutContext);
+
   const isAuthPage =
     router.pathname === "/login" || router.pathname === "/register";
   return (
     <div className={styles.nav}>
       {!isAuthPage && (
-        <div className={styles.menu}>
+        <div className={styles.menu} onClick={() => setIsSideNavOpen(true)}>
           <span className={styles.icon}>
             <FontAwesomeIcon icon={faBars} />
           </span>

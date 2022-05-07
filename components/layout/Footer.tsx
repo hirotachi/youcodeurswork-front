@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@modules/Footer.module.scss";
+import styles from "@modules/layout/Footer.module.scss";
 import Link from "next/link";
 
 const socials = [

@@ -39,12 +39,12 @@
 
     .filter {
       cursor: pointer;
-      display: none;
       text-transform: uppercase;
-      font-size: 1.2rem;
+      font-size: 1rem;
       position: relative;
       @include tablet {
         display: inline-block;
+        font-size: 1.2rem;
       }
 
       &:after,
