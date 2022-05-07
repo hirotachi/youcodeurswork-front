@@ -2,7 +2,6 @@ import React from "react";
 import styles from "@modules/projects/ProjectPreview.module.scss";
 import faShare from "@icons/solid/faShare";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import faHeart from "@icons/solid/faHeart";
 import Link from "next/link";
 import Dropdown from "@components/Dropdown";
 import faEllipsisH from "@icons/solid/faEllipsisH";
@@ -110,9 +109,6 @@ const ProjectPreview = (props: ProjectPreviewProps) => {
               </p>
             </a>
           </Link>
-          <span className={styles.like}>
-            <FontAwesomeIcon icon={faHeart} /> {likes}
-          </span>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ const Layout: PropsWithChildren<any> = (props) => {
   const router = useRouter();
   const isLogin = router.pathname === "/login";
   const isHomes = router.pathname === "/jobs" || router.pathname === "/";
-  const [isSideNavOpen, setIsSideNavOpen] = useState(true);
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   return (
     <div className={clsx(styles.layout, isSideNavOpen && styles.open)}>
       <LayoutContext.Provider value={{ isSideNavOpen, setIsSideNavOpen }}>
