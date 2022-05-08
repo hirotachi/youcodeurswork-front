@@ -111,6 +111,13 @@
             color: $primary-color-hover;
           }
         }
+        .error {
+          font-size: 1.4rem;
+          color: $error-color;
+          &:first-letter {
+            text-transform: capitalize;
+          }
+        }
       }
     }
 

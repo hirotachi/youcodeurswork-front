@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import styles from "@modules/auth/AuthForm.module.scss";
 import clsx from "clsx";
+import * as Yup from "yup";
 
 type Styles = typeof styles;
 export type AuthInput<T> = {
@@ -19,6 +20,7 @@ export type AuthInput<T> = {
 };
 type AuthFormProps<T> = {
   title: string;
+  loading?: boolean;
   initialValues: T;
   onSubmit: (values: T) => void;
   submitText: string;
@@ -37,6 +39,7 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
     intro,
     inputs,
     validationSchema,
+    loading,
   } = props;
 
   const handleSubmit: FormikConfig<T>["onSubmit"] = (
@@ -45,6 +48,18 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
   ) => {
     onSubmit?.(values);
   };
+
+  const schema: AuthFormProps<T>["validationSchema"] = useMemo(() => {
+    if (validationSchema) return validationSchema;
+    const result = {};
+    Object.keys(initialValues).forEach((key) => {
+      result[key] = Yup.string().required();
+      if (key === "email") {
+        result[key] = result[key].email();
+      }
+    });
+    return Yup.object().shape(result);
+  }, [initialValues, validationSchema]);
 
   const refs: { [P in keyof T]?: RefObject<T[P]> } = useMemo(() => {
     const obj = {};
@@ -69,7 +84,7 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
       <h1 className={styles.title}>{title}</h1>
       {intro && <p className={styles.intro}>{intro}</p>}
       <Formik
-        validationSchema={validationSchema}
+        validationSchema={schema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
       >
@@ -99,7 +114,11 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                     </div>
                     {(errors[key] || other) && (
                       <div className={styles.other}>
-                        <ErrorMessage name={key} />
+                        <ErrorMessage
+                          name={key}
+                          className={styles.error}
+                          component={"span"}
+                        />
                         {other?.(styles)}
                       </div>
                     )}
@@ -107,7 +126,7 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
                 );
               })}
               <button type={"submit"} className={styles.submit}>
-                {submitText}
+                {loading ? "loading" : submitText}
               </button>
               {footer && (
                 <div className={styles.footer}>
