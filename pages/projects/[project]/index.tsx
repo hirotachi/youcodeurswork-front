@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "@modules/projects/project.module.scss";
+import React, { useEffect, useState } from "react";
+import styles from "@modules/projects/Project.module.scss";
 import faHeart from "@icons/solid/faHeart";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,17 +12,30 @@ import useInView from "@hooks/useInView";
 import useToggle from "@hooks/useToggle";
 import faTimes from "@icons/regular/faTimes";
 import useClickOutside from "@hooks/useClickOutside";
+import { useFetch } from "use-http";
+import useAuth from "@hooks/useAuth";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { projectData } from "@utils/data";
+import { apiUrl } from "@pages/jobs";
 
 type ProjectPageProps = {
   project: TProject;
 };
 const ProjectPage = (props: ProjectPageProps) => {
-  const { project } = props;
+  const [project, setProject] = useState(props.project);
+  const { data = {}, get } = useFetch(`/projects/${props.project.id}`);
+  useEffect(() => {
+    get();
+  }, []);
+
+  useEffect(() => {
+    if (data.data) {
+      setProject((v) => ({ ...v, ...data.data }));
+    }
+  }, [data]);
   const {
     created_at,
     creator,
+    id,
     description,
     images,
     liked,
@@ -32,7 +45,6 @@ const ProjectPage = (props: ProjectPageProps) => {
     tags,
     technologies,
   } = project;
-
   const [isPopupOpen, togglePopup] = useToggle(false, true);
 
   const [headerInView, ref] = useInView({ threshold: 0.5 });
@@ -84,9 +96,18 @@ const ProjectPage = (props: ProjectPageProps) => {
   };
 
   const popupRef = useClickOutside(() => isPopupOpen && togglePopup());
-  const handleLike = () => {
-    console.log("like");
-    //  todo add like functionality
+  const { get: like } = useFetch(`/projects/${id}/like`, {
+    cachePolicy: "network-only",
+  });
+  const { isLoggedIn } = useAuth();
+  const handleLike = async () => {
+    if (!isLoggedIn) return;
+    const res = await like();
+    if (res.message === "success") {
+      setProject((v) => ({ ...v, ...res.project }));
+    } else {
+      console.log("error liking project");
+    }
   };
   return (
     <div className={styles.project}>
@@ -219,21 +240,30 @@ const ProjectPage = (props: ProjectPageProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<ProjectPageProps> = async () => {
-  // const { id } = params;
-  // todo fetch project
+export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
+  params,
+}) => {
+  const response = await fetch(`${apiUrl}/projects/${params?.project}`).then(
+    (res) => res.json()
+  );
+  const project = response.data;
   return {
     props: {
-      project: projectData,
+      project,
     },
     revalidate: 10,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // todo fetch projects
+  const response = await fetch(`${apiUrl}/projects`).then((res) => res.json());
+  const paths = response.data.map((project) => ({
+    params: {
+      project: project.id.toString(),
+    },
+  }));
   return {
-    paths: [{ params: { project: "1" } }],
+    paths,
     fallback: "blocking",
   };
 };

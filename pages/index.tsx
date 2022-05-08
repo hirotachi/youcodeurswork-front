@@ -8,11 +8,12 @@ import { apiUrl } from "@pages/jobs";
 type ProjectsProps = {
   data: TProjectPreview[];
 } & TPaginationData;
+
 const ProjectsPage: NextPage<ProjectsProps> = (props) => {
   const { data: projects, meta } = props;
   const [page, setPage] = useState(1);
   const { data = [], loading } = useFetch<TProjectPreview[]>(
-    `/jobs?page=${page}`,
+    `/projects?page=${page}`,
     {
       data: projects,
       perPage: meta.per_page,

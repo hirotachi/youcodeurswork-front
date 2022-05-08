@@ -14,6 +14,7 @@
     margin: 4rem 8%;
   }
   .preview {
+    background-color: $border-main;
     margin-top: 2rem;
     height: 25rem;
     @include tablet {
@@ -46,6 +47,7 @@
         transition: all 0.2s ease;
         left: 0;
         .avatar {
+          background-color: $border-main;
           border-radius: 50%;
           @include size(5rem);
           margin-bottom: 1rem;
@@ -94,9 +96,11 @@
     align-items: center;
     gap: 1rem;
     .avatar {
+      background-color: $border-main;
       border-radius: 50%;
       @include size(4rem);
       overflow: hidden;
+
       img {
         @include size(100%);
         object-fit: cover;

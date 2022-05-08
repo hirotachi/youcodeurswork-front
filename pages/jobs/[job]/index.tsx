@@ -3,8 +3,8 @@ import styles from "@modules/jobs/Job.module.scss";
 import faMapMarkerAlt from "@icons/solid/faMapMarkerAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { jobData } from "@utils/data";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { apiUrl } from "@pages/jobs";
 
 type JobPageProps = {
   job: TJob;
@@ -80,19 +80,32 @@ const JobPage = (props: JobPageProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<JobPageProps> = async () => ({
-  // todo fetch job
-  props: {
-    job: jobData,
-  },
-  revalidate: 10,
-});
+export const getStaticProps: GetStaticProps<JobPageProps> = async ({
+  params,
+}) => {
+  const response = await fetch(`${apiUrl}/jobs/${params?.job}`).then((res) =>
+    res.json()
+  );
+  return {
+    props: {
+      job: response.data,
+    },
+    revalidate: 10,
+  };
+};
 
 // @ts-ignore
-export const getStaticPaths: GetStaticPaths = async () => ({
-  // todo fetch jobs
-  paths: [{ params: { job: "1" } }],
-  fallback: "blocking",
-});
+export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await fetch(`${apiUrl}/jobs`).then((res) => res.json());
+  const paths = response.data.map((job) => ({
+    params: {
+      job: job.id.toString(),
+    },
+  }));
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
 export default JobPage;
