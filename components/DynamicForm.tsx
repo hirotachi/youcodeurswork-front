@@ -17,6 +17,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import Select from "@components/form/Select";
 import Checkbox from "@components/form/Checkbox";
 import TagsInput from "@components/form/TagsInput";
+import useAuthGuard from "@hooks/useAuthGuard";
 
 const Trumbowyg = dynamic(
   () => {
@@ -85,6 +86,8 @@ type DynamicFormProps<T, B extends InputTypes> = {
 const DynamicForm = <T, B extends InputTypes>(
   props: DynamicFormProps<T, B>
 ) => {
+  useAuthGuard();
+
   const {
     title,
     initialValues,
