@@ -17,8 +17,8 @@ export const userData: TUser = {
 };
 
 export const jobData: TJob = {
-  apply_by: "email",
-  apply_to: "said@gmail.com",
+  apply_by: "url",
+  apply_to: "https://www.google.com",
   category: "programming",
   company_logo:
     "https://assets.awwwards.com/awards/job/2022/05/6273f940c3a41580492120.png",

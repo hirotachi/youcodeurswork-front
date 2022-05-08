@@ -12,6 +12,9 @@ type JobPageProps = {
 
 const JobPage = (props: JobPageProps) => {
   const { job } = props;
+  const openApplyPopup = () => {
+    console.log("open apply popup");
+  };
   return (
     <div className={styles.job}>
       {job.image && (
@@ -52,7 +55,20 @@ const JobPage = (props: JobPageProps) => {
               {job.location} /{" "}
               {new Date(job.created_at).toDateString().slice(4)}
             </p>
-            <span className={styles.apply}>apply now</span>
+            {job.apply_by === "url" ? (
+              <a
+                className={styles.apply}
+                href={job.apply_to}
+                target={"__blank"}
+                rel={"noopener noreferrer"}
+              >
+                apply now
+              </a>
+            ) : (
+              <span className={styles.apply} onClick={openApplyPopup}>
+                apply now
+              </span>
+            )}
           </div>
         </div>
         <div

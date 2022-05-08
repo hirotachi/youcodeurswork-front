@@ -8,7 +8,7 @@ import { motion, Variants } from "framer-motion";
 const links = [
   { url: "/login", label: "Sign in" },
   { url: "/register", label: "Sign up" },
-  { url: "/", label: "Home" },
+  { url: "/", label: "Projects" },
   { url: "/jobs", label: "Jobs" },
 ];
 
