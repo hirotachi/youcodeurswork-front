@@ -4,10 +4,6 @@ import JobPreview from "@components/jobs/JobPreview";
 import { useFetch } from "use-http";
 import { NextPage } from "next";
 
-// const jobs = Array.from<TJobPreview>({ length: 10 })
-//   .fill(jobDataPreview)
-//   .map((job, index) => ({ ...job, id: index }));
-
 type TJobsProps = {
   data: TJobPreview[];
 } & TPaginationData;
@@ -15,7 +11,7 @@ type TJobsProps = {
 const JobsPage: NextPage<TJobsProps> = (props) => {
   const { data: jobs, meta } = props;
   const [page, setPage] = useState(1);
-  const { data = [], loading } = useFetch<TJobsProps>(
+  const { data = [], loading } = useFetch<TJobPreview[]>(
     `/jobs?page=${page}`,
     {
       data: jobs,
@@ -47,10 +43,10 @@ const JobsPage: NextPage<TJobsProps> = (props) => {
   );
 };
 
-export const url = `${process.env.NEXT_PUBLIC_API_URL}/jobs`;
+export const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export async function getStaticProps() {
-  const jobs = await fetch(url);
+  const jobs = await fetch(`${apiUrl}/jobs`);
   const res = await jobs.json();
   return {
     props: res,

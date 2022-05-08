@@ -16,6 +16,7 @@
       height: 22rem;
     }
     .img {
+      background-color: $border-main;
       @include size(100%);
       img {
         @include size(100%);
