@@ -22,7 +22,7 @@ type AuthFormProps<T> = {
   title: string;
   loading?: boolean;
   initialValues: T;
-  onSubmit: (values: T) => void;
+  onSubmit: FormikConfig<T>["onSubmit"];
   submitText: string;
   footer?: (styles: Styles, values: T) => ReactNode;
   inputs?: AuthInput<T>;
@@ -42,12 +42,12 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
     loading,
   } = props;
 
-  const handleSubmit: FormikConfig<T>["onSubmit"] = (
-    values,
-    { setFieldError }
-  ) => {
-    onSubmit?.(values);
-  };
+  // const handleSubmit: FormikConfig<T>["onSubmit"] = (
+  //   values,
+  //   { setErrors }
+  // ) => {
+  //   onSubmit?.(values, setErrors);
+  // };
 
   const schema: AuthFormProps<T>["validationSchema"] = useMemo(() => {
     if (validationSchema) return validationSchema;
@@ -86,7 +86,7 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
       <Formik
         validationSchema={schema}
         initialValues={initialValues}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         {({ handleSubmit, errors, values }) => {
           return (

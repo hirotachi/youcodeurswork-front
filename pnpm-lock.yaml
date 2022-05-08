@@ -36,6 +36,7 @@ specifiers:
   slate-react: ^0.77.0
   trumbowyg: ^2.25.1
   typescript: 4.6.2
+  use-http: ^1.0.26
   yup: ^0.32.11
 
 dependencies:
@@ -57,6 +58,7 @@ dependencies:
   slate-history: 0.66.0_slate@0.77.0
   slate-react: 0.77.0_vduxfjbi5lvwydg7tfyjux6kt4
   trumbowyg: 2.25.1_jquery@3.6.0
+  use-http: 1.0.26_sfoxds7t5ydpegc3knd667wn6m
   yup: 0.32.11
 
 devDependencies:
@@ -3181,6 +3183,39 @@ packages:
       punycode: 2.1.1
     dev: true
 
+  /urs/0.0.8_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-LaSSPpr91XrVA3vW2zPupw4K6DSQEDKdL4yQZX1mO2fpljIMpB5zctrjRvxLurelWSgKsHsCmfHNCImscryirQ==}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0
+      react-dom: ^16.13.1 || ^17.0.0
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /use-http/1.0.26_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-yB0dXX2S0Doyiti/kHqMsvlShL3tlI8YkoEARao1OVFKrGvyXejmWvrYkEI+oVTPvUqGzOsHbNROY0qKDC88Pg==}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0
+      react-dom: ^16.13.1 || ^17.0.0
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      urs: 0.0.8_sfoxds7t5ydpegc3knd667wn6m
+      use-ssr: 1.0.24_sfoxds7t5ydpegc3knd667wn6m
+      utility-types: 3.10.0
+    dev: false
+
+  /use-ssr/1.0.24_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-0MFps7ezL57/3o0yl4CvrHLlp9z20n1rQZV/lSRz7if+TUoM6POU1XdOvEjIgjgKeIhTEye1U0khrIYWCTWw4g==}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0
+      react-dom: ^16.13.1 || ^17.0.0
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
   /use-subscription/1.5.1_react@17.0.2:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
     peerDependencies:
@@ -3188,6 +3223,11 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 17.0.2
+    dev: false
+
+  /utility-types/3.10.0:
+    resolution: {integrity: sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==}
+    engines: {node: '>= 4'}
     dev: false
 
   /v8-compile-cache/2.3.0:

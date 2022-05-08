@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import RegisterIntro, { Role } from "@components/auth/RegisterIntro";
 import AuthForm from "@components/auth/AuthForm";
 import Link from "next/link";
+import { useFetch } from "use-http";
+import useLocalStorage from "@hooks/useLocalStorage";
+import { FormikConfig } from "formik";
+import { useRouter } from "next/router";
 
-const initialValues = {
+const initialValues: TRegisterInput = {
   name: "",
   email: "",
   password: "",
@@ -11,13 +15,34 @@ const initialValues = {
 
 const Register = () => {
   const [role, setRole] = useState<Role>(undefined as unknown as Role);
+  const [, setToken] = useLocalStorage("token", "");
   const [showForm, setShowForm] = useState(false);
-  const onSubmit = (values: any) => {
-    console.log(values);
+
+  const { post, response } =
+    useFetch<TAuthResponse<TRegisterInput>>("/register");
+  const router = useRouter();
+  const onSubmit: FormikConfig<TRegisterInput>["onSubmit"] = async (
+    values: TRegisterInput,
+    { setErrors }
+  ) => {
+    const input = { ...values, role };
+    try {
+      const res = await post(input);
+      if (response.status === 422) {
+        setErrors(res.errors);
+      } else {
+        setToken(res.access_token);
+        router.push("/");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
+
   const handleNext = () => {
     setShowForm(true);
   };
+
   return !showForm ? (
     <RegisterIntro role={role} next={handleNext} setRole={setRole} />
   ) : (

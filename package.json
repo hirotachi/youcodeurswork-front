@@ -27,6 +27,7 @@
     "slate-history": "^0.66.0",
     "slate-react": "^0.77.0",
     "trumbowyg": "^2.25.1",
+    "use-http": "^1.0.26",
     "yup": "^0.32.11"
   },
   "devDependencies": {
