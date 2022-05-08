@@ -205,10 +205,10 @@ const ProjectPage = (props: ProjectPageProps) => {
           className={styles.description}
           dangerouslySetInnerHTML={{ __html: description }}
         />
-        <div className={styles.tech}>
+        <div className={styles.technologies}>
           {technologies.map((tech) => {
             return (
-              <span key={tech} className={styles.name}>
+              <span key={tech} className={styles.tech}>
                 #{tech}
               </span>
             );

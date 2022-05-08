@@ -175,19 +175,20 @@
   .description {
     font-size: 1.6rem;
   }
-  .tech {
+  .technologies {
     display: flex;
     flex-wrap: wrap;
     font-size: 1.3rem;
     color: $secondary-color;
-    opacity: 0.5;
     text-transform: uppercase;
     gap: 0.5rem;
     cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
-    .name {
+    .tech {
+      transition: all 0.2s ease;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
