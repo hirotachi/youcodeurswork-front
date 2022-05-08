@@ -19,6 +19,10 @@
     gap: 3rem;
     padding: 3rem;
   }
+  @include extra-lg-desktop {
+    margin: 6rem auto;
+    width: 35%;
+  }
   .intro {
     font-size: 1.3rem;
     opacity: 0.8;
