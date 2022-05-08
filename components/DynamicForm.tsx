@@ -56,7 +56,7 @@ const buttons = [
 
 type ButtonType = typeof buttons[number];
 export type InputConfig<T, B extends InputTypes> = {
-  [P in keyof T]: {
+  [P in keyof T]?: {
     type?: B;
     other?: (value: T[P], styling: typeof styles) => JSX.Element;
     placeholder?: string | boolean;

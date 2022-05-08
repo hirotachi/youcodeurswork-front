@@ -10,20 +10,22 @@ type TUser = {
   headline: string;
 };
 
+type TJobType = "full-time" | "part-time" | "freelance" | "internship";
+type TJobCategory = "programming" | "design" | "other";
 type TJob = {
   id?: number;
   title: string;
   description: string;
   location: string;
   image?: string;
-  type: "full-time" | "part-time" | "freelance" | "internship";
+  type: TJobType;
   user: TUserPreview;
   company_site: string;
   company_name: string;
   company_logo?: string;
   apply_by: "email" | "url";
   apply_to: string;
-  category: "programming" | "design" | "other";
+  category: TJobCategory;
   remote: boolean;
   created_at: string;
   elapsed_time: string;
@@ -38,7 +40,7 @@ type TProject = {
   images: string[];
   technologies: string[];
   tags: string[];
-  creator: Pick<User, "id" | "name" | "avatar">;
+  creator: TUserPreview;
   likesCount: number;
   liked?: boolean;
   repo_link: string;
@@ -71,3 +73,26 @@ type TProjectPreview = Pick<
 > & { creator: TUserPreview };
 
 type TUserPreview = Pick<User, "id" | "name" | "avatar">;
+
+type TJobForm = Pick<
+  TJob,
+  | "title"
+  | "description"
+  | "location"
+  | "image"
+  | "type"
+  | "company_name"
+  | "company_site"
+  | "company_logo"
+  | "apply_by"
+  | "apply_to"
+  | "category"
+  | "remote"
+  | "tags"
+  | "technologies"
+>;
+
+type TProjectForm = Pick<
+  TProject,
+  "name" | "description" | "images" | "repo_link" | "tags" | "technologies"
+>;

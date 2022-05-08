@@ -1,33 +1,39 @@
 import React from "react";
 import * as Yup from "yup";
-import DynamicForm, { InputConfig } from "@components/DynamicForm";
+import { SchemaOf } from "yup";
+import DynamicForm, { InputConfig, InputTypes } from "@components/DynamicForm";
 
-const initialValues = {
+const initialValues: TProjectForm = {
   name: "", // required must be less than 120 characters
   description: "<p></p>", // textarea not required
-  images: [] as string[], // array of image strings (valid urls)
-  technologies: "", // technologies seperated by comma not required
-  tags: "", // tags seperated by comma not required
-  repoLink: "", // require a valid url
+  images: [], // array of image strings (valid urls)
+  technologies: [], // technologies seperated by comma not required
+  tags: [], // tags seperated by comma not required
+  repo_link: "", // require a valid url
 };
 
 //schema validation for initial values using Yup
 const maxNameLength = 120;
+const maxDescriptionLength = 10000;
 
-const validationSchema = Yup.object({
+// @ts-ignore
+const validationSchema: SchemaOf<TProjectForm> = Yup.object({
   name: Yup.string()
     .required("Project name is required")
     .max(maxNameLength, `Must be ${maxNameLength} characters or less`),
-  description: Yup.string(),
+  description: Yup.string().max(
+    maxDescriptionLength,
+    `Must be ${maxDescriptionLength} characters or less`
+  ),
   images: Yup.array().of(Yup.string().url("Must be a valid url")),
-  technologies: Yup.string(),
-  tags: Yup.string(),
-  repoLink: Yup.string()
+  technologies: Yup.array().of(Yup.string()),
+  tags: Yup.array().of(Yup.string()),
+  repo_link: Yup.string()
     .required("Github repository link is required")
     .url("Must be a valid github url"),
 });
 
-const config: InputConfig<FormValues> = {
+const config: InputConfig<TProjectForm, InputTypes> = {
   name: {
     label: "Project Name",
     placeholder: "Project Name",
@@ -35,6 +41,9 @@ const config: InputConfig<FormValues> = {
   description: {
     placeholder: "Description about the project",
     type: "editor",
+    editor: {
+      buttons: ["strong", "em", "unorderedList", "orderedList", "link"],
+    },
   },
   images: {
     label: "Images",
@@ -42,18 +51,18 @@ const config: InputConfig<FormValues> = {
     type: "multiple-inputs",
   },
   technologies: {
+    type: "tags-input",
     placeholder: "Technologies used in the project (comma separated)",
   },
   tags: {
+    type: "tags-input",
     placeholder: "Tags that identify with the project (comma separated)",
   },
-  repoLink: {
+  repo_link: {
     label: "Github Repo Link",
     placeholder: "Github Repo Link",
   },
 };
-
-export type FormValues = typeof initialValues;
 
 type ProjectFormProps<T> = {
   values?: T;
@@ -61,7 +70,7 @@ type ProjectFormProps<T> = {
   onCancel?: () => void;
 };
 
-const ProjectForm = (props: ProjectFormProps<FormValues>) => {
+const ProjectForm = (props: ProjectFormProps<TProjectForm>) => {
   const { values, onSubmit, onCancel } = props;
   const submit = async (values) => {
     onSubmit(values);
@@ -70,13 +79,14 @@ const ProjectForm = (props: ProjectFormProps<FormValues>) => {
 
   return (
     <DynamicForm
-      title={values ? "Edit Project" : "Submit New Project"}
+      title={values ? "Edit Project" : "Publish a Project"}
       values={values}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={submit}
       onCancel={onCancel}
       config={config}
+      submitText={values ? "Update Project" : "Submit Project"}
     />
   );
 };

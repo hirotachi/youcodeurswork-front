@@ -7,31 +7,14 @@ import styles from "@modules/JobForm.module.scss";
 const maxTitleLength = 120;
 const maxDescriptionLength = 10000;
 const maxCompanyNameLength = 40;
-type TJobForm = Pick<
-  TJob,
-  | "title"
-  | "description"
-  | "location"
-  | "image"
-  | "type"
-  | "company_name"
-  | "company_site"
-  | "company_logo"
-  | "apply_by"
-  | "apply_to"
-  | "category"
-  | "remote"
-  | "tags"
-  | "technologies"
->;
 const initialValues: TJobForm = {
   title: "",
   description: "",
   image: "",
   company_name: "",
   company_site: "",
-  category: "",
-  type: "",
+  category: "" as TJobCategory,
+  type: "" as TJobType,
   company_logo: "",
   apply_by: "email",
   apply_to: "",
@@ -80,12 +63,6 @@ const validationSchema: SchemaOf<TJobForm> = Yup.object().shape({
   remote: Yup.boolean().required("Remote is required"),
 });
 
-type JobFormProps<T extends TJobForm> = {
-  values?: T;
-  onSubmit: (values: T) => void;
-  onCancel?: () => void;
-};
-
 const config: InputConfig<TJobForm, InputTypes> = {
   description: {
     type: "editor",
@@ -131,6 +108,12 @@ const config: InputConfig<TJobForm, InputTypes> = {
   },
 };
 
+type JobFormProps<T extends TJobForm> = {
+  values?: T;
+  onSubmit: (values: T) => void;
+  onCancel?: () => void;
+};
+
 const JobForm = (props: JobFormProps<TJobForm>) => {
   const { values, onSubmit, onCancel } = props;
   const submit = async (values) => {
@@ -149,7 +132,7 @@ const JobForm = (props: JobFormProps<TJobForm>) => {
       onSubmit={submit}
       onCancel={onCancel}
       config={config}
-      submitText={"Publish Job"}
+      submitText={values ? "Update Job" : "Publish Job"}
       mainClassName={styles.main}
     />
   );
