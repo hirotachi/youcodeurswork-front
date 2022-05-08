@@ -28,6 +28,9 @@ $border: darken($border-main, 15%);
     padding: 3rem 4rem;
     margin: 6rem auto;
   }
+  @include extra-lg-desktop {
+    width: 35%;
+  }
   .header {
     text-align: center;
   }

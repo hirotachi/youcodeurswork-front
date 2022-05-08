@@ -64,18 +64,26 @@
     }
     .name {
       font-weight: bold;
+      transition: all 0.2s ease;
+      &:hover {
+        opacity: 0.5;
+      }
     }
-    .tags {
+    .technologies {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       font-size: 1.2rem;
-      opacity: 0.5;
       font-weight: bold;
       color: lighten($secondary-color, 5%);
       text-transform: uppercase;
 
-      .tag {
+      .technology {
+        opacity: 0.5;
+        transition: all 0.2s ease;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
 
@@ -93,10 +101,16 @@
         align-items: center;
       }
       .avatar {
-        display: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         @include size(3rem);
         border-radius: 50%;
-
+        background-color: $border-main;
+        .initial {
+          font-weight: 800;
+          text-transform: uppercase;
+        }
         img {
           border-radius: inherit;
           @include size(100%);

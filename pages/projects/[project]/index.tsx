@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "@modules/projects/project.module.scss";
-import { projectData } from "@components/projects/ProjectPreview";
 import faHeart from "@icons/solid/faHeart";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,29 +12,30 @@ import useInView from "@hooks/useInView";
 import useToggle from "@hooks/useToggle";
 import faTimes from "@icons/regular/faTimes";
 import useClickOutside from "@hooks/useClickOutside";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { projectData } from "@utils/data";
 
-// todo: more info including (tags, creation Date, github link, hosting link)
-
-const ProjectPage = () => {
+type ProjectPageProps = {
+  project: TProject;
+};
+const ProjectPage = (props: ProjectPageProps) => {
+  const { project } = props;
   const {
-    author,
-    likes,
+    created_at,
+    creator,
     description,
-    link,
+    images,
+    liked,
+    likesCount,
     name,
-    preview,
+    repo_link,
     tags,
-    createdAt,
     technologies,
-  } = projectData;
+  } = project;
 
   const [isPopupOpen, togglePopup] = useToggle(false, true);
 
-  const [liked, setLiked] = useState(false);
   const [headerInView, ref] = useInView({ threshold: 0.5 });
-  const handleLike = () => {
-    setLiked((v) => !v);
-  };
   const variants: Variants = {
     initial: {
       opacity: 0,
@@ -50,8 +50,8 @@ const ProjectPage = () => {
       y: -50,
     },
   };
-  const profileLink = `/students/${author.id}`;
-  const formattedDate = createdAt.toLocaleDateString("en-US", {
+  const profileLink = `/students/${creator.id}`;
+  const formattedDate = new Date(created_at).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -84,7 +84,10 @@ const ProjectPage = () => {
   };
 
   const popupRef = useClickOutside(() => isPopupOpen && togglePopup());
-
+  const handleLike = () => {
+    console.log("like");
+    //  todo add like functionality
+  };
   return (
     <div className={styles.project}>
       <AnimatePresence>
@@ -121,12 +124,12 @@ const ProjectPage = () => {
           <div className={styles.main}>
             <Link href={profileLink}>
               <a className={styles.avatar}>
-                <img src={author.avatar} alt={author.name} />
+                <img src={creator.avatar} alt={creator.name} />
               </a>
             </Link>
-            <span className={styles.btn}>
+            <a href={repo_link} className={styles.btn}>
               <FontAwesomeIcon icon={faGithub} />
-            </span>
+            </a>
             <span className={styles.btn}>
               <FontAwesomeIcon icon={faShare} />
             </span>
@@ -152,38 +155,50 @@ const ProjectPage = () => {
         <div className={styles.main}>
           <Link href={profileLink}>
             <a className={styles.avatar}>
-              <img src={author.avatar} alt={author.name} />
+              <img src={creator.avatar} alt={creator.name} />
             </a>
           </Link>
 
           <div className={styles.more}>
             <p className={styles.name}>{name}</p>
             <Link href={profileLink}>
-              <a className={styles.author}>{author.name}</a>
+              <a className={styles.creator}>{creator.name}</a>
             </Link>
           </div>
         </div>
         <div className={styles.controls}>
           <span
-            className={clsx(styles.likes, liked && styles.likesActive)}
+            className={clsx(
+              styles.btn,
+              styles.likes,
+              liked && styles.likesActive
+            )}
             onClick={handleLike}
           >
             <FontAwesomeIcon icon={faHeart} />
-            <i>{likes}</i>
+            <i>{likesCount}</i>
           </span>
-          <span className={styles.repo}>
+          <a
+            href={repo_link}
+            className={styles.btn}
+            target={"__blank"}
+            rel={"noopener noreferrer"}
+          >
             <FontAwesomeIcon icon={faGithub} />
-          </span>
-          <span className={styles.share}>
+          </a>
+          <span className={styles.btn}>
             <FontAwesomeIcon icon={faShare} />
           </span>
-          <span className={styles.info} onClick={() => togglePopup()}>
+          <span
+            className={clsx(styles.btn, styles.info)}
+            onClick={() => togglePopup()}
+          >
             <FontAwesomeIcon icon={faInfo} />
           </span>
         </div>
       </div>
       <div className={styles.preview}>
-        <img src={preview} alt={name} />
+        <img src={images[0]} alt={name} />
       </div>
       <div className={styles.info}>
         <div
@@ -202,6 +217,25 @@ const ProjectPage = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps<ProjectPageProps> = async () => {
+  // const { id } = params;
+  // todo fetch project
+  return {
+    props: {
+      project: projectData,
+    },
+    revalidate: 10,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // todo fetch projects
+  return {
+    paths: [{ params: { project: "1" } }],
+    fallback: "blocking",
+  };
 };
 
 export default ProjectPage;

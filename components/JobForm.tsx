@@ -93,6 +93,9 @@ const config: InputConfig<TJobForm, InputTypes> = {
       buttons: ["strong", "em", "unorderedList", "orderedList", "link"],
     },
   },
+  image: {
+    label: "Image to display",
+  },
   category: {
     type: "select",
     options: ["programming", "design", "other"],
@@ -121,6 +124,10 @@ const config: InputConfig<TJobForm, InputTypes> = {
   technologies: {
     type: "tags-input",
     placeholder: "Add technology",
+  },
+  location: {
+    label: "where is this job located?",
+    placeholder: "e.g. New York, NY",
   },
 };
 

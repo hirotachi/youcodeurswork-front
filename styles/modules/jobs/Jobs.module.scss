@@ -4,26 +4,31 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 2rem;
-  padding: 0 1rem;
+  margin: 3rem auto;
+  padding: 0 2rem;
   @include tablet {
-    padding: 0 5%;
-    margin: 4rem 0;
+    padding: 0;
+    width: 90%;
+    margin: 4rem auto;
     gap: 3rem;
   }
   @include desktop {
-    margin: 6rem 0;
-    padding: 0 10%;
+    width: 85%;
+    margin: 6rem auto;
   }
   .list {
     display: grid;
     gap: 2rem;
-    grid-auto-rows: 25rem;
+    width: 100%;
+    grid-auto-rows: 45rem;
     @include tablet {
       grid-template-columns: repeat(2, 1fr);
     }
     @include desktop {
       grid-template-columns: repeat(3, 1fr);
+    }
+    @include extra-lg-desktop {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
   .load {

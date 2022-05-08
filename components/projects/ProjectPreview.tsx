@@ -7,48 +7,19 @@ import Dropdown from "@components/Dropdown";
 import faEllipsisH from "@icons/solid/faEllipsisH";
 import { useRouter } from "next/router";
 
-export const projectData = {
-  id: 1,
-  preview:
-    "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2022/03/622f1bc0345e5694329041.jpg",
-  name: "hello world",
-  link: "https://howdy.gr/",
-  createdAt: new Date(),
-  likes: 50,
-  description: `<b>something about this project</b><h1>hello from header</h1>
-<ul>
-<li><a href=""><text>fsf</text></a></li>
-<li><a href=""><text>dsgfdsgfdklj</text></a></li>
-<li><a href=""><text>dsgfdsgfdklj</text></a></li>
-<li><a href=""><text>dsgfdsgfdklj</text></a></li>
-<li><a href=""><text>dsgfdsgfdklj</text></a></li>
-</ul>
-`,
-  tags: ["react", "php", "Javascript", "html"],
-  author: {
-    id: 1,
-    name: "said oudouane",
-    avatar:
-      "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1385480/61e02c87b9eb7556812750.jpg",
-  },
-  technologies: ["react", "php", "typescript"],
-};
-
-type ProjectPreviewProps = typeof projectData & {
+type ProjectPreviewProps = TProjectPreview & {
   showControls?: boolean;
 };
 
 const ProjectPreview = (props: ProjectPreviewProps) => {
   const {
-    preview,
-    name,
-    link,
-    likes,
-    description,
-    tags,
-    author,
+    creator,
     id,
+    images: [preview],
+    name,
+    repo_link,
     showControls,
+    technologies,
   } = props;
 
   const router = useRouter();
@@ -62,6 +33,7 @@ const ProjectPreview = (props: ProjectPreviewProps) => {
         break;
     }
   };
+  const link = `/projects/${id}`;
   return (
     <div className={styles.project}>
       <div className={styles.preview}>
@@ -77,35 +49,41 @@ const ProjectPreview = (props: ProjectPreviewProps) => {
             </span>
           </Dropdown>
         )}
-        <Link href={"/projects/1"}>
+        <Link href={link}>
           <a className={styles.img}>
             <img src={preview} alt={name} />
           </a>
         </Link>
 
-        <a href={link} className={styles.link} target={"__blank"}>
+        <a href={repo_link} className={styles.link} target={"__blank"}>
           <FontAwesomeIcon icon={faShare} />
         </a>
       </div>
       <div className={styles.main}>
-        <p className={styles.name}>{name}</p>
-        <div className={styles.tags}>
-          {tags.map((tag) => {
+        <Link href={link}>
+          <a className={styles.name}>{name}</a>
+        </Link>
+        <div className={styles.technologies}>
+          {technologies.map((technology) => {
             return (
-              <Link key={tag} href={`/projects/?tags=${tag}`}>
-                <a className={styles.tag}>#{tag}</a>
+              <Link key={technology} href={`/projects/?tags=${technology}`}>
+                <a className={styles.technology}>#{technology}</a>
               </Link>
             );
           })}
         </div>
         <div className={styles.info}>
-          <Link href={"/students/1"}>
+          <Link href={`/students/${creator.id}`}>
             <a className={styles.author}>
               <span className={styles.avatar}>
-                <img src={author.avatar} alt={author.name} />
+                {creator.avatar ? (
+                  <img src={creator.avatar} alt={creator.name} />
+                ) : (
+                  <span className={styles.initial}>{creator.name[0]}</span>
+                )}
               </span>
               <p className={styles.infoName}>
-                <span>by</span> {author.name}
+                <span>by</span> {creator.name}
               </p>
             </a>
           </Link>

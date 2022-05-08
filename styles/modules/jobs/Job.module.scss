@@ -1,16 +1,38 @@
 @use "~abstracts" as *;
 
 .job {
-  margin: 4rem 2rem;
+  margin: 4rem auto;
   background-color: $white;
-  padding: 2rem;
+  width: 90%;
   @include tablet {
-    margin: 4rem 5%;
-    padding: 3rem;
+    width: 90%;
+    margin: 4rem auto;
   }
   @include desktop {
-    margin: 4rem 15%;
-    padding: 3rem;
+    width: 70%;
+    margin: 4rem auto;
+  }
+  @include extra-lg-desktop {
+    width: 55%;
+    margin: 6rem auto;
+  }
+  .image {
+    width: 100%;
+    background-color: $border-main;
+    height: 32.4rem;
+    img {
+      @include size(100%);
+      object-fit: cover;
+    }
+  }
+  .main {
+    padding: 2rem;
+    @include tablet {
+      padding: 3rem;
+    }
+    @include desktop {
+      padding: 3rem 4rem;
+    }
   }
   .intro {
     padding: 1rem 0;
@@ -31,7 +53,7 @@
 
       span {
         border-radius: 0.2rem;
-        padding: 0.5rem;
+        padding: 0.4rem 0.5rem;
         background-color: $secondary-color;
         color: $white;
         font-size: 1.2rem;
@@ -60,10 +82,17 @@
         display: inline-block;
       }
       .name {
-        color: $primary-color;
         cursor: pointer;
         text-transform: uppercase;
         font-size: 1.4rem;
+      }
+      .site {
+        color: $primary-color;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        &:hover {
+          color: $secondary-color;
+        }
       }
     }
     .more {
@@ -93,13 +122,25 @@
         transition: all 0.2s ease;
         cursor: pointer;
         &:hover {
-          background-color: lighten($primary-color, 10%);
+          background-color: $primary-color-hover;
         }
 
         @include tablet {
           width: 30%;
         }
       }
+    }
+  }
+  .description {
+    font-weight: 300;
+    font-size: 1.5rem;
+    ul {
+      list-style: square;
+      list-style-position: inside;
+    }
+
+    & > * {
+      margin-bottom: 2rem;
     }
   }
 }
