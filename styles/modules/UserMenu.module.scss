@@ -1,0 +1,76 @@
+@use "~abstracts" as *;
+
+.menu {
+  position: relative;
+  display: none;
+  @include tablet {
+    display: block;
+  }
+  .user {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include size(3rem);
+      background-color: $border-main;
+      border-radius: 50%;
+      font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($border-main, 10%);
+      }
+
+      img {
+        @include size(100%);
+        object-fit: cover;
+      }
+    }
+
+    .name {
+      display: none;
+      @include desktop {
+        display: block;
+      }
+    }
+  }
+  .options {
+    position: absolute;
+    top: 170%;
+    right: 0;
+    background-color: $primary-bg-color;
+    border: 1px solid $border-main;
+    width: 120%;
+    transform: translateY(-1rem);
+    visibility: hidden;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    @include desktop {
+      width: 130%;
+    }
+    .option {
+      display: flex;
+      cursor: pointer;
+      gap: 1rem;
+      align-items: center;
+      text-transform: capitalize;
+      font-weight: 400;
+      padding: 1rem;
+      transition: all 0.2s ease;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  @include desktop {
+    &:hover {
+      .options {
+        visibility: visible;
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+}

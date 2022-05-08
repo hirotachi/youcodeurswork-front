@@ -88,11 +88,18 @@
       color: white;
       font-size: 1.3rem;
       transition: all 0.2s ease;
+      align-content: center;
+      justify-content: center;
+      font-weight: 500;
       &:hover {
         background-color: $primary-color-hover;
       }
+
       @include tablet {
         display: flex;
+      }
+      @include desktop {
+        min-width: 18rem;
       }
     }
   }
