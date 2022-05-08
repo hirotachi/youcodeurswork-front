@@ -162,7 +162,10 @@ const ProjectPage = (props: ProjectPageProps) => {
                 <motion.span
                   transition={{ duration: 0.2 }}
                   {...variants}
-                  className={clsx(styles.btn, liked && styles.likesActive)}
+                  className={clsx(
+                    styles.btn,
+                    isLoggedIn && liked && styles.likesActive
+                  )}
                   onClick={handleLike}
                 >
                   <FontAwesomeIcon icon={faHeart} />
@@ -192,7 +195,7 @@ const ProjectPage = (props: ProjectPageProps) => {
             className={clsx(
               styles.btn,
               styles.likes,
-              liked && styles.likesActive
+              isLoggedIn && liked && styles.likesActive
             )}
             onClick={handleLike}
           >
@@ -251,7 +254,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
     props: {
       project,
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 };
 
