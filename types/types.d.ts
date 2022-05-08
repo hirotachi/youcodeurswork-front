@@ -117,3 +117,14 @@ type TAuthResponse = {
   role?: TUser["role"];
   errors: { [P in TRegisterInput]: string[] };
 };
+
+type TPaginationData = {
+  meta: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+};
