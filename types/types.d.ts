@@ -96,3 +96,24 @@ type TProjectForm = Pick<
   TProject,
   "name" | "description" | "images" | "repo_link" | "tags" | "technologies"
 >;
+
+type TRegisterInput = {
+  name: string;
+  email: string;
+  password: string;
+  role?: TUser["role"];
+};
+
+type TLoginInput = {
+  email: string;
+  password: string;
+};
+
+type TAuthResponse = {
+  message: string;
+  access_token: string;
+  token_type: "Bearer ";
+  user?: TUserPreview;
+  role?: TUser["role"];
+  errors: { [P in TRegisterInput]: string[] };
+};

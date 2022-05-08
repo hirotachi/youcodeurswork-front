@@ -1,8 +1,11 @@
 import React from "react";
-import AuthForm, { AuthInput } from "@components/auth/AuthForm";
+import AuthForm, { AuthInput, FormikOnSubmit } from "@components/auth/AuthForm";
 import Link from "next/link";
+import useAuth from "@hooks/useAuth";
+import { useFetch } from "use-http";
+import { useRouter } from "next/router";
 
-const initialValues = {
+const initialValues: TLoginInput = {
   email: "",
   password: "",
 };
@@ -16,9 +19,24 @@ const authInputs: AuthInput<typeof initialValues> = {
   },
 };
 
-const login = () => {
-  const onSubmit = (values: any) => {
-    console.log(values);
+const LoginPage = () => {
+  const { login } = useAuth();
+  const { post, response } = useFetch("/login");
+  const router = useRouter();
+  const onSubmit: FormikOnSubmit<TLoginInput> = async (
+    values,
+    { setFieldError }
+  ) => {
+    try {
+      const res = await post(values);
+      if (!response.ok) {
+        return setFieldError("message", res.message);
+      }
+      login(res);
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <AuthForm
@@ -41,4 +59,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default LoginPage;

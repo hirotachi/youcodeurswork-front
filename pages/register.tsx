@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import RegisterIntro, { Role } from "@components/auth/RegisterIntro";
-import AuthForm from "@components/auth/AuthForm";
+import AuthForm, { FormikOnSubmit } from "@components/auth/AuthForm";
 import Link from "next/link";
 import { useFetch } from "use-http";
-import useLocalStorage from "@hooks/useLocalStorage";
-import { FormikConfig } from "formik";
 import { useRouter } from "next/router";
+import useAuth from "@hooks/useAuth";
 
 const initialValues: TRegisterInput = {
   name: "",
@@ -13,16 +12,15 @@ const initialValues: TRegisterInput = {
   password: "",
 };
 
-const Register = () => {
+const RegisterPage = () => {
   const [role, setRole] = useState<Role>(undefined as unknown as Role);
-  const [, setToken] = useLocalStorage("token", "");
+  const { login } = useAuth();
   const [showForm, setShowForm] = useState(false);
 
-  const { post, response } =
-    useFetch<TAuthResponse<TRegisterInput>>("/register");
+  const { post, response } = useFetch<TAuthResponse>("/register");
   const router = useRouter();
-  const onSubmit: FormikConfig<TRegisterInput>["onSubmit"] = async (
-    values: TRegisterInput,
+  const onSubmit: FormikOnSubmit<TRegisterInput> = async (
+    values,
     { setErrors }
   ) => {
     const input = { ...values, role };
@@ -31,7 +29,7 @@ const Register = () => {
       if (response.status === 422) {
         setErrors(res.errors);
       } else {
-        setToken(res.access_token);
+        login(res);
         router.push("/");
       }
     } catch (e) {
@@ -59,7 +57,7 @@ const Register = () => {
           <>
             <p>
               Already have an account?{" "}
-              <Link href="/login">
+              <Link href="/LoginPage">
                 <a className={"link"}>Login</a>
               </Link>
             </p>
@@ -85,4 +83,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

@@ -18,11 +18,14 @@ export type AuthInput<T> = {
     type?: string;
   };
 };
+
+export type FormikOnSubmit<T> = FormikConfig<T>["onSubmit"];
+
 type AuthFormProps<T> = {
   title: string;
   loading?: boolean;
   initialValues: T;
-  onSubmit: FormikConfig<T>["onSubmit"];
+  onSubmit: FormikOnSubmit<T>;
   submitText: string;
   footer?: (styles: Styles, values: T) => ReactNode;
   inputs?: AuthInput<T>;
@@ -41,13 +44,6 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
     validationSchema,
     loading,
   } = props;
-
-  // const handleSubmit: FormikConfig<T>["onSubmit"] = (
-  //   values,
-  //   { setErrors }
-  // ) => {
-  //   onSubmit?.(values, setErrors);
-  // };
 
   const schema: AuthFormProps<T>["validationSchema"] = useMemo(() => {
     if (validationSchema) return validationSchema;
@@ -91,6 +87,9 @@ const AuthForm = <T,>(props: AuthFormProps<T>) => {
         {({ handleSubmit, errors, values }) => {
           return (
             <Form onSubmit={handleSubmit} className={styles.form}>
+              {errors.message && (
+                <span className={styles.error}>{errors.message}</span>
+              )}
               {Object.keys(initialValues).map((key) => {
                 let { label = key, other, type = key } = inputs?.[key] ?? {};
                 label = label === "email" ? "Email Address" : label;
