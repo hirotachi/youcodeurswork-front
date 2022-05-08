@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
 });
 
 type FormValues = typeof initialValues;
-const config: InputConfig<FormValues> = {
+const config: InputConfig<FormValues, any> = {
   socials: {
     label: "Social Media Links",
     type: "multiple-inputs",

@@ -9,7 +9,6 @@ import {
 } from "formik";
 import styles from "@modules/Form.module.scss";
 import clsx from "clsx";
-import { SchemaOf } from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faTrash from "@icons/solid/faTrash";
 import dynamic from "next/dynamic";
@@ -73,7 +72,7 @@ type DynamicFormProps<T, B extends InputTypes> = {
   title: string;
   initialValues: T;
   values?: { [P in keyof T]?: T[P] };
-  validationSchema?: SchemaOf<T>;
+  validationSchema?: FormikConfig<T>["validationSchema"];
   onCancel?: () => void;
   onSubmit: (values: T) => boolean | Promise<boolean> | void;
   submitText?: string;

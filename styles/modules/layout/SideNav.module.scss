@@ -46,14 +46,23 @@
       display: flex;
       flex-direction: column;
       .link {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
         padding: 1.5rem;
         border-top: 1px solid $border-main;
         font-weight: bold;
         font-size: 1.8rem;
         transition: all 0.5s ease;
+        svg {
+          font-size: 1.4rem;
+        }
         &:hover {
           background-color: $white;
         }
+      }
+      .child {
+        font-weight: 400;
       }
     }
   }

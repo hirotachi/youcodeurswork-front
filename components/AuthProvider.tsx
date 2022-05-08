@@ -1,4 +1,10 @@
-import React, { createContext, PropsWithChildren, useState } from "react";
+import React, {
+  createContext,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useLocalStorage from "@hooks/useLocalStorage";
 import { FetchProviderProps, Provider, useFetch } from "use-http";
 
@@ -50,16 +56,20 @@ const AuthProvider = (props: PropsWithChildren<any>) => {
     setAuthState({ ...newData, isLoggedIn: true });
     setAuthData(newData);
   };
+  const token = useRef(authState.token);
   const config: FetchProviderProps["options"] = {
     interceptors: {
       request: async ({ options }) => {
-        if (authState.token) {
-          options.headers.Authorization = `Bearer ${authState.token}`;
+        if (token.current) {
+          options.headers.Authorization = `Bearer ${token.current}`;
         }
         return options;
       },
     },
   };
+  useEffect(() => {
+    token.current = authState.token;
+  }, [authState.token]);
 
   // @ts-ignore
   const { get } = useFetch(`${apiUrl?.replace(/\/$/, "")}/logout`, {
