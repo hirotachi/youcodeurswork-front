@@ -1,8 +1,9 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Nav from "@components/Nav";
 import Filters from "@components/Filters";
 import { AnimatePresence } from "framer-motion";
 import styles from "@modules/layout/Header.module.scss";
+import useIsAuthPage from "@hooks/useIsAuthPage";
 
 type HeaderContextProps = {
   isSearchOpen: boolean;
@@ -14,6 +15,7 @@ type HeaderContextProps = {
 export const HeaderContext = createContext<HeaderContextProps>(null);
 
 const Header = () => {
+  const isAuthPage = useIsAuthPage();
   const initialState = { isSearchOpen: false, isFiltersOpen: false };
   const [state, setState] = useState(initialState);
   const toggleFilters = (newState?: boolean) => {
@@ -26,6 +28,12 @@ const Header = () => {
       isFiltersOpen: !newState ?? !v.isSearchOpen ? false : v.isFiltersOpen,
     }));
   };
+
+  useEffect(() => {
+    if (isAuthPage) {
+      toggleSearch(false);
+    }
+  }, [isAuthPage]);
 
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>

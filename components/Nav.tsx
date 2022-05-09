@@ -14,12 +14,13 @@ import withNoSSR from "@lib/withNoSSR";
 
 const Nav = () => {
   const { isSearchOpen, toggleSearch } = useContext(HeaderContext);
-  const router = useRouter();
   const { setIsSideNavOpen } = useContext(LayoutContext);
   const { isLoggedIn, role } = useAuth();
 
-  const isAuthPage =
-    router.pathname === "/login" || router.pathname === "/register";
+  const router = useRouter();
+  const isAuthPage = ["/login", "/register"].some(
+    (page) => router.pathname === page
+  );
   return (
     <div className={styles.nav}>
       {!isAuthPage && (
@@ -30,7 +31,7 @@ const Nav = () => {
           <span className={styles.text}>menu</span>
         </div>
       )}
-      {isSearchOpen ? (
+      {isSearchOpen && !isAuthPage ? (
         <Search />
       ) : (
         <div className={styles.main}>

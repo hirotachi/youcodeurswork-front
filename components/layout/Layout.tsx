@@ -17,9 +17,12 @@ export const LayoutContext = createContext<LayoutContextProps>(null as any);
 const Layout: PropsWithChildren<any> = (props) => {
   const { children } = props;
   const router = useRouter();
-  const isLogin = router.pathname === "/login";
+  const isAuthPage = ["/login", "/register"].some(
+    (page) => router.pathname === page
+  );
   const isHomes = router.pathname === "/jobs" || router.pathname === "/";
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+
   return (
     <div className={clsx(styles.layout, isSideNavOpen && styles.open)}>
       <LayoutContext.Provider value={{ isSideNavOpen, setIsSideNavOpen }}>
@@ -30,7 +33,7 @@ const Layout: PropsWithChildren<any> = (props) => {
         </AnimatePresence>
         <div className={styles.main}>
           <Header />
-          {!isLogin && isHomes && <InnerNav />}
+          {!isAuthPage && isHomes && <InnerNav />}
           {children}
           <Footer />
         </div>
