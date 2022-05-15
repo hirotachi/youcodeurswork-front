@@ -46,7 +46,9 @@ const RegisterPage = () => {
   ) : (
     <AuthForm
       title={
-        role === "student" ? "Sign up to your talent" : "Sign up to find talent"
+        role === "student"
+          ? "Sign up to show your talent"
+          : "Sign up to find talent"
       }
       initialValues={initialValues}
       onSubmit={onSubmit}
@@ -57,7 +59,7 @@ const RegisterPage = () => {
           <>
             <p>
               Already have an account?{" "}
-              <Link href="/LoginPage">
+              <Link href="/login">
                 <a className={"link"}>Login</a>
               </Link>
             </p>

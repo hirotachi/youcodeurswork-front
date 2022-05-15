@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "Yup";
-import DynamicForm, { InputConfig } from "@components/DynamicForm";
+import DynamicForm, {
+  InputConfig,
+  TFormikValidationSchema,
+} from "@components/DynamicForm";
 import { useRouter } from "next/router";
-import { profileData } from "@components/Profile";
+import { FormikOnSubmit } from "@components/auth/AuthForm";
+import { useFetch } from "use-http";
+import withNoSSR from "@lib/withNoSSR";
 
-const initialValues = {
-  headline: "", //string not required
-  email: "",
-  about: "",
-  socials: [] as string[], // array of strings (social links)
+const initialValues: TProfileForm = {
+  name: "",
+  headline: "",
+  description: "",
+  avatar: "",
+  site: "",
+  social_accounts: [],
 };
 
 // schema validation using Yup
-const validationSchema = Yup.object().shape({
-  headline: Yup.string(),
-  about: Yup.string(),
-  email: Yup.string().email("must be a valid email"),
-  socials: Yup.array().of(Yup.string().url("must be a valid social link")),
-});
+const validationSchema: TFormikValidationSchema<TProfileForm> =
+  Yup.object().shape({
+    avatar: Yup.string().url().nullable(),
+    headline: Yup.string().nullable(),
+    description: Yup.string().nullable(),
+    site: Yup.string().url().nullable(),
+    social_accounts: Yup.array()
+      .of(Yup.string().url("must be a valid social link"))
+      .nullable(),
+  });
 
-type FormValues = typeof initialValues;
-const config: InputConfig<FormValues, any> = {
-  socials: {
-    label: "Social Media Links",
+const config: InputConfig<TProfileForm, any> = {
+  social_accounts: {
+    label: "Social Media Accounts",
     type: "multiple-inputs",
     placeholder: "Link to social media platform",
   },
@@ -30,11 +40,11 @@ const config: InputConfig<FormValues, any> = {
     label: "Headline",
     placeholder: "ex: Full Stack Developer",
   },
-  email: {
-    label: "Email Address",
-    placeholder: "Email address",
+  site: {
+    label: "Portfolio or github profile",
+    type: "input",
   },
-  about: {
+  description: {
     label: "About",
     type: "editor",
     editor: {
@@ -45,15 +55,28 @@ const config: InputConfig<FormValues, any> = {
 };
 const Update = () => {
   const router = useRouter();
+  const { data, loading, get, put } = useFetch("/me");
 
-  const onSubmit = (values: FormValues): boolean => {
-    console.log(values);
-    return true;
+  const onSubmit: FormikOnSubmit<TProfileForm> = async (values) => {
+    const payload = Object.entries(values)
+      .filter(([, value]) => value)
+      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+    await put(payload);
+    router.push("/profile");
   };
+
   const onCancel = () => {
     router.push("/profile");
   };
-  return (
+
+  useEffect(() => {
+    get();
+  }, []);
+
+  return loading && !data ? (
+    <p>loading...</p>
+  ) : (
     <DynamicForm
       title={"Edit Your Profile"}
       initialValues={initialValues}
@@ -61,9 +84,9 @@ const Update = () => {
       validationSchema={validationSchema}
       onCancel={onCancel}
       config={config}
-      values={profileData}
+      values={data?.data}
     />
   );
 };
 
-export default Update;
+export default withNoSSR(Update);

@@ -10,8 +10,10 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faLink from "@icons/solid/faLink";
-import JobPreview, { jobData } from "@components/jobs/JobPreview";
+import JobPreview from "@components/jobs/JobPreview";
 import ProjectPreview from "@components/projects/ProjectPreview";
+import withNoSSR from "@lib/withNoSSR";
+import clsx from "clsx";
 
 const socials = {
   facebook: faFacebookF,
@@ -30,23 +32,6 @@ const getSiteName = (url: string) => {
   return match ? match[1] : "";
 };
 
-export const profileData = {
-  name: "Said Oudouane",
-  headline: "Full Stack Developer",
-  about:
-    "A full stack developer with a passion for web development. I am a self-taught developer with a background in business administration. I have a strong passion for learning new technologies and I am always looking for new opportunities to learn and grow.",
-  email: "example@gmail.com",
-  avatar:
-    "https://avatars2.githubusercontent.com/u/56905853?s=460&u=f9f8b8d8f9f8b8d8f9f8b8d8f9f8b8d8f9f8b8d8&v=4",
-  socials: [
-    "https://www.facebook.com/said.oudouane",
-    "https://twitter.com/saidoudouane",
-    "https://www.linkedin.com/in/saidoudouane/",
-    "https://www.instagram.com/saidoudouane/",
-    "https://www.github.com/saidoudouane",
-  ],
-};
-
 type ProfileProps<T> = {
   loadMore?: () => void;
   canEdit?: boolean;
@@ -55,18 +40,18 @@ type ProfileProps<T> = {
     target?: string;
     url: string;
   }[];
-  data: typeof profileData;
+  data: TUser;
   type: T;
-  list: (T extends "jobs" ? typeof jobData : typeof profileData)[];
+  list: (T extends "jobs" ? TJobPreview[] : TProjectPreview)[];
 };
 
 const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
-  const { externals, data, type, list, loadMore, canEdit } = props;
+  const { externals, data = {}, type, list = [], loadMore, canEdit } = props;
   return (
     <div className={styles.profile}>
       <div className={styles.header}>
         <div className={styles.socials}>
-          {data.socials.map((social) => {
+          {data.social_accounts?.map((social) => {
             const siteName = getSiteName(social) ?? "other";
             return (
               <a
@@ -88,7 +73,7 @@ const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
           <p className={styles.headline}>{data.headline}</p>
           <div
             className={styles.about}
-            dangerouslySetInnerHTML={{ __html: data.about }}
+            dangerouslySetInnerHTML={{ __html: data.description ?? "" }}
           />
         </div>
         {externals && (
@@ -114,7 +99,7 @@ const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
             {list.length !== 0 ? list.length : ""} {type}
           </span>
         </div>
-        <div className={styles.list}>
+        <div className={clsx(styles.list, type === "jobs" && styles.jobs)}>
           {!list.length ? (
             <p className={styles.placeholder}>No {type} Yet</p>
           ) : (
@@ -135,4 +120,4 @@ const Profile = <T extends "jobs" | "projects">(props: ProfileProps<T>) => {
   );
 };
 
-export default Profile;
+export default withNoSSR(Profile);

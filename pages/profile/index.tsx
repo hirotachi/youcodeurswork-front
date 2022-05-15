@@ -1,24 +1,46 @@
-import React from "react";
-import Profile, { profileData } from "@components/Profile";
-import { projectData } from "@components/projects/ProjectPreview";
+import React, { useEffect } from "react";
+import Profile from "@components/Profile";
+import useAuth from "@hooks/useAuth";
+import { useFetch } from "use-http";
+import useAuthGuard from "@hooks/useAuthGuard";
 
 const ProfilePage = () => {
+  const { role } = useAuth();
+  useAuthGuard();
+  const { data: posts = [], get: getPosts } = useFetch(
+    `/me/${role === "recruiter" ? "jobs" : "projects"}`,
+    {
+      cachePolicy: "network-only",
+    }
+  );
+
+  const { data: me, get: getMe } = useFetch(`/me`, {
+    cachePolicy: "network-only",
+  });
+  useEffect(() => {
+    getPosts();
+    getMe();
+  }, []);
   return (
     <Profile
       canEdit
-      data={profileData}
-      type={"projects"}
+      data={me?.data}
+      type={role === "student" ? "projects" : "jobs"}
       externals={[
-        {
-          label: "View Resume",
-          url: "#",
-        },
+        ...(!!me?.data?.site
+          ? [
+              {
+                label: "View Resume",
+                url: me?.data?.site,
+              },
+            ]
+          : []),
         {
           label: "Edit Profile",
           url: "/profile/update",
         },
       ]}
-      list={Array.from(Array(5), () => projectData)}
+      list={posts?.data}
     />
   );
 };

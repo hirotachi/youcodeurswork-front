@@ -4,6 +4,7 @@ import Filters from "@components/Filters";
 import { AnimatePresence } from "framer-motion";
 import styles from "@modules/layout/Header.module.scss";
 import useIsAuthPage from "@hooks/useIsAuthPage";
+import { useRouter } from "next/router";
 
 type HeaderContextProps = {
   isSearchOpen: boolean;
@@ -28,12 +29,16 @@ const Header = () => {
       isFiltersOpen: !newState ?? !v.isSearchOpen ? false : v.isFiltersOpen,
     }));
   };
+  const router = useRouter();
+  const isCreationPage = ["/update", "/submit"].some((page) =>
+    router.pathname.includes(page)
+  );
 
   useEffect(() => {
-    if (isAuthPage) {
+    if (isAuthPage || isCreationPage) {
       toggleSearch(false);
     }
-  }, [isAuthPage]);
+  }, [isAuthPage, isCreationPage]);
 
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>

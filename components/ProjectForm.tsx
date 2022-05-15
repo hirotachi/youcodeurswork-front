@@ -1,7 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
-import { SchemaOf } from "yup";
-import DynamicForm, { InputConfig, InputTypes } from "@components/DynamicForm";
+import DynamicForm, {
+  InputConfig,
+  InputTypes,
+  TFormikValidationSchema,
+} from "@components/DynamicForm";
+import { FormikOnSubmit } from "@components/auth/AuthForm";
+import { useRouter } from "next/router";
+import { useFetch } from "use-http";
 
 const initialValues: TProjectForm = {
   name: "", // required must be less than 120 characters
@@ -17,7 +23,7 @@ const maxNameLength = 120;
 const maxDescriptionLength = 10000;
 
 // @ts-ignore
-const validationSchema: SchemaOf<TProjectForm> = Yup.object({
+const validationSchema: TFormikValidationSchema<TProjectForm> = Yup.object({
   name: Yup.string()
     .required("Project name is required")
     .max(maxNameLength, `Must be ${maxNameLength} characters or less`),
@@ -66,15 +72,26 @@ const config: InputConfig<TProjectForm, InputTypes> = {
 
 type ProjectFormProps<T> = {
   values?: T;
-  onSubmit: (values: T) => void;
+  onSubmit?: (values: T) => void;
   onCancel?: () => void;
 };
 
 const ProjectForm = (props: ProjectFormProps<TProjectForm>) => {
   const { values, onSubmit, onCancel } = props;
-  const submit = async (values) => {
-    onSubmit(values);
-    return true;
+  const router = useRouter();
+  const { post, put } = useFetch(`/projects/${values?.id ?? ""}`);
+  const submit: FormikOnSubmit<TProjectForm> = async (data, { setErrors }) => {
+    try {
+      let res;
+      res = values ? await put(data) : await post(data);
+      if (res.errors) {
+        setErrors(res.errors);
+        return;
+      }
+      router.push(`/projects/${res.project.id}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

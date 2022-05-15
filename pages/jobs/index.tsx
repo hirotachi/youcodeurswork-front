@@ -3,11 +3,13 @@ import styles from "@modules/jobs/Jobs.module.scss";
 import JobPreview from "@components/jobs/JobPreview";
 import { useFetch } from "use-http";
 import { NextPage } from "next";
+import { jobDataPreview } from "@utils/data";
 
 type TJobsProps = {
   data: TJobPreview[];
 } & TPaginationData;
 
+const demoData = Array.from({ length: 3 }).fill(jobDataPreview);
 const JobsPage: NextPage<TJobsProps> = (props) => {
   const { data: jobs, meta } = props;
   const [page, setPage] = useState(1);

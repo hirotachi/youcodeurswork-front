@@ -1,8 +1,14 @@
 import React from "react";
-import DynamicForm, { InputConfig, InputTypes } from "@components/DynamicForm";
+import DynamicForm, {
+  InputConfig,
+  InputTypes,
+  TFormikValidationSchema,
+} from "@components/DynamicForm";
 import * as Yup from "yup";
-import { SchemaOf } from "yup";
 import styles from "@modules/JobForm.module.scss";
+import { FormikOnSubmit } from "@components/auth/AuthForm";
+import { useFetch } from "use-http";
+import { useRouter } from "next/router";
 
 const maxTitleLength = 120;
 const maxDescriptionLength = 10000;
@@ -25,7 +31,7 @@ const initialValues: TJobForm = {
 };
 
 // @ts-ignore
-const validationSchema: SchemaOf<TJobForm> = Yup.object().shape({
+const validationSchema: TFormikValidationSchema<TJobForm> = Yup.object().shape({
   title: Yup.string()
     .required("Title is required")
     .max(
@@ -115,10 +121,21 @@ type JobFormProps<T extends TJobForm> = {
 };
 
 const JobForm = (props: JobFormProps<TJobForm>) => {
-  const { values, onSubmit, onCancel } = props;
-  const submit = async (values) => {
-    onSubmit(values);
-    return true;
+  const { values, onCancel } = props;
+  const router = useRouter();
+  const { post, put } = useFetch(`/jobs/${values?.id ?? ""}`);
+  const submit: FormikOnSubmit<TJobForm> = async (data, { setErrors }) => {
+    try {
+      let res;
+      res = values ? await put(data) : await post(data);
+      if (res.errors) {
+        setErrors(res.errors);
+        return;
+      }
+      router.push(`/jobs/${res.job.id}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const subHeader =
     "YouCode job board offers and promotes opportunities for web professionals and students all over the world.";

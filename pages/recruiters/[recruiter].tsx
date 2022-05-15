@@ -1,21 +1,49 @@
 import React from "react";
-import Profile, { profileData } from "@components/Profile";
-import { jobData } from "@components/jobs/JobPreview";
+import Profile from "@components/Profile";
+import { apiUrl } from "@pages/jobs";
+import { GetServerSideProps, NextPage } from "next";
 
-const Recruiter = () => {
+type RecruiterPageProps = {
+  jobs: TJobPreview[];
+  recruiter: TUser;
+};
+const Recruiter: NextPage<RecruiterPageProps> = (props) => {
+  const { recruiter, jobs } = props;
   return (
     <Profile
-      data={{ ...profileData, headline: "Google Recruiter" }}
+      data={recruiter}
       type={"jobs"}
-      externals={[
-        {
-          label: "Visit Site",
-          url: "https://www.google.com",
-        },
-      ]}
-      list={Array.from(Array(5), () => jobData)}
+      externals={
+        recruiter.site
+          ? [
+              {
+                label: "Visit Site",
+                url: recruiter.site,
+              },
+            ]
+          : []
+      }
+      list={jobs}
     />
   );
+};
+
+export const getServerSideProps: GetServerSideProps<
+  RecruiterPageProps
+> = async ({ params }) => {
+  const recruiterId = params?.recruiter;
+  const recruiter = await fetch(`${apiUrl}/users/${recruiterId}`).then((res) =>
+    res.json()
+  );
+  const jobs = await fetch(`${apiUrl}/users/${recruiterId}/jobs`).then((res) =>
+    res.json()
+  );
+  return {
+    props: {
+      recruiter: recruiter.data,
+      jobs: jobs.data,
+    },
+  };
 };
 
 export default Recruiter;

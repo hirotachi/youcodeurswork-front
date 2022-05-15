@@ -17,6 +17,7 @@ import Select from "@components/form/Select";
 import Checkbox from "@components/form/Checkbox";
 import TagsInput from "@components/form/TagsInput";
 import useAuthGuard from "@hooks/useAuthGuard";
+import { FormikOnSubmit } from "@components/auth/AuthForm";
 
 const Trumbowyg = dynamic(
   () => {
@@ -72,9 +73,9 @@ type DynamicFormProps<T, B extends InputTypes> = {
   title: string;
   initialValues: T;
   values?: { [P in keyof T]?: T[P] };
-  validationSchema?: FormikConfig<T>["validationSchema"];
+  validationSchema?: TFormikValidationSchema<T>;
   onCancel?: () => void;
-  onSubmit: (values: T) => boolean | Promise<boolean> | void;
+  onSubmit: FormikOnSubmit<T>;
   submitText?: string;
   cancelText?: string;
   config: InputConfig<T, B>;
@@ -82,11 +83,12 @@ type DynamicFormProps<T, B extends InputTypes> = {
   mainClassName?: string;
 };
 
+export type TFormikValidationSchema<T> = FormikConfig<T>["validationSchema"];
+
 const DynamicForm = <T, B extends InputTypes>(
   props: DynamicFormProps<T, B>
 ) => {
   useAuthGuard();
-
   const {
     title,
     initialValues,
@@ -101,22 +103,6 @@ const DynamicForm = <T, B extends InputTypes>(
     mainClassName,
   } = props;
 
-  const handleFormSubmit: FormikConfig<T>["onSubmit"] = async (
-    formikValues: T,
-    { validateForm, setSubmitting, resetForm }
-  ) => {
-    if (validationSchema) {
-      const errors = await validateForm(formikValues);
-      if (Object.keys(errors).length > 0) {
-        setSubmitting(false);
-        return;
-      }
-    }
-    const shouldResetForm = await onSubmit(formikValues);
-    if (shouldResetForm) {
-      resetForm();
-    }
-  };
   const [focused, setFocused] = useState<string | null | undefined>(null);
 
   const outerValues = values;
@@ -129,19 +115,20 @@ const DynamicForm = <T, B extends InputTypes>(
 
   const rules = useMemo(() => {
     const obj = {};
-    const schemaDescription = validationSchema?.describe();
-    Object.entries(schemaDescription?.fields).forEach(([key, field]) => {
-      field?.tests?.forEach((test) => {
-        obj[key] ??= {};
-        obj[key][test.name] = true;
-        if (test.name === "max") {
-          obj[key][test.name] = test?.params?.max;
-        }
-      });
-    });
+    const validationSchemaDescription = validationSchema?.describe();
+    Object.entries(validationSchemaDescription?.fields).forEach(
+      ([key, field]) => {
+        field?.tests?.forEach((test) => {
+          obj[key] ??= {};
+          obj[key][test.name] = true;
+          if (test.name === "max") {
+            obj[key][test.name] = test?.params?.max;
+          }
+        });
+      }
+    );
     return obj;
   }, [schemaDescription]);
-
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>{title}</h1>
@@ -152,7 +139,7 @@ const DynamicForm = <T, B extends InputTypes>(
         validateOnBlur={false}
         validateOnChange={false}
         validateOnMount={false}
-        onSubmit={handleFormSubmit}
+        onSubmit={onSubmit}
       >
         {({ values: formikValues, handleSubmit, errors, setValues }) => {
           return (
@@ -191,7 +178,7 @@ const DynamicForm = <T, B extends InputTypes>(
                                 )}
                               </label>
                               <div className={styles.field__input__group}>
-                                {formikValues[key].map((item, index) => {
+                                {formikValues[key]?.map((item, index) => {
                                   const name = `${key}[${index}]`;
                                   return (
                                     <div
@@ -307,7 +294,7 @@ const DynamicForm = <T, B extends InputTypes>(
                                     onRemove={(val) =>
                                       setValues((v) => ({
                                         ...v,
-                                        [key]: v[key].filter((v) => v !== val),
+                                        [key]: v[key].filter((f) => f !== val),
                                       }))
                                     }
                                   />

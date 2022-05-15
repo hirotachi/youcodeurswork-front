@@ -57,6 +57,7 @@
       }
       .avatar {
         border-radius: 50%;
+        background-color: $border-main;
         @include size(8rem);
         margin-bottom: 0.5rem;
         @include desktop {
@@ -144,6 +145,9 @@
       @include extra-lg-desktop {
         grid-template-columns: repeat(4, 1fr);
       }
+    }
+    .jobs {
+      grid-auto-rows: 45rem;
     }
     .load {
       padding: 1.2rem 1rem;

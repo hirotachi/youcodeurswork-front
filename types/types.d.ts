@@ -10,6 +10,11 @@ type TUser = {
   headline: string;
 };
 
+type TProfileForm = Pick<
+  TUser,
+  "name" | "headline" | "description" | "social_accounts" | "avatar" | "site"
+>;
+
 type TJobType = "full-time" | "part-time" | "freelance" | "internship";
 type TJobCategory = "programming" | "design" | "other";
 type TJob = {
@@ -98,10 +103,10 @@ type TProjectForm = Pick<
 >;
 
 type TRegisterInput = {
-  name: string;
   email: string;
   password: string;
   role?: TUser["role"];
+  name: string;
 };
 
 type TLoginInput = {

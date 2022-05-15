@@ -4,6 +4,7 @@ import styles from "@modules/Search.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faTimes from "@icons/regular/faTimes";
 import { HeaderContext } from "@components/layout/Header";
+import { useRouter } from "next/router";
 
 const Search = () => {
   const { props: inputProps } = useInput("");
@@ -13,6 +14,9 @@ const Search = () => {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+  const router = useRouter();
+  const isProjects =
+    router.pathname.includes("/projects") || router.pathname === "/";
   return (
     <div className={styles.search}>
       <div className={styles.main}>
@@ -21,7 +25,9 @@ const Search = () => {
           className={styles.input}
           type="text"
           {...inputProps}
-          placeholder={"Search for projects (HTML5, PHP, React...)"}
+          placeholder={`Search for ${
+            isProjects ? "projects" : "jobs"
+          } (HTML5, PHP, React...)`}
         />
         <span className={styles.filter} onClick={() => toggleFilters()}>
           {isFiltersOpen ? "hide" : "show"} filters

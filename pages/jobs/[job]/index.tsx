@@ -86,9 +86,10 @@ export const getStaticProps: GetStaticProps<JobPageProps> = async ({
   const response = await fetch(`${apiUrl}/jobs/${params?.job}`).then((res) =>
     res.json()
   );
+  const job = response.data;
   return {
     props: {
-      job: response.data,
+      job,
     },
     revalidate: 10,
   };
