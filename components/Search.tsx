@@ -27,16 +27,26 @@ const Search = () => {
     if (e.code !== "Enter") {
       return;
     }
-    const query = { ...router.query, q: inputProps.value };
+    const isResultPage = ["/", "/projects"].includes(router.pathname);
+    const query = {
+      ...(isResultPage ? router.query : {}),
+      q: inputProps.value,
+    };
     Object.keys(query).forEach((key) => {
       if (query[key] === "") {
         delete query[key];
       }
     });
-
-    router.push(isProjects ? "/" : `/jobs`, {
+    const config = {
+      pathname: isProjects ? "/" : `/jobs`,
       query,
-    });
+    };
+    if (isResultPage) {
+      router.replace(config, undefined, { shallow: true });
+      return;
+    }
+
+    router.push(config);
   };
 
   return (

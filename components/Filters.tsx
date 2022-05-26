@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@modules/Filters.module.scss";
 import faFilter from "@icons/solid/faFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,7 @@ import clsx from "clsx";
 import faTimes from "@icons/regular/faTimes";
 import { useRouter } from "next/router";
 import { toggleFromArray } from "@utils/helpers";
+import { useFetch } from "use-http";
 
 const Filters = () => {
   const router = useRouter();
@@ -21,25 +22,47 @@ const Filters = () => {
     exit: { height: "0" },
     initial: { height: "0", overflow: "hidden" },
   };
-  const tags = ["PHP", "Javascript", "React", "Laravel"];
+
   const isProjects =
     router.pathname.includes("/projects") || router.pathname === "/";
 
+  const tags = useFetch(`/${isProjects ? "projects" : "jobs"}/tags`);
+  const technologies = useFetch(
+    `/${isProjects ? "projects" : "jobs"}/technologies`
+  );
+  useEffect(() => {
+    if (!tags.data || !technologies.data) {
+      tags.get();
+      technologies.get();
+    }
+  });
+
   const handleFilter = (val: string) => {
     let list = (router.query?.[currentListName] as string)?.split(",");
-    console.log(list, currentListName, router);
     list = toggleFromArray(list ?? [], val).filter((v) => !!v);
-
-    const query = { ...router.query, [currentListName]: list.join(",") };
+    const isResultPage = ["/", "/jobs"].includes(router.pathname);
+    const query = {
+      ...(isResultPage ? router.query : {}),
+      [currentListName]: list.join(","),
+    };
     if (!list.length) {
       delete query[currentListName];
     }
-
-    router.push({
+    const config = {
       pathname: isProjects ? "/" : "/jobs",
       query,
-    });
+    };
+    if (isResultPage) {
+      return router.replace({ ...config }, undefined, { shallow: true });
+    }
+    router.push(config);
   };
+
+  const data = {
+    tags: tags.data?.data ?? [],
+    technologies: technologies.data?.data ?? [],
+  };
+
   return (
     <motion.div {...variants} className={styles.filters}>
       <div className={styles.label}>
@@ -79,19 +102,20 @@ const Filters = () => {
               <FontAwesomeIcon icon={faTimes} />
             </span>
           </div>
-          {tags.map((tag) => {
+          {data[currentListName]?.map((item) => {
             return (
               <span
-                onClick={() => handleFilter(tag)}
-                key={tag}
+                onClick={() => handleFilter(item.name)}
+                key={item.id}
                 className={clsx(
                   styles.tag,
                   (router.query?.[currentListName] as string)
                     ?.split(",")
-                    .includes(tag) && styles.tagActive
+                    .includes(item.name) && styles.tagActive
                 )}
               >
-                {tag} <i>(25)</i>
+                {item.name.toUpperCase()}{" "}
+                <i>({item[`${isProjects ? "projects" : "jobs"}_count`]})</i>
               </span>
             );
           })}
