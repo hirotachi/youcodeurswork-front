@@ -30,7 +30,15 @@
     @include extra-lg-desktop {
       grid-template-columns: repeat(4, 1fr);
     }
+    .placeholder {
+      text-transform: uppercase;
+      grid-column: 1 / -1;
+      opacity: 0.4;
+      text-align: center;
+      font-weight: bold;
+    }
   }
+
   .load {
     padding: 1rem;
     text-align: center;

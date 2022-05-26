@@ -63,9 +63,13 @@ const ProjectsPage: NextPage<ProjectsProps> = (props) => {
 
   return (
     <div className={styles.projects}>
-      {data.map((project) => {
-        return <ProjectPreview key={project.id} {...project} />;
-      })}
+      {data.length ? (
+        data.map((project) => {
+          return <ProjectPreview key={project.id} {...project} />;
+        })
+      ) : (
+        <p className={styles.placeholder}>no projects</p>
+      )}
       {!loading && meta.total !== data.length && (
         <button className={styles.load} onClick={loadMore}>
           load more
