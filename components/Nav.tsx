@@ -25,6 +25,9 @@ const Nav = () => {
   const isCreationPage = ["/update", "/submit"].some((page) =>
     router.pathname.includes(page)
   );
+  const isEntityPage =
+    ["/projects", "/jobs"].some((page) => router.pathname.includes(page)) ||
+    router.pathname === "/";
   return (
     <div className={styles.nav}>
       {!isAuthPage && (
@@ -39,7 +42,7 @@ const Nav = () => {
         <Search />
       ) : (
         <div className={styles.main}>
-          {!isAuthPage && !isCreationPage && (
+          {!isAuthPage && !isCreationPage && isEntityPage && (
             <span className={styles.search} onClick={() => toggleSearch()}>
               <FontAwesomeIcon icon={faSearch} />
             </span>

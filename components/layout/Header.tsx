@@ -34,11 +34,14 @@ const Header = () => {
     router.pathname.includes(page)
   );
 
+  const isEntityPage =
+    ["/projects", "/jobs"].some((page) => router.pathname.includes(page)) ||
+    router.pathname === "/";
   useEffect(() => {
-    if (isAuthPage || isCreationPage) {
+    if (!isEntityPage) {
       toggleSearch(false);
     }
-  }, [isAuthPage, isCreationPage]);
+  }, [isEntityPage]);
 
   return (
     <HeaderContext.Provider value={{ ...state, toggleFilters, toggleSearch }}>
