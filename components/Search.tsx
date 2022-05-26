@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, {
+  KeyboardEventHandler,
+  useContext,
+  useEffect,
+  useRef,
+} from "react";
 import useInput from "@hooks/useInput";
 import styles from "@modules/Search.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +22,23 @@ const Search = () => {
   const router = useRouter();
   const isProjects =
     router.pathname.includes("/projects") || router.pathname === "/";
+
+  const onSubmit: KeyboardEventHandler = (e) => {
+    if (e.code !== "Enter") {
+      return;
+    }
+    const query = { ...router.query, q: inputProps.value };
+    Object.keys(query).forEach((key) => {
+      if (query[key] === "") {
+        delete query[key];
+      }
+    });
+
+    router.push(isProjects ? "/" : `/jobs`, {
+      query,
+    });
+  };
+
   return (
     <div className={styles.search}>
       <div className={styles.main}>
@@ -25,6 +47,7 @@ const Search = () => {
           className={styles.input}
           type="text"
           {...inputProps}
+          onKeyUp={onSubmit}
           placeholder={`Search for ${
             isProjects ? "projects" : "jobs"
           } (HTML5, PHP, React...)`}

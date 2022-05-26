@@ -115,7 +115,8 @@
       font-weight: 500;
       transition: all 0.2s ease;
 
-      &:hover {
+      &:hover,
+      &Active {
         color: $primary-color;
         border-color: $primary-color;
       }
