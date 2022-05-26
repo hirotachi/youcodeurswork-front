@@ -15,7 +15,7 @@ import useClickOutside from "@hooks/useClickOutside";
 import { useFetch } from "use-http";
 import useAuth from "@hooks/useAuth";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { apiUrl } from "@pages/jobs";
+import { apiUrl } from "@utils/constants";
 
 type ProjectPageProps = {
   project: TProject;

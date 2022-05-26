@@ -17,3 +17,7 @@ export function stringifyQuery(query) {
     return `${acc}${acc ? "&" : ""}${key}=${value}`;
   }, "");
 }
+
+export function fetcher(...args) {
+  return fetch(...args).then((res) => res.json());
+}

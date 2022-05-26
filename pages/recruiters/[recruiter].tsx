@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "@components/Profile";
-import { apiUrl } from "@pages/jobs";
 import { GetServerSideProps, NextPage } from "next";
+import { apiUrl } from "@utils/constants";
 
 type RecruiterPageProps = {
   jobs: TJobPreview[];

@@ -4,7 +4,7 @@ import faMapMarkerAlt from "@icons/solid/faMapMarkerAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { apiUrl } from "@pages/jobs";
+import { apiUrl } from "@utils/constants";
 
 type JobPageProps = {
   job: TJob;

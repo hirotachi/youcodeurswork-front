@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 
 const Search = () => {
   const router = useRouter();
-  const { props: inputProps } = useInput(router.query?.q ?? "");
+  const { props: inputProps } = useInput((router.query?.q as string) ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
   const { isFiltersOpen, toggleSearch, toggleFilters } =
     useContext(HeaderContext);

@@ -2,7 +2,7 @@ import React from "react";
 import ProjectForm from "@components/ProjectForm";
 import { useRouter } from "next/router";
 import { GetServerSideProps, NextPage } from "next";
-import { apiUrl } from "@pages/jobs";
+import { apiUrl } from "@utils/constants";
 
 type UpdateProjectProps = {
   project: TProject;

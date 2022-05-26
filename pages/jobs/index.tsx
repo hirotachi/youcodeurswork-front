@@ -4,6 +4,7 @@ import JobPreview from "@components/jobs/JobPreview";
 import { useFetch } from "use-http";
 import { NextPage } from "next";
 import { jobDataPreview } from "@utils/data";
+import { apiUrl } from "@utils/constants";
 
 type TJobsProps = {
   data: TJobPreview[];
@@ -44,8 +45,6 @@ const JobsPage: NextPage<TJobsProps> = (props) => {
     </div>
   );
 };
-
-export const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export async function getStaticProps() {
   const jobs = await fetch(`${apiUrl}/jobs`);

@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "@components/Profile";
 import { NextPage } from "next";
-import { apiUrl } from "@pages/jobs";
+import { apiUrl } from "@utils/constants";
 
 type StudentPageProps = {
   student: TUser;
