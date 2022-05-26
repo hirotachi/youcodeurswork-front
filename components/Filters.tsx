@@ -31,11 +31,9 @@ const Filters = () => {
     `/${isProjects ? "projects" : "jobs"}/technologies`
   );
   useEffect(() => {
-    if (!tags.data || !technologies.data) {
-      tags.get();
-      technologies.get();
-    }
-  });
+    tags.get();
+    technologies.get();
+  }, []);
 
   const handleFilter = (val: string) => {
     let list = (router.query?.[currentListName] as string)?.split(",");
