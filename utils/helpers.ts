@@ -11,3 +11,9 @@ export function toggleFromArray<T>(arr: T[], val: T) {
   if (!removed) result.push(val);
   return result;
 }
+
+export function stringifyQuery(query) {
+  return Object.entries(query).reduce((acc, [key, value]) => {
+    return `${acc}${acc ? "&" : ""}${key}=${value}`;
+  }, "");
+}
